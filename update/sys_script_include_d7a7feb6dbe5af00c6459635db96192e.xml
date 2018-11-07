@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_brig3_deployment.resourceManagement</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>resourceManagement</name>
+        <script><![CDATA[var resourceManagement = Class.create();
+resourceManagement.prototype = {
+    initialize: function() {
+    },
+
+	setResource: function() {
+		
+		
+	},
+	
+    type: 'resourceManagement'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-07 12:11:07</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>resourceManagement</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-07 12:11:07</sys_updated_on>
+    </sys_script_include>
+</record_update>

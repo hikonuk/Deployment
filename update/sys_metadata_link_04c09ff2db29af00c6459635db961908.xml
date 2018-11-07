@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>103f3d95db21eb00c6459635db9619bb</documentkey>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sn_apptmnt_booking_config"&gt;
+    &lt;sn_apptmnt_booking_config action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;auto_acceptance&gt;true&lt;/auto_acceptance&gt;
+        &lt;availability_method&gt;number&lt;/availability_method&gt;
+        &lt;name&gt;Unily Deployment Request&lt;/name&gt;
+        &lt;portal_view&gt;week&lt;/portal_view&gt;
+        &lt;script&gt;&lt;![CDATA[(function availability(taskRecord, rangeStart, rangeEnd, catalogId, openedFor, groupBy, limit, fullDay) {
+	var task = new global.JSON().decode(taskRecord);
+	var appointmentBooking = new
+	gs.info('AAtask: ' + taskRecord,'AAAAAA');
+	gs.info('AArangeStart: ' + rangeStart,'AAAAAA');
+	gs.info('AArangeEnd: ' + rangeEnd,'AAAAAA');
+	gs.info('AAcatalogId: ' + catalogId,'AAAAAA');
+	gs.info('AAopenedfor: ' + openedFor,'AAAAAA');
+	gs.info('AAgroupby: ' + groupBy,'AAAAAA');
+	gs.info('AAlimit: ' + limit,'AAAAAA');
+	gs.info('AAfullDay: ' + fullDay,'AAAAAA');
+	sn_apptmnt_booking.AppointmentBookingAvailability(task, rangeStart,
+	rangeEnd, catalogId, openedFor, groupBy, limit, fullDay);
+	return appointmentBooking.getAppointmentAvailabilitySMConfig();
+	
+}(taskRecord, rangeStart, rangeEnd, catalogId, openedFor, groupBy, limit, fullDay));
+
+]]&gt;&lt;/script&gt;
+        &lt;sys_created_by&gt;fge.shay&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2018-11-02 14:38:47&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;103f3d95db21eb00c6459635db9619bb&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;10&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;fge.shay&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2018-11-07 11:46:04&lt;/sys_updated_on&gt;
+        &lt;task_table&gt;x_brig3_deployment_deployment_resource&lt;/task_table&gt;
+    &lt;/sn_apptmnt_booking_config&gt;
+&lt;/record_update&gt;
+</payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-07 12:25:40</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>04c09ff2db29af00c6459635db961908</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Unily Deployment Request</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_metadata_link_04c09ff2db29af00c6459635db961908</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-07 12:25:40</sys_updated_on>
+        <tablename>sn_apptmnt_booking_config</tablename>
+    </sys_metadata_link>
+</record_update>
