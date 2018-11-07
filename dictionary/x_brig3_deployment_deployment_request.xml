@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="live_feed=true" audit="true" extends="task" label="Deployment Request" max_length="40" name="x_brig3_deployment_deployment_request" type="collection">
+        <element label="Appointment" max_length="32" name="appointment" reference="sn_apptmnt_booking_appointment_booking" type="reference"/>
+        <element label="Clear out client from elastic" max_length="40" name="clear_out_client_from_elastic" type="boolean"/>
+        <element label="Client Configuration Form Link" max_length="120" name="client_configuration_form_link" type="string"/>
+        <element label="CSM Comments - If answered Yes to above, please provide specific details" max_length="4000" name="csm_comments" type="string"/>
+        <element label="Delete all users in company from SNOW" max_length="40" name="delete_all_users_in_company_from_snow" type="boolean"/>
+        <element label="Delete AP Database" max_length="40" name="delete_ap_database" type="boolean"/>
+        <element label="Delete client config from SNOW" max_length="40" name="delete_client_config_from_snow" type="boolean"/>
+        <element label="Delete company in SNOW" max_length="40" name="delete_company_in_snow" type="boolean"/>
+        <element label="Delete DNS entries" max_length="40" name="delete_dns_entries" type="boolean"/>
+        <element label="Delete Octopus project" max_length="40" name="delete_octopus_project" type="boolean"/>
+        <element label="Delete production app config" max_length="40" name="delete_production_app_config" type="boolean"/>
+        <element label="Delete production database" max_length="40" name="delete_production_database" type="boolean"/>
+        <element label="Delete production notification hub" max_length="40" name="delete_production_notification_hub" type="boolean"/>
+        <element label="Delete production redis cache" max_length="40" name="delete_production_redis_cache" type="boolean"/>
+        <element label="Delete production storage account" max_length="40" name="delete_production_storage_account" type="boolean"/>
+        <element label="Delete staging app config" max_length="40" name="delete_staging_app_config" type="boolean"/>
+        <element label="Delete staging database" max_length="40" name="delete_staging_database" type="boolean"/>
+        <element label="Delete staging notification hub" max_length="40" name="delete_staging_notification_hub" type="boolean"/>
+        <element label="Delete staging redis cache" max_length="40" name="delete_staging_redis_cache" type="boolean"/>
+        <element label="Delete staging storage account" max_length="40" name="delete_staging_storage" type="boolean"/>
+        <element label="Dev resource request ID" max_length="40" name="dev_resource_request_id" type="string"/>
+        <element choice="1" label="Environment" max_length="40" name="environment" type="string">
+            <choice>
+                <element inactive_on_update="false" label="QA" sequence="100" value="QA"/>
+                <element inactive_on_update="false" label="Staging" sequence="200" value="Staging"/>
+                <element inactive_on_update="false" label="Production" sequence="300" value="Production"/>
+            </choice>
+        </element>
+        <element label="Epic VSO Link" max_length="120" name="epic_vso_link" type="string"/>
+        <element label="Has appointment" max_length="40" name="has_appointment" type="boolean"/>
+        <element label="Link to Unify Configuration/Customisation Spec" max_length="120" name="link_to_unify_config" type="string"/>
+        <element label="Ops Review - Ops to provide response to feedback here" max_length="4000" name="ops_review" type="string"/>
+        <element label="Out Of Hours Deployment" max_length="40" name="out_of_hours" type="boolean"/>
+        <element label="Removed all Files from staging servers" max_length="40" name="removed_all_files_from_staging_servers" type="boolean"/>
+        <element label="Removed all Files from production and DR servers" max_length="40" name="removed_all_files_production" type="boolean"/>
+        <element label="Removed all iis app pools from staging servers" max_length="40" name="removed_all_iis_app_pools_from_staging" type="boolean"/>
+        <element label="Removed all iis app pools from production and DR servers" max_length="40" name="removed_all_iis_production" type="boolean"/>
+        <element label="Removed all iis sites from staging servers" max_length="40" name="removed_all_iis_sites_from_staging_servers" type="boolean"/>
+        <element label="Removed all iis sites from production and DR servers" max_length="40" name="removed_all_iis_sites_production" type="boolean"/>
+        <element label="Removed all monitoring" max_length="40" name="removed_all_monitoring" type="boolean"/>
+        <element label="Removed all scheduled tasks from staging servers" max_length="40" name="removed_all_scheduled_tasks_from_staging" type="boolean"/>
+        <element label="Removed all scheduled tasks from production servers" max_length="40" name="removed_all_scheduled_tasks_production" type="boolean"/>
+        <element label="Remove access to success" max_length="40" name="remove_access_to_success" type="boolean"/>
+        <element label="Remove accounts from Lastpass" max_length="40" name="remove_accounts_from_lastpass" type="boolean"/>
+        <element label="Request dev to delete solution" max_length="40" name="request_dev_to_delete_solution" type="boolean"/>
+        <element label="Please specify which release is required (eg. 3.3.10 or 3.4 etc)" max_length="120" name="required_release" type="string"/>
+        <element label="Scheduled End" max_length="40" name="scheduled_end" type="glide_date_time"/>
+        <element label="Scheduled Start" max_length="40" name="scheduled_start" type="glide_date_time"/>
+        <element label="Scheduled Time" max_length="40" name="scheduled_time" type="glide_date_time"/>
+        <element label="Specific Time Requested" max_length="40" name="specific_time" type="boolean"/>
+        <element choice="1" label="Type" max_length="40" name="type" type="string">
+            <choice>
+                <element inactive_on_update="false" label="New Site" sequence="100" value="New Site"/>
+                <element inactive_on_update="false" label="Upgrade" sequence="200" value="Upgrade"/>
+                <element inactive_on_update="false" label="Customisation Deployments" sequence="300" value="Customisation Deployments"/>
+                <element inactive_on_update="false" label="Variable Update" sequence="400" value="Variable Update"/>
+                <element inactive_on_update="false" label="New Demo Site" sequence="500" value="New Demo Site"/>
+                <element inactive_on_update="false" label="URL Change" sequence="600" value="URL Change"/>
+            </choice>
+        </element>
+        <element label="Was this Deployment Unsuccessful from the client's perspective?" max_length="40" name="was_this_deployment_unsuccessful" type="boolean"/>
+        <index name="index">
+            <element name="appointment"/>
+        </index>
+    </element>
+</database>

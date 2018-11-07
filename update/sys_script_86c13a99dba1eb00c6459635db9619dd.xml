@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>true</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>sn_apptmnt_booking_appointment_booking</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Hikon - Book, Reschedule or Delete</name>
+        <order>10000</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+	
+	var currentOperation = current.operation();
+	
+	if(currentOperation == "update" && !current.start.changes() && !current.end.changes()){
+		return;
+	}
+	
+	var catalog_id = current.catalog_item;
+	
+	//Identify the table the catalog item is associated with
+	var gr1 = new GlideRecord("sc_cat_item_producer");
+	gr1.get(catalog_id);
+	gr1.query();
+	
+	while(gr1.next()){
+		var taskTable = gr1.getValue("table_name");
+		gs.info("Book / Reschedle / Delete - Table :" + taskTable);
+		//Take appointment start and end and update wm_task
+		if(taskTable == "x_brig3_deployment_deployment_request"){
+			var deploy = new GlideRecord("x_brig3_deployment_deployment_request");
+			deploy.get(current.task);
+			gs.info("Book / Reschedle / Delete - record found " + deploy.number);
+			if (deploy) {
+				// updating wm order
+				if (currentOperation == "delete") {
+					// updatting appointment flag on wm order
+					gs.info("Book / Reschedle / Delete - Delete Operation on" + deploy.number);
+					deploy.has_appointment = false;
+					deploy.update();
+				}
+				else if (currentOperation == "update") {
+					deploy.has_appointment = true;
+					deploy.update();
+				}
+				
+				var deployTask = new GlideRecord('x_brig3_deployment_deployment_task');
+				deployTask.addQuery('parent',current.task);
+				deployTask.query();
+				
+				if (deployTask.next()){
+					if (currentOperation == "update" || currentOperation == "insert") {
+						gs.info("Book / Reschedle / Delete - Update/Insert Operation on" + deployTask.number);
+						deployTask.scheduled_start = current.start;
+						deployTask.expected_start = current.start;
+						deployTask.scheduled_end = current.end;
+						deployTask.scheduled_time = current.start;
+						deployTask.assigned_to = freeEngineer();
+						deployTask.specific_time = true;
+						if (currentOperation == "update")
+							deployTask.assigned_to = "";
+						deployTask.has_appointment = true;
+						deployTask.appointment = current.sys_id+"";
+						// getting the config associated with the appointment
+						var implConfig = new sn_apptmnt_booking.AppointmentBooking_Factory().getWrapperType(sn_apptmnt_booking.AppointmentBookingConstants.CONFIGURATION);
+						var result = implConfig.getConfig(current.catalog_item+"");
+						var appBookingConfig = result.data;
+						if (appBookingConfig && appBookingConfig.active && appBookingConfig.service_config.active) {
+							var configWorkDuration = appBookingConfig.service_config.work_duration; //in minutes
+							if (configWorkDuration) {
+								var configWorkDurationInMS = (configWorkDuration * 60000);
+								deploy.calendar_duration.setDateNumericValue(configWorkDurationInMS);
+							}
+						}
+					}
+					if (currentOperation == 'delete') {
+						deployTask.has_appointment = false;
+						deployTask.scheduled_start = '';
+						deployTask.expected_start = '';
+						deployTask.scheduled_end = '';
+						deployTask.scheduled_time = '';
+					}
+					var tid = deployTask.update();
+					if (!tid)
+						gs.addErrorMessage('Book / Reschedle / Delete -' + deploy.number+ " cannot be updated!");
+				}
+			}
+		}
+	}
+	
+	function freeEngineer() {
+		var assignEngineer = new GlideRecord('x_brig3_deployment_deployment_resource');
+		assignEngineer.addQuery('state','Free');
+		assignEngineer.addQuery('start_date',current.start);
+		assignEngineer.addQuery('environment',current.subject);
+		assignEngineer.query();
+		
+		if (assignEngineer.next()) {
+			assignEngineer.state = 'Requested';
+			assignEngineer.task = deployTask.sys_id;
+			deployTask.resource_record = assignEngineer.sys_id;
+			assignEngineer.update();
+			return assignEngineer.engineer;
+		}
+		
+	}
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-02 18:23:54</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>86c13a99dba1eb00c6459635db9619dd</sys_id>
+        <sys_mod_count>27</sys_mod_count>
+        <sys_name>Hikon - Book, Reschedule or Delete</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_script_86c13a99dba1eb00c6459635db9619dd</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-06 16:40:55</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=86c13a99dba1eb00c6459635db9619dd"/>
+</record_update>

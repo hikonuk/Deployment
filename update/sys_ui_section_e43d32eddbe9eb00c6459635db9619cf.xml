@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="Decomission client check" section_id="e43d32eddbe9eb00c6459635db9619cf" sys_domain="global" table="x_brig3_deployment_deployment_request" version="3" view="">
+        <sys_ui_annotation action="INSERT_OR_UPDATE">
+            <is_plain_text>false</is_plain_text>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>6dca5761db6deb00c6459635db9619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <text>Operation Tasks</text>
+            <type display_value="Info Box Blue">753f88a80f930000b12e6903cfe01206</type>
+        </sys_ui_annotation>
+        <sys_ui_annotation action="INSERT_OR_UPDATE">
+            <is_plain_text>false</is_plain_text>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>61ca5761db6deb00c6459635db9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <text>Support Tasks</text>
+            <type display_value="Info Box Red">823f88a80f930000b12e6903cfe01209</type>
+        </sys_ui_annotation>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>6dca5761db6deb00c6459635db9619f1</element>
+            <position>0</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>25ca5761db6deb00c6459635db9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type>annotation</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_monitoring</element>
+            <position>1</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a5ca5761db6deb00c6459635db9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_iis_sites_production</element>
+            <position>2</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>29ca5761db6deb00c6459635db9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_iis_production</element>
+            <position>3</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a9ca5761db6deb00c6459635db9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_files_production</element>
+            <position>4</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>2dca5761db6deb00c6459635db9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_scheduled_tasks_production</element>
+            <position>5</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>adca5761db6deb00c6459635db9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>clear_out_client_from_elastic</element>
+            <position>6</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>21ca5761db6deb00c6459635db9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_ap_database</element>
+            <position>7</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a1ca5761db6deb00c6459635db9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_production_database</element>
+            <position>8</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>25ca5761db6deb00c6459635db9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_production_storage_account</element>
+            <position>9</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a5ca5761db6deb00c6459635db9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_production_redis_cache</element>
+            <position>10</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>29ca5761db6deb00c6459635db9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>remove_accounts_from_lastpass</element>
+            <position>11</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a9ca5761db6deb00c6459635db9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>remove_access_to_success</element>
+            <position>12</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>2dca5761db6deb00c6459635db9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_dns_entries</element>
+            <position>13</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>adca5761db6deb00c6459635db9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_production_app_config</element>
+            <position>14</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>21ca5761db6deb00c6459635db9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_octopus_project</element>
+            <position>15</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a1ca5761db6deb00c6459635db9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>16</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>25ca5761db6deb00c6459635db9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>61ca5761db6deb00c6459635db9619f2</element>
+            <position>17</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a5ca5761db6deb00c6459635db9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type>annotation</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_iis_sites_from_staging_servers</element>
+            <position>18</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>29ca5761db6deb00c6459635db9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_iis_app_pools_from_staging</element>
+            <position>19</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a9ca5761db6deb00c6459635db9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_files_from_staging_servers</element>
+            <position>20</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>2dca5761db6deb00c6459635db9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>removed_all_scheduled_tasks_from_staging</element>
+            <position>21</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>adca5761db6deb00c6459635db9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_client_config_from_snow</element>
+            <position>22</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>21ca5761db6deb00c6459635db9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_all_users_in_company_from_snow</element>
+            <position>23</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a1ca5761db6deb00c6459635db9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_company_in_snow</element>
+            <position>24</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>25ca5761db6deb00c6459635db9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_staging_database</element>
+            <position>25</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a5ca5761db6deb00c6459635db9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_staging_notification_hub</element>
+            <position>26</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>29ca5761db6deb00c6459635db9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_staging_storage</element>
+            <position>27</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a9ca5761db6deb00c6459635db9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_staging_redis_cache</element>
+            <position>28</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>2dca5761db6deb00c6459635db9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>delete_staging_app_config</element>
+            <position>29</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>adca5761db6deb00c6459635db9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>request_dev_to_delete_solution</element>
+            <position>30</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>21ca5761db6deb00c6459635db9619f6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>dev_resource_request_id</element>
+            <position>31</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 15:57:03</sys_created_on>
+            <sys_id>a1ca5761db6deb00c6459635db9619f6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Decomission client check" display_value="Decomission client check" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">e43d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>Decomission client check</caption>
+            <header>false</header>
+            <name>x_brig3_deployment_deployment_request</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 13:47:50</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>e43d32eddbe9eb00c6459635db9619cf</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Decomission client check</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+            <sys_update_name>sys_ui_section_e43d32eddbe9eb00c6459635db9619cf</sys_update_name>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 13:47:50</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

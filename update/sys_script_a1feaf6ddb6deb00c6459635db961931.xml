@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_brig3_deployment_deployment_task</collection>
+        <condition>((current.parent &amp;&amp; current.parent.has_appointment))</condition>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Hikon - Update Appointment</name>
+        <order>5000</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[// query appointment table
+updateAppointmentInfo();
+
+function updateAppointmentInfo() {
+	var impl = new sn_apptmnt_booking.AppointmentBooking_Factory().getWrapperType(sn_apptmnt_booking.AppointmentBookingConstants.APPOINTMENT_BOOKING_IMPL);
+	var appointmentGR = impl.getAppointmentRecord(current.parent+"");
+	if (appointmentGR) {
+		current.has_appointment = true;
+		current.appointment = appointmentGR.sys_id+"";
+		current.window_start = appointmentGR.getDisplayValue("start");
+		current.expected_start = appointmentGR.getDisplayValue("start");
+		//current.expected_travel_start = appointmentGR.getDisplayValue("start");
+		current.window_end = appointmentGR.getDisplayValue("end");
+		current.is_fixed_window = true;
+		
+		// getting the config associated with the appointment
+		var implConfig = new sn_apptmnt_booking.AppointmentBooking_Factory().getWrapperType(sn_apptmnt_booking.AppointmentBookingConstants.CONFIGURATION);
+		var result = implConfig.getConfig(appointmentGR.catalog_item+"");
+		var appBookingConfig = result.data;
+		if (appBookingConfig && appBookingConfig.active && appBookingConfig.service_config.active) {
+			var configWorkDuration = appBookingConfig.service_config.work_duration; //in minutes
+			if (configWorkDuration) {
+				var configWorkDurationInMS = (configWorkDuration * 60000);
+				//current.estimated_work_duration.setDateNumericValue(configWorkDurationInMS);
+				current.estimated_work_duration = new GlideDuration(configWorkDurationInMS);
+			}
+			var configTravelDuration = appBookingConfig.service_config.average_travel_duration;
+			if(configTravelDuration){
+				var configTravelDurationInMS = ((configTravelDuration/2) * 60000);
+				current.estimated_travel_duration = new GlideDuration(configTravelDurationInMS);
+				//Updating expected travel start: Code from business rule to calculate travel start				
+				if (!current.expected_start.nil()) {
+					var expectedStart = new GlideDateTime();
+					expectedStart.setDisplayValue(current.expected_start.getDisplayValue());
+					var expectedTravelStart = new GlideDateTime(expectedStart);
+					var startMilliseconds = expectedTravelStart.getNumericValue();
+					var duration = current.estimated_travel_duration.getGlideObject().getNumericValue();
+
+					startMilliseconds -= duration;
+
+					expectedTravelStart = new GlideDateTime();
+					expectedTravelStart.setNumericValue(startMilliseconds);
+					current.expected_travel_start = expectedTravelStart;
+				}
+			}
+		}
+	} else {
+		current.has_appointment = false;
+		current.appointment = "";
+	}
+}]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-03 17:26:06</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a1feaf6ddb6deb00c6459635db961931</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Hikon - Update Appointment</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_script_a1feaf6ddb6deb00c6459635db961931</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-03 17:26:06</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=a1feaf6ddb6deb00c6459635db961931"/>
+</record_update>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="question_choice">
+    <question_choice action="INSERT_OR_UPDATE">
+        <misc>0</misc>
+        <order>2</order>
+        <question display_value="Type">755efd95db21eb00c6459635db961941</question>
+        <rec_misc>0</rec_misc>
+        <sys_class_name>question_choice</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-02 14:34:45</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>825efd95db21eb00c6459635db961959</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Upgrade</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>question_choice_825efd95db21eb00c6459635db961959</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-02 14:34:45</sys_updated_on>
+        <text>Upgrade</text>
+        <value>Upgrade</value>
+    </question_choice>
+    <fx_price action="delete_multiple" query="id=825efd95db21eb00c6459635db961959"/>
+    <fx_price action="INSERT_OR_UPDATE">
+        <amount>0</amount>
+        <currency display_value="USD">USD</currency>
+        <field>misc</field>
+        <id>825efd95db21eb00c6459635db961959</id>
+        <parent/>
+        <reference_amount>0</reference_amount>
+        <reference_currency display_value="USD">USD</reference_currency>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-02 14:34:45</sys_created_on>
+        <sys_id>0e5efd95db21eb00c6459635db96195a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-02 14:34:45</sys_updated_on>
+        <table>question_choice</table>
+        <type>calculated</type>
+    </fx_price>
+    <fx_price action="INSERT_OR_UPDATE">
+        <amount>0</amount>
+        <currency display_value="USD">USD</currency>
+        <field>rec_misc</field>
+        <id>825efd95db21eb00c6459635db961959</id>
+        <parent/>
+        <reference_amount>0</reference_amount>
+        <reference_currency display_value="USD">USD</reference_currency>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-02 14:34:45</sys_created_on>
+        <sys_id>8a5efd95db21eb00c6459635db961959</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-02 14:34:45</sys_updated_on>
+        <table>question_choice</table>
+        <type>calculated</type>
+    </fx_price>
+</record_update>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description/>
+        <ignore_cache>false</ignore_cache>
+        <is_private>false</is_private>
+        <name>x_brig3_deployment.glide.script.block.client.globals</name>
+        <read_roles/>
+        <suffix>glide.script.block.client.globals</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-02 16:24:37</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>60775699db61eb00c6459635db9619df</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_brig3_deployment.glide.script.block.client.globals</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_properties_60775699db61eb00c6459635db9619df</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-02 16:24:37</sys_updated_on>
+        <type>string</type>
+        <value>false</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=60775699db61eb00c6459635db9619df"/>
+</record_update>

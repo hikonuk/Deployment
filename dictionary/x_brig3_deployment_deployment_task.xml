@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element audit="true" extends="task" label="Deployment Task" max_length="40" name="x_brig3_deployment_deployment_task" type="collection">
+        <element label="Appointment" max_length="32" name="appointment" reference="sn_apptmnt_booking_appointment_booking" type="reference"/>
+        <element choice="1" label="Environment" max_length="40" name="environment" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Production" sequence="100" value="Production"/>
+                <element inactive_on_update="false" label="QA" sequence="200" value="QA"/>
+                <element inactive_on_update="false" label="Staging" sequence="300" value="Staging"/>
+            </choice>
+        </element>
+        <element label="Has Appointment" max_length="40" name="has_appointment" type="boolean"/>
+        <element label="Resource Record" max_length="32" name="resource_record" reference="x_brig3_deployment_deployment_resource" type="reference"/>
+        <element label="Scheduled End" max_length="40" name="scheduled_end" type="glide_date_time"/>
+        <element label="Scheduled Start" max_length="40" name="scheduled_start" type="glide_date_time"/>
+        <element label="Specific Time" max_length="40" name="specific_time" type="boolean"/>
+        <index name="index">
+            <element name="resource_record"/>
+        </index>
+        <index name="index2">
+            <element name="appointment"/>
+        </index>
+    </element>
+</database>

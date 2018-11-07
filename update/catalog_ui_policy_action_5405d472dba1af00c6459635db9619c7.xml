@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="catalog_ui_policy_action">
+    <catalog_ui_policy_action action="INSERT_OR_UPDATE">
+        <catalog_item display_value="Manage Resources">e143cc76db61af00c6459635db961906</catalog_item>
+        <catalog_variable>IO:f9c2d8fedb61af00c6459635db96197d</catalog_variable>
+        <cleared>false</cleared>
+        <disabled>ignore</disabled>
+        <field/>
+        <mandatory>ignore</mandatory>
+        <order>100</order>
+        <sys_class_name>catalog_ui_policy_action</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-06 22:45:24</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>5405d472dba1af00c6459635db9619c7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>time_13</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>catalog_ui_policy_action_5405d472dba1af00c6459635db9619c7</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-06 22:45:24</sys_updated_on>
+        <table/>
+        <ui_policy display_value="Show Days / Hours">1fd4d472dba1af00c6459635db9619c1</ui_policy>
+        <variable>time_13</variable>
+        <variable_set/>
+        <visible>true</visible>
+    </catalog_ui_policy_action>
+</record_update>

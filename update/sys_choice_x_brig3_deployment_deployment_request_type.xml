@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="type" table="x_brig3_deployment_deployment_request" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>New Site</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>100</sequence>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 12:36:23</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>e2cca6a1dbe9eb00c6459635db961998</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 12:36:23</sys_updated_on>
+            <value>New Site</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Upgrade</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>200</sequence>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 12:36:34</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>fcece2a1dbe9eb00c6459635db961943</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 12:36:34</sys_updated_on>
+            <value>Upgrade</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Customisation Deployments</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>300</sequence>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 12:36:48</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c8fcae61dbe9eb00c6459635db961987</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 12:36:48</sys_updated_on>
+            <value>Customisation Deployments</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Variable Update</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>400</sequence>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 12:37:00</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>03fc2aa1dbe9eb00c6459635db96198e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 12:37:00</sys_updated_on>
+            <value>Variable Update</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>New Demo Site</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>500</sequence>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 12:37:12</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>710da6a1dbe9eb00c6459635db961959</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 12:37:12</sys_updated_on>
+            <value>New Demo Site</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>URL Change</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>600</sequence>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 12:37:24</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>bc1de6a1dbe9eb00c6459635db9619e0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 12:37:24</sys_updated_on>
+            <value>URL Change</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>type</element>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-03 12:36:23</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>cadce6a1dbe9eb00c6459635db961918</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>type</sys_name>
+            <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+            <sys_update_name>sys_choice_x_brig3_deployment_deployment_request_type</sys_update_name>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-03 12:36:23</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>
