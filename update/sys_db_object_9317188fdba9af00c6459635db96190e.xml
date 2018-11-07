@@ -16,23 +16,23 @@
         <number_ref/>
         <provider_class/>
         <read_access>true</read_access>
-        <super_class/>
+        <super_class display_value="Task" name="task">77021971db3222000eff79600f9619a6</super_class>
         <sys_class_code/>
         <sys_class_name>sys_db_object</sys_class_name>
         <sys_class_path/>
         <sys_created_by>fge.shay</sys_created_by>
-        <sys_created_on>2018-11-07 10:58:56</sys_created_on>
+        <sys_created_on>2018-11-07 17:33:39</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>01bcb2badbe5af00c6459635db96193d</sys_id>
+        <sys_id>9317188fdba9af00c6459635db96190e</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Resource Request</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
-        <sys_update_name>sys_db_object_01bcb2badbe5af00c6459635db96193d</sys_update_name>
+        <sys_update_name>sys_db_object_9317188fdba9af00c6459635db96190e</sys_update_name>
         <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-07 10:58:56</sys_updated_on>
+        <sys_updated_on>2018-11-07 17:33:39</sys_updated_on>
         <update_access>false</update_access>
         <user_role display_value="x_brig3_deployment.resource_request_user" name="x_brig3_deployment.resource_request_user">91ec3e7adbe5af00c6459635db9619e6</user_role>
         <ws_access>true</ws_access>

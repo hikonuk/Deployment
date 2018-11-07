@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>reschedule_appointment_wm_order</action_name>
+        <active>true</active>
+        <client>true</client>
+        <client_script_v2/>
+        <comments/>
+        <condition/>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_button_v2>false</form_button_v2>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <form_menu_button_v2>false</form_menu_button_v2>
+        <form_style/>
+        <hint/>
+        <isolate_script>true</isolate_script>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <name>Re-Schedule</name>
+        <onclick>openAppointmentReschedulingPopup()</onclick>
+        <order>100</order>
+        <script><![CDATA[var taskId, taskTable;
+
+function openAppointmentReschedulingPopup() {
+	GlideUI.get().clearOutputMessages();
+	taskId = g_form.getUniqueValue() + "";
+	if(taskId){
+		taskTable = g_form.getTableName() + "";
+		//w = new GlideDialogWindow("sn_apptmnt_booking_appointmentBooking_Popup")
+		var w = new GlideModal('sn_apptmnt_booking_appointmentBooking_Popup');
+		w.setSize('modal-lg','1000');
+		w.setTitle(getMessage('Select new Appointment'));
+		w.setPreference('sysparm_taskId',taskId);
+		w.setPreference('sysparm_taskTable',taskTable);
+		w.setPreference('sysparm_catalogId',"b55ebd95db21eb00c6459635db961986");
+		w.setPreference('sysparm_openedFor',g_form.getValue('assigned_to'));
+		w.setPreference('sysparm_location',g_form.getValue('location'));
+		w.render();
+		//TODO: add cancel event in directive
+		CustomEvent.observe('appt_booking.close',function(){
+			w.destroy();
+		});
+		
+		CustomEvent.observe("appt_booking.submit", function(params) {
+			//Format the date
+			// this is a workaround hack till we fix the CustomEvent firing twice
+			// if (!CustomEvent.events["appt_booking.submit"][0].arguments)
+			// return;
+			var selectedWindow = params.selectedWindow;
+			if (selectedWindow && selectedWindow.actualStart && selectedWindow.actualEnd) {
+				var appointmentJSON = {}, catalogId = "";
+					appointmentJSON.config = params.configObject;
+					if (params.configObject) {
+						catalogId = params.configObject.catalogId;
+						selectedWindow.recordProducer = catalogId;
+						appointmentJSON.selectedWindow = selectedWindow;
+					}
+					taskId = g_form.getUniqueValue() + "";
+					taskTable = g_form.getTableName() + "";
+					rescheduleAppointment(appointmentJSON, params.configObject.taskId, params.configObject.taskTable, catalogId, g_form.getValue('assigned_to'), params.configObject.location);
+				}
+				function rescheduleAppointment (appointmentJSON, taskId, taskTable, catalogId, openedFor, location) {
+					console.log("AB:inside validateAppointment");
+					var ga = new GlideAjax('sn_apptmnt_booking.AppointmentBookingAjaxUtil');
+					ga.addParam('sysparm_name', 'createAppointmentAfterTaskCreated');
+					ga.addParam('sysparm_appointment', JSON.stringify(appointmentJSON));
+					ga.addParam('sysparm_catalogId', catalogId);
+					ga.addParam('sysparm_taskId', taskId);
+					ga.addParam('sysparm_taskTable', taskTable);
+					ga.addParam('sysparm_openedFor', g_form.getValue('assigned_to'));
+					ga.addParam('sysparm_location', g_form.getValue('location'));
+					ga.addParam('sysparm_reschedule',true);
+					w.destroy();
+					ga.getXML(validateAppointmentCreation);
+					function validateAppointmentCreation(response) {
+						console.log("AB:inside validateAppointmentCreation");
+						var answer = response.responseXML.documentElement.getAttribute('answer');
+						console.log("validateAppointmentCreation answer = "+JSON.stringify(answer));
+						if (answer) {
+							answer = JSON.parse(answer);
+							if (answer.success) {
+								console.log("answer is valid = "+answer);
+								var url = new GlideURL('sn_apptmnt_booking_appointment_booking.do');
+								url.addParam('sys_id', answer.data);
+								GlideUI.get().addOutputMessage({//Your appointment has been scheduled successfully.
+									msg: new GwtMessage().getMessage('{0} Click <a href="{1}">{2}</a> to view the appointment.',  answer.message, url.getURL(), "here"),
+										type: "info"
+									});
+									gsftSubmit(null, g_form.getFormElement(), 'reschedule_appointment_wm_order');
+								} else {
+									GlideUI.get().addOutputMessage({
+										msg: new GwtMessage().getMessage('{0} {1} : {2}', answer.message, 'Reason', answer.reason),
+											type: "error"
+										});
+									}
+								} else {
+									console.log("answer is not valid = "+answer);
+									GlideUI.get().addOutputMessage({
+										msg: new GwtMessage().getMessage('{0} {1} : {2}', "Your appointment cannot be rescheduled.", 'Reason', "Unkown"),
+											type: "error"
+										});
+									}
+								}
+							}
+						});
+					}else{
+						GlideUI.get().addOutputMessage({'msg':getMessage('Please select one task to book appointment'),'type':'error'});
+						}
+					}
+					
+					
+					
+					if (typeof window == 'undefined') {
+						var appointmentGr = new GlideRecord(sn_apptmnt_booking.AppointmentBookingConstants.APPOINTMENT_TABLE);
+						var appointmentId = "";
+						appointmentGr.addQuery('task',current.getValue('sys_id'));
+						appointmentGr.query();
+						if(appointmentGr.next()){
+							appointmentId = appointmentGr.getValue('sys_id');
+						}
+						if(appointmentId){
+							var url = gs.generateURL(sn_apptmnt_booking.AppointmentBookingConstants.APPOINTMENT_TABLE,appointmentId);
+							gs.addInfoMessage(gs.getMessage('{0} Click <a href="{1}">{2}</a> to view the appointment.',[sn_apptmnt_booking.AppointmentBookingConstants.RESCHEDULED_SUCCESS, url, "here"]));
+							}
+							action.setRedirectURL(current);
+						}]]></script>
+        <show_insert>true</show_insert>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-07 23:15:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>2f54650fdb6daf00c6459635db9619ff</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Re-Schedule</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_ui_action_2f54650fdb6daf00c6459635db9619ff</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-07 23:19:23</sys_updated_on>
+        <table>x_brig3_deployment_deployment_request</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>true</ui16_compatible>
+    </sys_ui_action>
+</record_update>

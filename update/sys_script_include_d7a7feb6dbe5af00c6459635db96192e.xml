@@ -8,22 +8,125 @@
         <name>resourceManagement</name>
         <script><![CDATA[var resourceManagement = Class.create();
 resourceManagement.prototype = {
-    initialize: function() {
-    },
-
-	setResource: function() {
+	initialize: function() {
+	},
+	
+	setResource: function(startDate,endDate,users,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15,daySlotMonday,daySlotTuesday,daySlotWednesday,daySlotThursday,daySlotFriday) {
+		
+		var start = new GlideDateTime(startDate);
+		var end = new GlideDateTime(endDate);
+		var meetingLength = gs.getProperty('x_brig3_deployment.bookingLength');
+		var duration = GlideDateTime.subtract(start, end);
+		var durString = duration.getDisplayValue().toString();
+		var totalDays = durString.slice(0,1);
+		
+		var date = new GlideDateTime(start);
+		for (i = 0 ; i < totalDays ; i++){
+			if (i != 0){
+				var days = 86400000;
+				date.add(days);
+			}
+			if (date.getDayOfWeekLocalTime() != 6 && date.getDayOfWeekLocalTime() != 7){
+				if (timeSlot9 == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(32400); //add 9 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.add(meetingLength);
+					newRecord();
+				}
+				if (timeSlot11 == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(39600); //add 11 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.add(meetingLength);
+					newRecord();
+				}
+				if (timeSlot13 == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(46800); //add 13 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.add(meetingLength);
+					newRecord();
+				}
+				if (timeSlot15 == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(54000); //add 15 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.add(meetingLength);
+					newRecord();
+				}
+				if (date.getDayOfWeekLocalTime() == 1 && daySlotMonday == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(32400); //add 9 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.addSeconds(28800); //add 8 Hours
+					newRecord();
+				}
+					if (date.getDayOfWeekLocalTime() == 2 && daySlotTuesday == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(32400); //add 9 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.addSeconds(28800); //add 8 Hours
+					newRecord();
+				}
+					if (date.getDayOfWeekLocalTime() == 3 && daySlotWednesday == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(32400); //add 9 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.addSeconds(28800); //add 8 Hours
+					newRecord();
+				}
+					if (date.getDayOfWeekLocalTime() == 4 && daySlotThursday == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(32400); //add 9 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.addSeconds(28800); //add 8 Hours
+					newRecord();
+				}
+					if (date.getDayOfWeekLocalTime() == 5 && daySlotFriday == true){
+					var newStart = new GlideDateTime(date);
+					newStart.addSeconds(32400); //add 9 Hours
+					var newEnd = new GlideDateTime(newStart);
+					newEnd.addSeconds(28800); //add 8 Hours
+					newRecord();
+				}
+			}
+		}
+		function newRecord(){
+			var usersSplit = users.toString().split(',');
+			for (b = 0 ; b < usersSplit.length ; b++){
+				var addResource = new GlideRecord('x_brig3_deployment_deployment_resource');
+				addResource.addQuery('start_date',newStart);
+				addResource.addQuery('engineer',usersSplit[b]);
+				addResource.addQuery('environment',env);
+				addResource.addQuery('active',true);
+				addResource.query();
+				if (addResource.next()){
+					return;
+				}
+				else if (!addResource.next()){
+					addResource.initialize();
+					addResource.environment = env;
+					addResource.state = 'Free';
+					addResource.engineer = usersSplit[b];
+					addResource.start_date = newStart;
+					addResource.end_date = newEnd;
+					addResource.insert();
+				}
+			}
+		}
 		
 		
 	},
 	
-    type: 'resourceManagement'
+	type: 'resourceManagement'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>fge.shay</sys_created_by>
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>68</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -31,6 +134,6 @@ resourceManagement.prototype = {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
         <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-07 12:11:07</sys_updated_on>
+        <sys_updated_on>2018-11-07 23:02:37</sys_updated_on>
     </sys_script_include>
 </record_update>

@@ -1,5 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element label="Resource Request" max_length="40" name="x_brig3_deployment_resource_request" type="collection">
-        <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
-    </element>
+    <element extends="task" label="Resource Request" max_length="40" name="x_brig3_deployment_resource_request" type="collection"/>
 </database>
