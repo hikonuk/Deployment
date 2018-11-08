@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role_contains">
+    <sys_user_role_contains action="INSERT_OR_UPDATE">
+        <contains display_value="x_brig3_deployment.deployment_Engineer" name="x_brig3_deployment.deployment_Engineer">ef1e5c97db25ef00c6459635db961912</contains>
+        <role display_value="x_brig3_deployment.deployment_admin" name="x_brig3_deployment.deployment_admin">adfdd857db25ef00c6459635db96196c</role>
+        <sys_class_name>sys_user_role_contains</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-08 12:43:26</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>716e90d7db25ef00c6459635db961905</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_brig3_deployment.deployment_Engineer.x_brig3_deployment.deployment_admin</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_user_role_contains_716e90d7db25ef00c6459635db961905</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-08 12:43:26</sys_updated_on>
+    </sys_user_role_contains>
+</record_update>

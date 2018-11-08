@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_user_criteria_mtom">
+    <sc_cat_item_user_criteria_mtom action="INSERT_OR_UPDATE">
+        <sc_cat_item display_value="Manage Resources">e143cc76db61af00c6459635db961906</sc_cat_item>
+        <sys_class_name>sc_cat_item_user_criteria_mtom</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-08 12:45:47</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e3be94d7db25ef00c6459635db9619d1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Manage Resources.Deployment Manager</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sc_cat_item_user_criteria_mtom_e3be94d7db25ef00c6459635db9619d1</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-08 12:45:47</sys_updated_on>
+        <user_criteria display_value="Deployment Manager">ddced4d7db25ef00c6459635db961970</user_criteria>
+    </sc_cat_item_user_criteria_mtom>
+</record_update>
