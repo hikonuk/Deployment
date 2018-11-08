@@ -20,7 +20,7 @@
         </filter_condition>
         <is_rest>false</is_rest>
         <message/>
-        <name>Hikon - Release Engineer (canceled)</name>
+        <name>Hikon - Task to Cancel</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -33,6 +33,7 @@
 
 		releaseEngineer();
 		deleteAppointment();
+		cancelParent();
 	
 	function releaseEngineer() {
 		
@@ -53,6 +54,13 @@
 		appointmentDelete.next();
 		appointmentDelete.deleteRecord();
 	}
+	
+	function cancelParent() {
+		var parentRecord = new GlideRecord('x_brig3_deployment_deployment_request');
+		parentRecord.get(current.parent);
+		parentRecord.state = 90;
+		parentRecord.update();
+	}
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>fge.shay</sys_created_by>
@@ -61,8 +69,8 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>071771eedbe96f00c6459635db9619a8</sys_id>
-        <sys_mod_count>6</sys_mod_count>
-        <sys_name>Hikon - Release Engineer (canceled)</sys_name>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>Hikon - Task to Cancel</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy/>
@@ -70,7 +78,7 @@
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_071771eedbe96f00c6459635db9619a8</sys_update_name>
         <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-06 19:10:49</sys_updated_on>
+        <sys_updated_on>2018-11-08 13:54:44</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

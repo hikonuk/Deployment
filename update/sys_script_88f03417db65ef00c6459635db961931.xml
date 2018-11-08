@@ -3,24 +3,22 @@
         <abort_action>false</abort_action>
         <access>package_private</access>
         <action_delete>false</action_delete>
-        <action_insert>false</action_insert>
+        <action_insert>true</action_insert>
         <action_query>false</action_query>
-        <action_update>true</action_update>
+        <action_update>false</action_update>
         <active>true</active>
         <add_message>false</add_message>
         <advanced>true</advanced>
         <change_fields>false</change_fields>
         <client_callable>false</client_callable>
-        <collection>x_brig3_deployment_deployment_task</collection>
+        <collection>x_brig3_deployment_deployment_resource</collection>
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_brig3_deployment_deployment_task">stateCHANGESTO20^EQ<item endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="20"/>
-            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
-        </filter_condition>
+        <filter_condition/>
         <is_rest>false</is_rest>
         <message/>
-        <name>Hikon - Task to Schedule</name>
+        <name>Hikon - Check future bookable days</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -31,47 +29,44 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 	
-	bookEngineerTime();
-	updateParent();
-	
-	function bookEngineerTime() {
-		
-		var bookEngineer = new GlideRecord('x_brig3_deployment_deployment_resource');
-		bookEngineer.get(current.resource_record);
-		bookEngineer.state = 'Booked';
-		bookEngineer.update();
-	}
-	
-	function updateParent() {
-		var parentRecord = new GlideRecord('x_brig3_deployment_deployment_request');
-		parentRecord.get(current.parent);
-		parentRecord.state = 20;
-		parentRecord.scheduled_time = current.scheduled_start;
-		parentRecord.scheduled_start = current.scheduled_start;
-		parentRecord.scheduled_end = current.scheduled_end;
-		parentRecord.update();
-	}
+	var prodRecord = '17f32993dbe5ef00c6459635db961917';
+	var stagingRecord = 'b7755653db2def00c6459635db961970';
+	var get = '';
+	if (current.environment == 'Production')
+		get = prodRecord;
+	else if (current.environment == 'Staging')
+		get = stagingRecord;
+	var date = current.end_date;
+	var dateRecord = new GlideRecord('x_brig3_deployment_resource_request');
+	dateRecord.get(get);
+	var gdt1 = new GlideDateTime(dateRecord.latest_date);
+		var gdt2 = new GlideDateTime(date);
+		var isBefore = gdt1.onOrBefore(gdt2);
+		if (isBefore){
+			dateRecord.latest_date = date;
+			dateRecord.update();
+		}
 	
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>fge.shay</sys_created_by>
-        <sys_created_on>2018-11-06 11:11:19</sys_created_on>
+        <sys_created_on>2018-11-08 14:23:13</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>b3b5b5aedbe96f00c6459635db96192c</sys_id>
-        <sys_mod_count>7</sys_mod_count>
-        <sys_name>Hikon - Task to Schedule</sys_name>
+        <sys_id>88f03417db65ef00c6459635db961931</sys_id>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name>Hikon - Check future bookable days</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
-        <sys_update_name>sys_script_b3b5b5aedbe96f00c6459635db96192c</sys_update_name>
+        <sys_update_name>sys_script_88f03417db65ef00c6459635db961931</sys_update_name>
         <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-08 13:42:54</sys_updated_on>
+        <sys_updated_on>2018-11-08 21:28:16</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
-    <sys_translated_text action="delete_multiple" query="documentkey=b3b5b5aedbe96f00c6459635db96192c"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=88f03417db65ef00c6459635db961931"/>
 </record_update>

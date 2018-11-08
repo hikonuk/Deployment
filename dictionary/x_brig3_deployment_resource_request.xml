@@ -1,3 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element extends="task" label="Resource Request" max_length="40" name="x_brig3_deployment_resource_request" type="collection"/>
+    <element extends="task" label="Resource Request" max_length="40" name="x_brig3_deployment_resource_request" type="collection">
+        <element label="Count from Today" max_length="5" name="count_from_today" type="string"/>
+        <element choice="1" label="Environment" max_length="40" name="environment" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Production" sequence="100" value="Production"/>
+                <element inactive_on_update="false" label="Staging" sequence="200" value="Staging"/>
+            </choice>
+        </element>
+        <element label="Latest Date" max_length="40" name="latest_date" type="glide_date_time"/>
+    </element>
 </database>

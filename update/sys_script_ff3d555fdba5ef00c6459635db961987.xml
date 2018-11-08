@@ -3,7 +3,7 @@
         <abort_action>false</abort_action>
         <access>package_private</access>
         <action_delete>false</action_delete>
-        <action_insert>true</action_insert>
+        <action_insert>false</action_insert>
         <action_query>false</action_query>
         <action_update>true</action_update>
         <active>true</active>
@@ -11,18 +11,17 @@
         <advanced>true</advanced>
         <change_fields>false</change_fields>
         <client_callable>false</client_callable>
-        <collection>x_brig3_deployment_deployment_task</collection>
+        <collection>x_brig3_deployment_resource_request</collection>
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_brig3_deployment_deployment_task">assigned_toVALCHANGES^ORexpected_startVALCHANGES^EQ<item endquery="false" field="assigned_to" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
-            <item endquery="false" field="expected_start" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
+        <filter_condition table="x_brig3_deployment_resource_request">latest_dateVALCHANGES^EQ<item endquery="false" field="latest_date" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </filter_condition>
         <is_rest>false</is_rest>
         <message/>
-        <name>Hikon - Create Expected Schedule</name>
-        <order>10000</order>
+        <name>Hikon - Count of days</name>
+        <order>100</order>
         <priority>100</priority>
         <rest_method/>
         <rest_method_text/>
@@ -31,50 +30,42 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-
-var parent = new GlideRecord('x_brig3_deployment_deployment_request');
-	parent.get(current.parent);
 	
-	if (current.state != 90) {
-	parent.assigned_to = current.assigned_to;
-	parent.specific_time = current.specific_time;
-	parent.expected_start = current.expected_start;
-	if (current.state == 20){
-		parent.scheduled_time = current.scheduled_start;
-		parent.scheduled_start = current.scheduled_start;
-		parent.scheduled_end = current.scheduled_end;
+	var end = new GlideDateTime(current.latest_date);
+	var start = new GlideDateTime();
+	var duration = GlideDateTime.subtract(start, end);
+	var durString = duration.getDisplayValue().toString();
+	var daysLoc = durString.indexOf('Days');
+	if (daysLoc < 1){
+		return false;
 	}
+	else if (daysLoc > 1){
+	var totalDays = durString.slice(0,(daysLoc-1));
+	totalDays = parseInt(totalDays) + parseInt(1);
+	current.count_from_today = totalDays.toString();
+	current.update();
 	}
-	else if (current.state == 90) {
-		parent.assigned_to = '';
-		parent.specific_time = '';
-		parent.expected_start = '';
-		parent.scheduled_start = '';
-		parent.scheduled_end = '';
-		parent.scheduled_time = '';
-	}
-	parent.update();
 	
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>fge.shay</sys_created_by>
-        <sys_created_on>2018-11-05 11:25:18</sys_created_on>
+        <sys_created_on>2018-11-08 17:21:59</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>9e2fec5edb216f00c6459635db9619b3</sys_id>
-        <sys_mod_count>8</sys_mod_count>
-        <sys_name>Hikon - Create Expected Schedule</sys_name>
+        <sys_id>ff3d555fdba5ef00c6459635db961987</sys_id>
+        <sys_mod_count>15</sys_mod_count>
+        <sys_name>Hikon - Count of days</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
-        <sys_update_name>sys_script_9e2fec5edb216f00c6459635db9619b3</sys_update_name>
+        <sys_update_name>sys_script_ff3d555fdba5ef00c6459635db961987</sys_update_name>
         <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-08 13:52:43</sys_updated_on>
+        <sys_updated_on>2018-11-08 21:08:59</sys_updated_on>
         <template/>
-        <when>async</when>
+        <when>after</when>
     </sys_script>
-    <sys_translated_text action="delete_multiple" query="documentkey=9e2fec5edb216f00c6459635db9619b3"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=ff3d555fdba5ef00c6459635db961987"/>
 </record_update>
