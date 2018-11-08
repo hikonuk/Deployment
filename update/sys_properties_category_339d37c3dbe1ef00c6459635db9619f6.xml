@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties_category">
+    <sys_properties_category action="INSERT_OR_UPDATE">
+        <name>Deployment Management</name>
+        <sys_class_name>sys_properties_category</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-08 10:20:15</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>339d37c3dbe1ef00c6459635db9619f6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Deployment Management</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_properties_category_339d37c3dbe1ef00c6459635db9619f6</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-08 10:20:15</sys_updated_on>
+        <title/>
+    </sys_properties_category>
+    <sys_translated_text action="delete_multiple" query="documentkey=339d37c3dbe1ef00c6459635db9619f6"/>
+</record_update>

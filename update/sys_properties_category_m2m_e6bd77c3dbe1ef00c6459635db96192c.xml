@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties_category_m2m">
+    <sys_properties_category_m2m action="INSERT_OR_UPDATE">
+        <category display_value="Deployment Management">339d37c3dbe1ef00c6459635db9619f6</category>
+        <order>100</order>
+        <property display_value="x_brig3_deployment.deployment_team_staging" name="x_brig3_deployment.deployment_team_staging">bc17003adb61af00c6459635db9619e3</property>
+        <sys_class_name>sys_properties_category_m2m</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-08 10:20:40</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e6bd77c3dbe1ef00c6459635db96192c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_brig3_deployment.deployment_team_staging.Deployment Management</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_properties_category_m2m_e6bd77c3dbe1ef00c6459635db96192c</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-08 10:20:40</sys_updated_on>
+    </sys_properties_category_m2m>
+</record_update>
