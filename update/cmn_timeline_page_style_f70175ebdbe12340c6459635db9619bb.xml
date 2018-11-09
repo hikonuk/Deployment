@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="cmn_timeline_page_style">
+    <cmn_timeline_page_style action="INSERT_OR_UPDATE">
+        <condition table="x_brig3_deployment_deployment_request">environment=Production^state=10^EQ<item endquery="false" field="environment" goto="false" newquery="false" operator="=" or="false" value="Production"/>
+            <item endquery="false" field="state" goto="false" newquery="false" operator="=" or="false" value="10"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </condition>
+        <label_color display_value="Red">65b30395a9fe3dba003277a7b660b5db</label_color>
+        <label_decoration/>
+        <order>100</order>
+        <span_color display_value="Gray">65b3029aa9fe3dba00b7c1d249afab80</span_color>
+        <sys_class_name>cmn_timeline_page_style</sys_class_name>
+        <sys_created_by>fge.shay</sys_created_by>
+        <sys_created_on>2018-11-09 13:23:02</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>f70175ebdbe12340c6459635db9619bb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>environment=Production^state=10^EQ</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>cmn_timeline_page_style_f70175ebdbe12340c6459635db9619bb</sys_update_name>
+        <sys_updated_by>fge.shay</sys_updated_by>
+        <sys_updated_on>2018-11-09 13:23:02</sys_updated_on>
+        <timeline_page display_value="x_brig3_deployment.Deployment Request">70ffe9abdbe12340c6459635db961989</timeline_page>
+    </cmn_timeline_page_style>
+</record_update>
