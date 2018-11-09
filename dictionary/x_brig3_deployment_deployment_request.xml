@@ -29,6 +29,7 @@
             </choice>
         </element>
         <element label="Epic VSO Link" max_length="120" name="epic_vso_link" type="string"/>
+        <element label="Expected End" max_length="40" name="expected_end" type="glide_date_time"/>
         <element label="Has appointment" max_length="40" name="has_appointment" type="boolean"/>
         <element label="Link to Unify Configuration/Customisation Spec" max_length="120" name="link_to_unify_config" type="string"/>
         <element label="Ops Review - Ops to provide response to feedback here" max_length="4000" name="ops_review" type="string"/>

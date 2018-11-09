@@ -39,7 +39,9 @@ var parent = new GlideRecord('x_brig3_deployment_deployment_request');
 	parent.assigned_to = current.assigned_to;
 	parent.specific_time = current.specific_time;
 	parent.expected_start = current.expected_start;
-	if (current.state == 20){
+	parent.expected_end = current.scheduled_end;
+
+		if (current.state == 20){
 		parent.scheduled_time = current.scheduled_start;
 		parent.scheduled_start = current.scheduled_start;
 		parent.scheduled_end = current.scheduled_end;
@@ -49,6 +51,7 @@ var parent = new GlideRecord('x_brig3_deployment_deployment_request');
 		parent.assigned_to = '';
 		parent.specific_time = '';
 		parent.expected_start = '';
+		parent.expected_end = '';
 		parent.scheduled_start = '';
 		parent.scheduled_end = '';
 		parent.scheduled_time = '';
@@ -63,7 +66,7 @@ var parent = new GlideRecord('x_brig3_deployment_deployment_request');
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>9e2fec5edb216f00c6459635db9619b3</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>Hikon - Create Expected Schedule</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -72,7 +75,7 @@ var parent = new GlideRecord('x_brig3_deployment_deployment_request');
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_9e2fec5edb216f00c6459635db9619b3</sys_update_name>
         <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-08 13:52:43</sys_updated_on>
+        <sys_updated_on>2018-11-09 13:16:04</sys_updated_on>
         <template/>
         <when>async</when>
     </sys_script>
