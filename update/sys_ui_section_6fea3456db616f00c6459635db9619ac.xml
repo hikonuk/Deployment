@@ -140,6 +140,48 @@
             <sys_user/>
             <type/>
         </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>start_time_ical</element>
+            <position>10</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-10 12:49:10</sys_created_on>
+            <sys_id>55e2b2bbdbad2340c6459635db961900</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_brig3_deployment_deployment_resource" sys_domain="global" view="Default view">6fea3456db616f00c6459635db9619ac</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-10 12:49:10</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>end_time_ical</element>
+            <position>11</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-10 12:49:35</sys_created_on>
+            <sys_id>abf2f2bbdbad2340c6459635db9619f6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_brig3_deployment_deployment_resource" sys_domain="global" view="Default view">6fea3456db616f00c6459635db9619ac</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-10 12:49:35</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>updated_ical</element>
+            <position>12</position>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-10 18:07:52</sys_created_on>
+            <sys_id>79dbf773db616340c6459635db9619a3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_brig3_deployment_deployment_resource" sys_domain="global" view="Default view">6fea3456db616f00c6459635db9619ac</sys_ui_section>
+            <sys_updated_by>fge.shay</sys_updated_by>
+            <sys_updated_on>2018-11-10 18:07:52</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
         <sys_ui_section action="INSERT_OR_UPDATE">
             <caption/>
             <header>false</header>

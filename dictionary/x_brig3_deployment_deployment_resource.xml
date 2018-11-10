@@ -3,6 +3,7 @@
         <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
         <element label="Calendar Span" max_length="32" name="calendar_span" reference="cmn_schedule_span" type="reference"/>
         <element label="End Date" max_length="40" name="end_date" type="glide_date_time"/>
+        <element label="End Time iCal" max_length="40" name="end_time_ical" type="string"/>
         <element label="Engineer" max_length="32" name="engineer" reference="sys_user" type="reference"/>
         <element choice="1" label="Environment" max_length="40" name="environment" type="string">
             <choice>
@@ -13,6 +14,7 @@
         </element>
         <element label="Group" max_length="32" name="group" reference="sys_user_group" type="reference"/>
         <element label="Start Date" max_length="40" name="start_date" type="glide_date_time"/>
+        <element label="Start Time iCal" max_length="40" name="start_time_ical" type="string"/>
         <element choice="3" label="State" max_length="40" name="state" type="string">
             <choice>
                 <element inactive_on_update="false" label="Free" sequence="100" value="Free"/>
@@ -21,6 +23,7 @@
             </choice>
         </element>
         <element label="Task" max_length="32" name="task" reference="task" type="reference"/>
+        <element label="Updated iCal" max_length="40" name="updated_ical" type="string"/>
         <index name="index">
             <element name="task"/>
         </index>
