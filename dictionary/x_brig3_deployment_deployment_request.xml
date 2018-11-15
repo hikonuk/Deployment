@@ -31,7 +31,7 @@
         <element label="Epic VSO Link" max_length="120" name="epic_vso_link" type="string"/>
         <element label="Expected End" max_length="40" name="expected_end" type="glide_date_time"/>
         <element label="Has appointment" max_length="40" name="has_appointment" type="boolean"/>
-        <element label="Link to Unify Configuration/Customisation Spec" max_length="120" name="link_to_unify_config" type="string"/>
+        <element label="Link to Unify Configuration/Customisation Spec" max_length="120" name="link_to_unify_config" reference="x_brig3_client_con_client_configuration" type="reference"/>
         <element label="Ops Review - Ops to provide response to feedback here" max_length="4000" name="ops_review" type="string"/>
         <element label="Out Of Hours Deployment" max_length="40" name="out_of_hours" type="boolean"/>
         <element label="Removed all Files from staging servers" max_length="40" name="removed_all_files_from_staging_servers" type="boolean"/>

@@ -18,7 +18,7 @@
         <name>x_brig3_deployment_deployment_request</name>
         <order>900</order>
         <override_menu_roles>false</override_menu_roles>
-        <query>/show_schedule_page.do?sysparm_page_schedule_type=timeline_page&amp;sysparm_timeline_page_id=70ffe9abdbe12340c6459635db961989</query>
+        <query>/$pa_dashboard.do?sysparm_dashboard=390d12e5db316b00342ef3571d96199e</query>
         <report/>
         <roles>x_brig3_deployment.deployment_user,itil</roles>
         <survey/>
@@ -30,7 +30,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>fd45f96fdbe12340c6459635db96192c</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Deployment Calendar</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -38,8 +38,8 @@
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_app_module_fd45f96fdbe12340c6459635db96192c</sys_update_name>
-        <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-09 13:41:29</sys_updated_on>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-15 21:47:31</sys_updated_on>
         <timeline_page/>
         <title>Deployment Calendar</title>
         <uncancelable>false</uncancelable>

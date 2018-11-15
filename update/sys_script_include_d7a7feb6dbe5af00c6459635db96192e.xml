@@ -13,6 +13,8 @@ resourceManagement.prototype = {
 	
 	setResource: function(startDate,endDate,users,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15,daySlotMonday,daySlotTuesday,daySlotWednesday,daySlotThursday,daySlotFriday) {
 		
+		var newStart = '';
+		var	newEnd = '';
 		var start = new GlideDateTime(startDate);
 		var end = new GlideDateTime(endDate);
 		var meetingLength = gs.getProperty('x_brig3_deployment.bookingLength');
@@ -32,68 +34,139 @@ resourceManagement.prototype = {
 					date.add(days);
 				}
 				if (date.getDayOfWeekLocalTime() != 6 && date.getDayOfWeekLocalTime() != 7){
+					if (env == 'Production'){
 					if (timeSlot9 == true){
-						var newStart = new GlideDateTime(date);
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(32400); //add 9 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
 						newEnd.add(meetingLength);
 						newRecord();
+					}
+					else if (timeSlot9 == false){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(32401); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
+						newEnd.add(meetingLength);
+						blockSlot(newStart,newEnd);
 					}
 					if (timeSlot11 == true){
-						var newStart = new GlideDateTime(date);
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(39600); //add 11 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
 						newEnd.add(meetingLength);
 						newRecord();
+					}
+					else if (timeSlot11 == false){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(39601); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
+						newEnd.add(meetingLength);
+						blockSlot(newStart,newEnd);
 					}
 					if (timeSlot13 == true){
-						var newStart = new GlideDateTime(date);
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(46800); //add 13 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
 						newEnd.add(meetingLength);
 						newRecord();
+					}
+					else if (timeSlot13 == false){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(46801); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
+						newEnd.add(meetingLength);
+						blockSlot(newStart,newEnd);
 					}
 					if (timeSlot15 == true){
-						var newStart = new GlideDateTime(date);
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(54000); //add 15 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
 						newEnd.add(meetingLength);
 						newRecord();
 					}
+					else if (timeSlot15 == false){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(54001); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
+						newEnd.add(meetingLength);
+						blockSlot(newStart,newEnd);
+					}
+					}
+					else if (env == 'Staging'){
 					if (date.getDayOfWeekLocalTime() == 1 && daySlotMonday == true){
-						var newStart = new GlideDateTime(date);
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(32400); //add 9 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
 						newEnd.addSeconds(28800); //add 8 Hours
 						newRecord();
 					}
+					else if (date.getDayOfWeekLocalTime() == 1 && daySlotMonday != true){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(32400); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
+						newEnd.addSeconds(28800); //add 8 Hours
+						blockSlot(newStart,newEnd);
+					}
+					
 					if (date.getDayOfWeekLocalTime() == 2 && daySlotTuesday == true){
-						var newStart = new GlideDateTime(date);
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(32400); //add 9 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
 						newEnd.addSeconds(28800); //add 8 Hours
 						newRecord();
 					}
+					else if (date.getDayOfWeekLocalTime() == 2 && daySlotTuesday != true){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(32400); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
+						newEnd.addSeconds(28800); //add 8 Hours
+						blockSlot(newStart,newEnd);
+					}
+					
 					if (date.getDayOfWeekLocalTime() == 3 && daySlotWednesday == true){
-						var newStart = new GlideDateTime(date);
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(32400); //add 9 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
 						newEnd.addSeconds(28800); //add 8 Hours
 						newRecord();
 					}
+					else if (date.getDayOfWeekLocalTime() == 3 && daySlotWednesday != true){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(32400); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
+						newEnd.addSeconds(28800); //add 8 Hours
+						blockSlot(newStart,newEnd);
+					}
+					
 					if (date.getDayOfWeekLocalTime() == 4 && daySlotThursday == true){
-						var newStart = new GlideDateTime(date);
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(32400); //add 9 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
 						newEnd.addSeconds(28800); //add 8 Hours
 						newRecord();
 					}
-					if (date.getDayOfWeekLocalTime() == 5 && daySlotFriday == true){
-						var newStart = new GlideDateTime(date);
+					else if (date.getDayOfWeekLocalTime() == 4 && daySlotThursday != true){
+						newStart = new GlideDateTime(date);
 						newStart.addSeconds(32400); //add 9 Hours
-						var newEnd = new GlideDateTime(newStart);
+						newEnd = new GlideDateTime(newStart);
+						newEnd.addSeconds(28800); //add 8 Hours
+						blockSlot(newStart,newEnd);
+					}
+					
+					if (date.getDayOfWeekLocalTime() == 5 && daySlotFriday == true){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(32400); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
 						newEnd.addSeconds(28800); //add 8 Hours
 						newRecord();
+					}
+					else if (date.getDayOfWeekLocalTime() == 5 && daySlotFriday != true){
+						newStart = new GlideDateTime(date);
+						newStart.addSeconds(32400); //add 9 Hours
+						newEnd = new GlideDateTime(newStart);
+						newEnd.addSeconds(28800); //add 8 Hours
+						blockSlot(newStart,newEnd);
+					}
 					}
 				}
 			}
@@ -140,6 +213,32 @@ resourceManagement.prototype = {
 			return newTime;
 		}
 		
+		function blockSlot(newStart,newEnd) {
+			var scheduleStart = new GlideScheduleDateTime(newStart.getDisplayValue());
+			var scheduleEnd = new GlideScheduleDateTime(newEnd.getDisplayValue());
+			var blockTime = new GlideRecord('cmn_schedule_span');
+			blockTime.addQuery('start_date_time',scheduleStart);
+			blockTime.addQuery('end_date_time',scheduleStart);
+			blockTime.query();
+			
+			if (blockTime.next()){
+				return;
+			}
+			else if (!blockTime.next()){
+				blockTime.initialize();
+				blockTime.name = 'No Resource';
+				blockTime.type = 'appointment';
+				blockTime.show_as = 'busy';
+				blockTime.start_date_time = scheduleStart;
+				blockTime.end_date_time = scheduleEnd;
+				if (env == 'Production')
+					blockTime.schedule = gs.getProperty('x_brig3_deployment.productionCalendar');
+				else if (env == 'Staging')
+					blockTime.schedule = gs.getProperty('x_brig3_deployment.stagingCalendar');
+				blockTime.insert();
+			}
+		}
+		
 		
 	},
 	
@@ -150,14 +249,14 @@ resourceManagement.prototype = {
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>90</sys_mod_count>
+        <sys_mod_count>96</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
-        <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-10 19:28:03</sys_updated_on>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-15 22:36:51</sys_updated_on>
     </sys_script_include>
 </record_update>
