@@ -42,7 +42,7 @@ resourceManagement.prototype = {
 						newEnd.add(meetingLength);
 						newRecord();
 					}
-					else if (timeSlot9 == false){
+					else if (timeSlot9 != true){
 						newStart = new GlideDateTime(date);
 						newStart.addSeconds(32401); //add 9 Hours
 						newEnd = new GlideDateTime(newStart);
@@ -56,7 +56,7 @@ resourceManagement.prototype = {
 						newEnd.add(meetingLength);
 						newRecord();
 					}
-					else if (timeSlot11 == false){
+					else if (timeSlot11 != true){
 						newStart = new GlideDateTime(date);
 						newStart.addSeconds(39601); //add 9 Hours
 						newEnd = new GlideDateTime(newStart);
@@ -70,7 +70,7 @@ resourceManagement.prototype = {
 						newEnd.add(meetingLength);
 						newRecord();
 					}
-					else if (timeSlot13 == false){
+					else if (timeSlot13 != true){
 						newStart = new GlideDateTime(date);
 						newStart.addSeconds(46801); //add 9 Hours
 						newEnd = new GlideDateTime(newStart);
@@ -84,7 +84,7 @@ resourceManagement.prototype = {
 						newEnd.add(meetingLength);
 						newRecord();
 					}
-					else if (timeSlot15 == false){
+					else if (timeSlot15 != true){
 						newStart = new GlideDateTime(date);
 						newStart.addSeconds(54001); //add 9 Hours
 						newEnd = new GlideDateTime(newStart);
@@ -218,7 +218,7 @@ resourceManagement.prototype = {
 			var scheduleEnd = new GlideScheduleDateTime(newEnd.getDisplayValue());
 			var blockTime = new GlideRecord('cmn_schedule_span');
 			blockTime.addQuery('start_date_time',scheduleStart);
-			blockTime.addQuery('end_date_time',scheduleStart);
+			blockTime.addQuery('end_date_time',scheduleEnd);
 			blockTime.query();
 			
 			if (blockTime.next()){
@@ -249,7 +249,7 @@ resourceManagement.prototype = {
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>96</sys_mod_count>
+        <sys_mod_count>99</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -257,6 +257,6 @@ resourceManagement.prototype = {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-11-15 22:36:51</sys_updated_on>
+        <sys_updated_on>2018-11-16 10:34:43</sys_updated_on>
     </sys_script_include>
 </record_update>
