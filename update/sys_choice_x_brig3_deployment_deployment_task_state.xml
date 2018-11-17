@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_choice action="INSERT_OR_UPDATE" field="state" table="x_brig3_deployment_deployment_request" version="3">
+    <sys_choice action="INSERT_OR_UPDATE" field="state" table="x_brig3_deployment_deployment_task" version="3">
         <sys_choice action="INSERT_OR_UPDATE">
             <dependent_value/>
             <element>state</element>
@@ -7,16 +7,16 @@
             <inactive>false</inactive>
             <label>New</label>
             <language>en</language>
-            <name>x_brig3_deployment_deployment_request</name>
+            <name>x_brig3_deployment_deployment_task</name>
             <sequence>100</sequence>
             <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-05 11:34:10</sys_created_on>
+            <sys_created_on>2018-11-05 11:07:00</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>00c1f8dedb216f00c6459635db9619a4</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_id>413be8dadb216f00c6459635db961992</sys_id>
+            <sys_mod_count>1</sys_mod_count>
             <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-05 11:34:10</sys_updated_on>
+            <sys_updated_on>2018-11-06 11:02:05</sys_updated_on>
             <value>10</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -26,16 +26,16 @@
             <inactive>false</inactive>
             <label>Scheduled</label>
             <language>en</language>
-            <name>x_brig3_deployment_deployment_request</name>
+            <name>x_brig3_deployment_deployment_task</name>
             <sequence>200</sequence>
             <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-05 11:07:17</sys_created_on>
+            <sys_created_on>2018-11-05 11:34:19</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>04abecdadb216f00c6459635db9619c3</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_id>d0d13cdedb216f00c6459635db961905</sys_id>
+            <sys_mod_count>1</sys_mod_count>
             <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-05 11:07:17</sys_updated_on>
+            <sys_updated_on>2018-11-06 11:02:10</sys_updated_on>
             <value>20</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -45,16 +45,16 @@
             <inactive>false</inactive>
             <label>In Progress</label>
             <language>en</language>
-            <name>x_brig3_deployment_deployment_request</name>
+            <name>x_brig3_deployment_deployment_task</name>
             <sequence>300</sequence>
-            <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
-            <sys_created_on>2018-11-17 15:09:10</sys_created_on>
+            <sys_created_by>fge.shay</sys_created_by>
+            <sys_created_on>2018-11-05 11:34:29</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>6c16d7c6dbb1ab00342ef3571d9619ca</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_id>3ed134dedb216f00c6459635db9619bd</sys_id>
+            <sys_mod_count>4</sys_mod_count>
             <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-            <sys_updated_on>2018-11-17 15:09:10</sys_updated_on>
+            <sys_updated_on>2018-11-17 20:31:03</sys_updated_on>
             <value>30</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -64,16 +64,16 @@
             <inactive>false</inactive>
             <label>Complete</label>
             <language>en</language>
-            <name>x_brig3_deployment_deployment_request</name>
+            <name>x_brig3_deployment_deployment_task</name>
             <sequence>800</sequence>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-05 11:07:31</sys_created_on>
+            <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+            <sys_created_on>2018-11-17 20:35:26</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>27abacdadb216f00c6459635db9619f0</sys_id>
-            <sys_mod_count>3</sys_mod_count>
+            <sys_id>7fb0e45edb35ab00342ef3571d961911</sys_id>
+            <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-            <sys_updated_on>2018-11-17 15:09:54</sys_updated_on>
+            <sys_updated_on>2018-11-17 20:35:26</sys_updated_on>
             <value>80</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -83,35 +83,35 @@
             <inactive>false</inactive>
             <label>Canceled</label>
             <language>en</language>
-            <name>x_brig3_deployment_deployment_request</name>
+            <name>x_brig3_deployment_deployment_task</name>
             <sequence>900</sequence>
             <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-05 11:34:49</sys_created_on>
+            <sys_created_on>2018-11-05 11:35:31</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>afe17cdedb216f00c6459635db961944</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_id>bd12b8dedb216f00c6459635db9619b6</sys_id>
+            <sys_mod_count>1</sys_mod_count>
             <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-05 11:34:49</sys_updated_on>
+            <sys_updated_on>2018-11-06 11:02:18</sys_updated_on>
             <value>90</value>
         </sys_choice>
         <sys_choice_set action="INSERT_OR_UPDATE">
             <element>state</element>
-            <name>x_brig3_deployment_deployment_request</name>
+            <name>x_brig3_deployment_deployment_task</name>
             <sys_class_name>sys_choice_set</sys_class_name>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-05 11:07:00</sys_created_on>
+            <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+            <sys_created_on>2018-11-17 20:35:26</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
-            <sys_id>549be4dadb216f00c6459635db961913</sys_id>
+            <sys_id>ffb0e45edb35ab00342ef3571d961912</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>state</sys_name>
             <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
             <sys_policy/>
             <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
-            <sys_update_name>sys_choice_x_brig3_deployment_deployment_request_state</sys_update_name>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-05 11:07:00</sys_updated_on>
+            <sys_update_name>sys_choice_x_brig3_deployment_deployment_task_state</sys_update_name>
+            <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+            <sys_updated_on>2018-11-17 20:35:26</sys_updated_on>
         </sys_choice_set>
     </sys_choice>
 </record_update>
