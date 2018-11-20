@@ -2,7 +2,7 @@
     <element attributes="live_feed=true" audit="true" extends="task" label="Deployment Request" max_length="40" name="x_brig3_deployment_deployment_request" type="collection">
         <element label="Appointment" max_length="32" name="appointment" reference="sn_apptmnt_booking_appointment_booking" type="reference"/>
         <element label="Clear out client from elastic" max_length="40" name="clear_out_client_from_elastic" type="boolean"/>
-        <element label="Client Configuration Form Link" max_length="120" name="client_configuration_form_link" type="string"/>
+        <element active="false" label="Client Configuration Form Link" max_length="120" name="client_configuration_form_link" type="string"/>
         <element label="CSM Comments - If answered Yes to above, please provide specific details" max_length="4000" name="csm_comments" type="string"/>
         <element label="Delete all users in company from SNOW" max_length="40" name="delete_all_users_in_company_from_snow" type="boolean"/>
         <element label="Delete AP Database" max_length="40" name="delete_ap_database" type="boolean"/>
