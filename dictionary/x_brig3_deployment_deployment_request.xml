@@ -61,6 +61,15 @@
                 <element inactive_on_update="false" label="URL Change" sequence="600" value="URL Change"/>
             </choice>
         </element>
+        <element label="All additional requests observed and completed" max_length="40" name="u_additional_requests_check" type="boolean"/>
+        <element label="Check DR CMS is up and running" max_length="40" name="u_check_dr_cms_is_up_and_running" type="boolean"/>
+        <element label="Open every top level navigation item" max_length="40" name="u_core_pages_load" type="boolean"/>
+        <element label="All widgets rendering on homepage" max_length="40" name="u_homepage_widgets_check" type="boolean"/>
+        <element label="Remove maintenance page" max_length="40" name="u_remove_maint_page_check" type="boolean"/>
+        <element label="Run CMS Provisioning" max_length="40" name="u_run_cms_prov" type="boolean"/>
+        <element label="Check styles and scripts accessible in CMS" max_length="40" name="u_styles_and_scripts_check" type="boolean"/>
+        <element label="Successfully create news article (save only and delete after)" max_length="40" name="u_success_create_news" type="boolean"/>
+        <element label="Workspaces showing content" max_length="40" name="u_workspaces_showing_content" type="boolean"/>
         <element label="Was this Deployment Unsuccessful from the client's perspective?" max_length="40" name="was_this_deployment_unsuccessful" type="boolean"/>
         <index name="index">
             <element name="appointment"/>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_producer">
+    <sc_cat_item_producer action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <availability>on_desktop</availability>
+        <billable>false</billable>
+        <can_cancel>false</can_cancel>
+        <category display_value="Unily Deployment Request">f477de4adb3f26000eff79600f9619cf</category>
+        <cost>0</cost>
+        <custom_cart/>
+        <delivery_plan/>
+        <delivery_plan_script/>
+        <delivery_time>1970-01-03 00:00:00</delivery_time>
+        <description/>
+        <entitlement_script/>
+        <group/>
+        <hide_sp>false</hide_sp>
+        <icon>6a0f453bdbb56f00342ef3571d9619a9</icon>
+        <ignore_price>true</ignore_price>
+        <image/>
+        <list_price>0</list_price>
+        <location/>
+        <meta/>
+        <mobile_hide_price>false</mobile_hide_price>
+        <mobile_picture/>
+        <mobile_picture_type>use_desktop_picture</mobile_picture_type>
+        <model/>
+        <name>Block Calendar</name>
+        <no_cart>false</no_cart>
+        <no_order>false</no_order>
+        <no_order_now>false</no_order_now>
+        <no_proceed_checkout>false</no_proceed_checkout>
+        <no_quantity>false</no_quantity>
+        <no_search>false</no_search>
+        <omit_price>false</omit_price>
+        <order>0</order>
+        <ordered_item_link/>
+        <picture/>
+        <post_insert_script/>
+        <preview>JavaScript: popupOpenStandard("com.glideapp.servicecatalog_cat_item_view.do?v=1&amp;sysparm_id=48bb5fabdbb16f00342ef3571d9619eb&amp;sysparm_preview=true", "summary");</preview>
+        <price>0</price>
+        <recurring_frequency/>
+        <recurring_price>0</recurring_price>
+        <redirect_url>catalog_home</redirect_url>
+        <roles/>
+        <sc_catalogs>e0d08b13c3330100c8b837659bba8fb4</sc_catalogs>
+        <sc_ic_item_staging/>
+        <sc_ic_version/>
+        <script><![CDATA[gs.addInfoMessage('Calendar blocked');
+current.short_description = 'Block calendar';]]></script>
+        <short_description>Block specific days</short_description>
+        <show_variable_help_on_load>false</show_variable_help_on_load>
+        <start_closed>false</start_closed>
+        <sys_class_name>sc_cat_item_producer</sys_class_name>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-11-22 07:24:36</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>48bb5fabdbb16f00342ef3571d9619eb</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Block Calendar</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sc_cat_item_producer_48bb5fabdbb16f00342ef3571d9619eb</sys_update_name>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-22 15:48:35</sys_updated_on>
+        <table_name>x_brig3_deployment_resource_request</table_name>
+        <template/>
+        <template_value/>
+        <type>item</type>
+        <use_sc_layout>true</use_sc_layout>
+        <vendor/>
+        <view/>
+        <visible_bundle>true</visible_bundle>
+        <visible_guide>true</visible_guide>
+        <visible_standalone>true</visible_standalone>
+        <workflow/>
+    </sc_cat_item_producer>
+    <sys_translated_text action="delete_multiple" query="documentkey=48bb5fabdbb16f00342ef3571d9619eb"/>
+    <fx_price action="delete_multiple" query="id=48bb5fabdbb16f00342ef3571d9619eb"/>
+    <fx_price action="INSERT_OR_UPDATE">
+        <amount>0</amount>
+        <currency display_value="USD">USD</currency>
+        <field>price</field>
+        <id>48bb5fabdbb16f00342ef3571d9619eb</id>
+        <parent/>
+        <reference_amount>0</reference_amount>
+        <reference_currency display_value="USD">USD</reference_currency>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-11-22 07:24:36</sys_created_on>
+        <sys_id>84bb5fabdbb16f00342ef3571d9619ee</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-22 07:24:40</sys_updated_on>
+        <table>sc_cat_item_producer</table>
+        <type>calculated</type>
+    </fx_price>
+    <fx_price action="INSERT_OR_UPDATE">
+        <amount>0</amount>
+        <currency display_value="USD">USD</currency>
+        <field>recurring_price</field>
+        <id>48bb5fabdbb16f00342ef3571d9619eb</id>
+        <parent/>
+        <reference_amount>0</reference_amount>
+        <reference_currency display_value="USD">USD</reference_currency>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-11-22 07:24:36</sys_created_on>
+        <sys_id>1cbb5fabdbb16f00342ef3571d9619ef</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-22 07:24:40</sys_updated_on>
+        <table>sc_cat_item_producer</table>
+        <type>calculated</type>
+    </fx_price>
+    <sys_attachment action="INSERT_OR_UPDATE">
+        <average_image_color>#0</average_image_color>
+        <chunk_size_bytes>734003</chunk_size_bytes>
+        <compressed>true</compressed>
+        <content_type>image/png</content_type>
+        <file_name>icon</file_name>
+        <image_height>96</image_height>
+        <image_width>96</image_width>
+        <size_bytes>2114</size_bytes>
+        <size_compressed>2137</size_compressed>
+        <state>available</state>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-11-22 15:48:35</sys_created_on>
+        <sys_id>6a0f453bdbb56f00342ef3571d9619a9</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-22 15:48:35</sys_updated_on>
+        <table_name>ZZ_YYsc_cat_item_producer</table_name>
+        <table_sys_id>48bb5fabdbb16f00342ef3571d9619eb</table_sys_id>
+        <u_itil_only>false</u_itil_only>
+    </sys_attachment>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>H4sIAAAAAAAAAA==</data>
+        <length>16</length>
+        <position>0</position>
+        <sys_attachment display_value="icon" sys_id="6a0f453bdbb56f00342ef3571d9619a9">6a0f453bdbb56f00342ef3571d9619a9</sys_attachment>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-11-22 15:48:35</sys_created_on>
+        <sys_id>620f453bdbb56f00342ef3571d9619aa</sys_id>
+    </sys_attachment_doc>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>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</data>
+        <length>2836</length>
+        <position>1</position>
+        <sys_attachment display_value="icon" sys_id="6a0f453bdbb56f00342ef3571d9619a9">6a0f453bdbb56f00342ef3571d9619a9</sys_attachment>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-11-22 15:48:35</sys_created_on>
+        <sys_id>e20f453bdbb56f00342ef3571d9619aa</sys_id>
+    </sys_attachment_doc>
+</record_update>

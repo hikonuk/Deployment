@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="catalog_ui_policy_action">
+    <catalog_ui_policy_action action="INSERT_OR_UPDATE">
+        <catalog_item display_value="Block Calendar">48bb5fabdbb16f00342ef3571d9619eb</catalog_item>
+        <catalog_variable>IO:a4bb9f2fdbb16f00342ef3571d961979</catalog_variable>
+        <cleared>false</cleared>
+        <disabled>ignore</disabled>
+        <field/>
+        <mandatory>ignore</mandatory>
+        <order>100</order>
+        <sys_class_name>catalog_ui_policy_action</sys_class_name>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-11-22 07:24:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>30bbdf2fdbb16f00342ef3571d961922</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Monday</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>catalog_ui_policy_action_30bbdf2fdbb16f00342ef3571d961922</sys_update_name>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-22 07:24:39</sys_updated_on>
+        <table/>
+        <ui_policy display_value="Show Days / Hours">30bbdf2fdbb16f00342ef3571d961918</ui_policy>
+        <variable>Monday</variable>
+        <variable_set/>
+        <visible>false</visible>
+    </catalog_ui_policy_action>
+</record_update>
