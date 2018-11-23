@@ -213,6 +213,8 @@ resourceManagement.prototype = {
 			var year = a.getYearUTC().toString();
 			var month = a.getMonthUTC().toString();
 			var day = a.getDayOfMonthUTC().toString();
+			if (day < 10)
+				day = '0'+day;
 			
 			var time = a.getLocalTime();
 			time.getByFormat('HH:mm:ss');
@@ -245,122 +247,100 @@ resourceManagement.prototype = {
 				blockTime.schedule = cal;
 				blockTime.insert();
 			}
+		}
+	},
+	
+	blockCalendar: function(startDate,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15) {
+		var newStart = '';
+		var newEnd = '';
+		var start = new GlideDateTime(startDate);
+		var meetingLength = gs.getProperty('x_brig3_deployment.bookingLength');
+		
+		if (env == 'Production'){
+			if (timeSlot9 == true){
+				newStart = new GlideDateTime(startDate);
+				newStart.addSeconds(32401); //add 9 Hours
+				newEnd = new GlideDateTime(startDate);
+				newEnd.addSeconds(32400);
+				newEnd.add(meetingLength);
+				blockSlot1(newStart,newEnd,env);
+			}
+			if (timeSlot11 == true){
+				newStart = new GlideDateTime(startDate);
+				newStart.addSeconds(39601); //add 9 Hours
+				newEnd = new GlideDateTime(startDate);
+				newEnd.addSeconds(39600);
+				newEnd.add(meetingLength);
+				blockSlot1(newStart,newEnd,env);
+			}
+			if (timeSlot13 == true){
+				newStart = new GlideDateTime(startDate);
+				newStart.addSeconds(46801); //add 9 Hours
+				newEnd = new GlideDateTime(startDate);
+				newEnd.addSeconds(46800);
+				newEnd.add(meetingLength);
+				blockSlot1(newStart,newEnd,env);
+			}
+			if (timeSlot15 == true){
+				newStart = new GlideDateTime(startDate);
+				newStart.addSeconds(54001); //add 9 Hours
+				newEnd = new GlideDateTime(startDate);
+				newEnd.addSeconds(54000);
+				newEnd.add(meetingLength);
+				blockSlot1(newStart,newEnd,env);
+			}
+		}
+		else if (env == 'Staging'){
+			newStart = new GlideDateTime(startDate);
+			newStart.addSeconds(32400); //add 9 Hours
+			newEnd = new GlideDateTime(newStart);
+			newEnd.addSeconds(28800); //add 8 Hours
+			blockSlot1(newStart,newEnd,env);
+		}
+		
+		function blockSlot1(newStart,newEnd,env) {
+			var cal = '';
+			if (env == 'Production')
+				cal = gs.getProperty('x_brig3_deployment.productionCalendar');
+			else if (env == 'Staging')
+				cal = gs.getProperty('x_brig3_deployment.stagingCalendar');
+			var scheduleStart = new GlideScheduleDateTime(newStart.getDisplayValue());
+			var scheduleEnd = new GlideScheduleDateTime(newEnd.getDisplayValue());
+			var blockTime1 = new GlideRecord('cmn_schedule_span');
+			blockTime1.addQuery('start_date_time',scheduleStart);
+			blockTime1.addQuery('end_date_time',scheduleEnd);
+			blockTime1.addQuery('schedule',cal);
+			blockTime1.query();
 			
-			// 			blockTime.addQuery('start_date_time',scheduleStart);
-			// 			blockTime.addQuery('schedule',cal);
-			// 			//blockTime.addQuery('end_date_time',scheduleEnd);
-			// 			blockTime.query();
-			
-			// 			if (blockTime.next()){
-				// 				current.setAbortAction(true);
-				// 			}
-				// 			else if (!blockTime.next()){
-					// 				blockTime.initialize();
-					// 				blockTime.name = 'No Resource';
-					// 				blockTime.type = 'appointment';
-					// 				blockTime.show_as = 'busy';
-					// 				blockTime.start_date_time = scheduleStart;
-					// 				blockTime.end_date_time = scheduleEnd;
-					// 				if (env == 'Production')
-					// 					blockTime.schedule = gs.getProperty('x_brig3_deployment.productionCalendar');
-					// 				else if (env == 'Staging')
-					// 					blockTime.schedule = gs.getProperty('x_brig3_deployment.stagingCalendar');
-					// 				blockTime.insert();
-					// 			}
-				}
-			},
-			
-			blockCalendar: function(startDate,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15) {
-				var newStart = '';
-				var newEnd = '';
-				var start = new GlideDateTime(startDate);
-				var meetingLength = gs.getProperty('x_brig3_deployment.bookingLength');
+			if (blockTime1.next()){
+				current.setAbortAction(true);
 				
-				if (env == 'Production'){
-					if (timeSlot9 == true){
-						newStart = new GlideDateTime(startDate);
-						newStart.addSeconds(32401); //add 9 Hours
-						newEnd = new GlideDateTime(startDate);
-						newEnd.addSeconds(32400);
-						newEnd.add(meetingLength);
-						blockSlot1(newStart,newEnd,env);
-					}
-					if (timeSlot11 == true){
-						newStart = new GlideDateTime(startDate);
-						newStart.addSeconds(39601); //add 9 Hours
-						newEnd = new GlideDateTime(startDate);
-						newEnd.addSeconds(39600);
-						newEnd.add(meetingLength);
-						blockSlot1(newStart,newEnd,env);
-					}
-					if (timeSlot13 == true){
-						newStart = new GlideDateTime(startDate);
-						newStart.addSeconds(46801); //add 9 Hours
-						newEnd = new GlideDateTime(startDate);
-						newEnd.addSeconds(46800);
-						newEnd.add(meetingLength);
-						blockSlot1(newStart,newEnd,env);
-					}
-					if (timeSlot15 == true){
-						newStart = new GlideDateTime(startDate);
-						newStart.addSeconds(54001); //add 9 Hours
-						newEnd = new GlideDateTime(startDate);
-						newEnd.addSeconds(54000);
-						newEnd.add(meetingLength);
-						blockSlot1(newStart,newEnd,env);
-					}
-				}
-				else if (env == 'Staging'){
-					newStart = new GlideDateTime(startDate);
-					newStart.addSeconds(32400); //add 9 Hours
-					newEnd = new GlideDateTime(newStart);
-					newEnd.addSeconds(28800); //add 8 Hours
-					blockSlot1(newStart,newEnd,env);
-				}
-				
-				function blockSlot1(newStart,newEnd,env) {
-					var cal = '';
-					if (env == 'Production')
-						cal = gs.getProperty('x_brig3_deployment.productionCalendar');
-					else if (env == 'Staging')
-						cal = gs.getProperty('x_brig3_deployment.stagingCalendar');
-					var scheduleStart = new GlideScheduleDateTime(newStart.getDisplayValue());
-					var scheduleEnd = new GlideScheduleDateTime(newEnd.getDisplayValue());
-					var blockTime1 = new GlideRecord('cmn_schedule_span');
-					blockTime1.addQuery('start_date_time',scheduleStart);
-					blockTime1.addQuery('end_date_time',scheduleEnd);
-					blockTime1.addQuery('schedule',cal);
-					blockTime1.query();
-					
-					if (blockTime1.next()){
-						current.setAbortAction(true);
-						
-					}
-					else if (!blockTime1.next()){
-						blockTime1.initialize();
-						blockTime1.name = 'No Resource';
-						blockTime1.type = 'appointment';
-						blockTime1.show_as = 'busy';
-						blockTime1.start_date_time = scheduleStart;
-						blockTime1.end_date_time = scheduleEnd;
-						if (env == 'Production')
-							blockTime1.schedule = gs.getProperty('x_brig3_deployment.productionCalendar');
-						else if (env == 'Staging')
-							blockTime1.schedule = gs.getProperty('x_brig3_deployment.stagingCalendar');
-						blockTime1.insert();
-					}
-				}
-				
-			},
-			
-			type: 'resourceManagement'
-		};]]></script>
+			}
+			else if (!blockTime1.next()){
+				blockTime1.initialize();
+				blockTime1.name = 'Block time slot';
+				blockTime1.type = 'appointment';
+				blockTime1.show_as = 'busy';
+				blockTime1.start_date_time = scheduleStart;
+				blockTime1.end_date_time = scheduleEnd;
+				if (env == 'Production')
+					blockTime1.schedule = gs.getProperty('x_brig3_deployment.productionCalendar');
+				else if (env == 'Staging')
+					blockTime1.schedule = gs.getProperty('x_brig3_deployment.stagingCalendar');
+				blockTime1.insert();
+			}
+		}
+		
+	},
+	
+	type: 'resourceManagement'
+};]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>fge.shay</sys_created_by>
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>124</sys_mod_count>
+        <sys_mod_count>129</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -368,6 +348,6 @@ resourceManagement.prototype = {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-11-22 15:39:27</sys_updated_on>
+        <sys_updated_on>2018-11-23 21:47:24</sys_updated_on>
     </sys_script_include>
 </record_update>
