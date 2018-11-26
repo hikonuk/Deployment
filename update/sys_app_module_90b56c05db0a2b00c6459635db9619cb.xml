@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <application display_value="Deployment Request">17cbaa21dbe9eb00c6459635db9619cf</application>
+        <content_page/>
+        <device_type/>
+        <filter table="cmn_schedule">sys_id=37410603dbedaf00c6459635db9619bd^EQ<item endquery="false" field="sys_id" goto="false" newquery="false" operator="=" or="false" value="37410603dbedaf00c6459635db9619bd"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>DETAIL</link_type>
+        <map_page/>
+        <mobile_app_module/>
+        <mobile_title>Resource Requests</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>cmn_schedule</name>
+        <order>12001</order>
+        <override_menu_roles>false</override_menu_roles>
+        <query>/nav_to.do?uri=cmn_schedule.do?sys_id=37410603dbedaf00c6459635db9619bd</query>
+        <report/>
+        <roles>x_brig3_deployment.resource_request_user,x_brig3_deployment.deployment_resource_user</roles>
+        <survey/>
+        <survey_overwrite>true</survey_overwrite>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-11-26 10:00:20</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>90b56c05db0a2b00c6459635db9619cb</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>cmn_schedule</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_app_module_90b56c05db0a2b00c6459635db9619cb</sys_update_name>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-26 10:03:25</sys_updated_on>
+        <timeline_page/>
+        <title>Calendar - Staging</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <view_on_mobile>false</view_on_mobile>
+        <window_name/>
+    </sys_app_module>
+</record_update>

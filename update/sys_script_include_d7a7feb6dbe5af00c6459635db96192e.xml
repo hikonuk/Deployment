@@ -47,7 +47,6 @@ resourceManagement.prototype = {
 							newStart = new GlideDateTime(date);
 							newStart.addSeconds(32401); //add 9 Hours
 							newStart1 = iCal(newStart);
-							
 							newEnd = new GlideDateTime(date);
 							newEnd.addSeconds(32400);
 							newEnd.add(meetingLength);
@@ -114,9 +113,10 @@ resourceManagement.prototype = {
 						else if (date.getDayOfWeekLocalTime() == 1 && daySlotMonday != true){
 							newStart = new GlideDateTime(date);
 							newStart.addSeconds(32400); //add 9 Hours
+							newStart1 = iCal(newStart);
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
-							blockSlot(newStart,newEnd,env);
+							blockSlot(newStart,newStart1,newEnd,env);
 						}
 						
 						if (date.getDayOfWeekLocalTime() == 2 && daySlotTuesday == true){
@@ -129,9 +129,10 @@ resourceManagement.prototype = {
 						else if (date.getDayOfWeekLocalTime() == 2 && daySlotTuesday != true){
 							newStart = new GlideDateTime(date);
 							newStart.addSeconds(32400); //add 9 Hours
+							newStart1 = iCal(newStart);
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
-							blockSlot(newStart,newEnd,env);
+							blockSlot(newStart,newStart1,newEnd,env);
 						}
 						
 						if (date.getDayOfWeekLocalTime() == 3 && daySlotWednesday == true){
@@ -144,9 +145,10 @@ resourceManagement.prototype = {
 						else if (date.getDayOfWeekLocalTime() == 3 && daySlotWednesday != true){
 							newStart = new GlideDateTime(date);
 							newStart.addSeconds(32400); //add 9 Hours
+							newStart1 = iCal(newStart);
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
-							blockSlot(newStart,newEnd,env);
+							blockSlot(newStart,newStart1,newEnd,env);
 						}
 						
 						if (date.getDayOfWeekLocalTime() == 4 && daySlotThursday == true){
@@ -159,9 +161,10 @@ resourceManagement.prototype = {
 						else if (date.getDayOfWeekLocalTime() == 4 && daySlotThursday != true){
 							newStart = new GlideDateTime(date);
 							newStart.addSeconds(32400); //add 9 Hours
+							newStart1 = iCal(newStart);
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
-							blockSlot(newStart,newEnd,env);
+							blockSlot(newStart,newStart1,newEnd,env);
 						}
 						
 						if (date.getDayOfWeekLocalTime() == 5 && daySlotFriday == true){
@@ -174,9 +177,10 @@ resourceManagement.prototype = {
 						else if (date.getDayOfWeekLocalTime() == 5 && daySlotFriday != true){
 							newStart = new GlideDateTime(date);
 							newStart.addSeconds(32400); //add 9 Hours
+							newStart1 = iCal(newStart);
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
-							blockSlot(newStart,newEnd,env);
+							blockSlot(newStart,newStart1,newEnd,env);
 						}
 					}
 				}
@@ -233,6 +237,12 @@ resourceManagement.prototype = {
 			else if (env == 'Staging')
 				cal = gs.getProperty('x_brig3_deployment.stagingCalendar');
 			
+			var newStartResource = newStart1.replace('0001','0000');
+			var addedResource = new GlideRecord('x_brig3_deployment_deployment_resource');
+			if (!(addedResource.get('start_time_ical',newStartResource))) {
+			
+			//Need to check if there is another resource before blocking the cal
+			
 			var scheduleStart = new GlideScheduleDateTime(newStart.getDisplayValue());
 			var scheduleEnd = new GlideScheduleDateTime(newEnd.getDisplayValue());
 			var blockTime = new GlideRecord('cmn_schedule_span');
@@ -247,6 +257,7 @@ resourceManagement.prototype = {
 				blockTime.schedule = cal;
 				blockTime.insert();
 			}
+		}
 		}
 	},
 	
@@ -340,7 +351,7 @@ resourceManagement.prototype = {
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>129</sys_mod_count>
+        <sys_mod_count>135</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -348,6 +359,6 @@ resourceManagement.prototype = {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-11-23 21:47:24</sys_updated_on>
+        <sys_updated_on>2018-11-26 10:37:00</sys_updated_on>
     </sys_script_include>
 </record_update>
