@@ -11,7 +11,7 @@ resourceManagement.prototype = {
 	initialize: function() {
 	},
 	
-	setResource: function(startDate,endDate,users,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15,daySlotMonday,daySlotTuesday,daySlotWednesday,daySlotThursday,daySlotFriday) {
+	setResource: function(startDate,endDate,users,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15,timeSlot17,timeSlot19,daySlotMonday,daySlotTuesday,daySlotWednesday,daySlotThursday,daySlotFriday,daySlotSaturday,daySlotSunday) {
 		
 		var newStart = '';
 		var	newEnd = '';
@@ -34,7 +34,7 @@ resourceManagement.prototype = {
 					var days = 86400000;
 					date.add(days);
 				}
-				if (date.getDayOfWeekLocalTime() != 6 && date.getDayOfWeekLocalTime() != 7){
+				//if (date.getDayOfWeekLocalTime() != 6 && date.getDayOfWeekLocalTime() != 7){
 					if (env == 'Production'){
 						if (timeSlot9 == true){
 							newStart = new GlideDateTime(date);
@@ -98,6 +98,38 @@ resourceManagement.prototype = {
 							newStart1 = iCal(newStart);
 							newEnd = new GlideDateTime(date);
 							newEnd.addSeconds(54000);
+							newEnd.add(meetingLength);
+							blockSlot(newStart,newStart1,newEnd,env);
+						}
+						if (timeSlot17 == true){
+							newStart = new GlideDateTime(date);
+							newStart.addSeconds(61200); //add 15 Hours
+							newEnd = new GlideDateTime(newStart);
+							newEnd.add(meetingLength);
+							newRecord();
+						}
+						else if (timeSlot17 != true){
+							newStart = new GlideDateTime(date);
+							newStart.addSeconds(61201); //add 9 Hours
+							newStart1 = iCal(newStart);
+							newEnd = new GlideDateTime(date);
+							newEnd.addSeconds(61200);
+							newEnd.add(meetingLength);
+							blockSlot(newStart,newStart1,newEnd,env);
+						}
+						if (timeSlot19 == true){
+							newStart = new GlideDateTime(date);
+							newStart.addSeconds(68400); //add 15 Hours
+							newEnd = new GlideDateTime(newStart);
+							newEnd.add(meetingLength);
+							newRecord();
+						}
+						else if (timeSlot19 != true){
+							newStart = new GlideDateTime(date);
+							newStart.addSeconds(68401); //add 9 Hours
+							newStart1 = iCal(newStart);
+							newEnd = new GlideDateTime(date);
+							newEnd.addSeconds(68400);
 							newEnd.add(meetingLength);
 							blockSlot(newStart,newStart1,newEnd,env);
 						}
@@ -182,9 +214,40 @@ resourceManagement.prototype = {
 							newEnd.addSeconds(28800); //add 8 Hours
 							blockSlot(newStart,newStart1,newEnd,env);
 						}
+						
+						if (date.getDayOfWeekLocalTime() == 6 && daySlotSaturday == true){
+							newStart = new GlideDateTime(date);
+							newStart.addSeconds(32400); //add 9 Hours
+							newEnd = new GlideDateTime(newStart);
+							newEnd.addSeconds(28800); //add 8 Hours
+							newRecord();
+						}
+						else if (date.getDayOfWeekLocalTime() == 6 && daySlotSaturday != true){
+							newStart = new GlideDateTime(date);
+							newStart.addSeconds(32400); //add 9 Hours
+							newStart1 = iCal(newStart);
+							newEnd = new GlideDateTime(newStart);
+							newEnd.addSeconds(28800); //add 8 Hours
+							blockSlot(newStart,newStart1,newEnd,env);
+						}
+						if (date.getDayOfWeekLocalTime() == 7 && daySlotSunday == true){
+							newStart = new GlideDateTime(date);
+							newStart.addSeconds(32400); //add 9 Hours
+							newEnd = new GlideDateTime(newStart);
+							newEnd.addSeconds(28800); //add 8 Hours
+							newRecord();
+						}
+						else if (date.getDayOfWeekLocalTime() == 7 && daySlotSunday != true){
+							newStart = new GlideDateTime(date);
+							newStart.addSeconds(32400); //add 9 Hours
+							newStart1 = iCal(newStart);
+							newEnd = new GlideDateTime(newStart);
+							newEnd.addSeconds(28800); //add 8 Hours
+							blockSlot(newStart,newStart1,newEnd,env);
+						}
 					}
 				}
-			}
+	//		}
 		}
 		function newRecord(){
 			var usersSplit = users.toString().split(',');
@@ -261,7 +324,7 @@ resourceManagement.prototype = {
 		}
 	},
 	
-	blockCalendar: function(startDate,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15) {
+	blockCalendar: function(startDate,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15,timeSlot17,timeSlot19) {
 		var newStart = '';
 		var newEnd = '';
 		var start = new GlideDateTime(startDate);
@@ -297,6 +360,22 @@ resourceManagement.prototype = {
 				newStart.addSeconds(54001); //add 9 Hours
 				newEnd = new GlideDateTime(startDate);
 				newEnd.addSeconds(54000);
+				newEnd.add(meetingLength);
+				blockSlot1(newStart,newEnd,env);
+			}
+			if (timeSlot17 == true){
+				newStart = new GlideDateTime(startDate);
+				newStart.addSeconds(61201); //add 9 Hours
+				newEnd = new GlideDateTime(startDate);
+				newEnd.addSeconds(61200);
+				newEnd.add(meetingLength);
+				blockSlot1(newStart,newEnd,env);
+			}
+			if (timeSlot19 == true){
+				newStart = new GlideDateTime(startDate);
+				newStart.addSeconds(68401); //add 9 Hours
+				newEnd = new GlideDateTime(startDate);
+				newEnd.addSeconds(68400);
 				newEnd.add(meetingLength);
 				blockSlot1(newStart,newEnd,env);
 			}
@@ -351,7 +430,7 @@ resourceManagement.prototype = {
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>135</sys_mod_count>
+        <sys_mod_count>137</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -359,6 +438,6 @@ resourceManagement.prototype = {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-11-26 10:37:00</sys_updated_on>
+        <sys_updated_on>2018-11-28 20:19:01</sys_updated_on>
     </sys_script_include>
 </record_update>
