@@ -46,7 +46,7 @@
         <element label="Remove access to success" max_length="40" name="remove_access_to_success" type="boolean"/>
         <element label="Remove accounts from Lastpass" max_length="40" name="remove_accounts_from_lastpass" type="boolean"/>
         <element label="Request dev to delete solution" max_length="40" name="request_dev_to_delete_solution" type="boolean"/>
-        <element label="Please specify which release is required (eg. 3.3.10 or 3.4 etc)" max_length="120" name="required_release" type="string"/>
+        <element label="Specific release (if required) e.g. r1-1, r3-2" max_length="120" name="required_release" type="string"/>
         <element label="Scheduled End" max_length="40" name="scheduled_end" type="glide_date_time"/>
         <element label="Scheduled Start" max_length="40" name="scheduled_start" type="glide_date_time"/>
         <element label="Scheduled Time" max_length="40" name="scheduled_time" type="glide_date_time"/>

@@ -5,7 +5,7 @@
         <client>false</client>
         <client_script_v2/>
         <comments/>
-        <condition>current.state == 10</condition>
+        <condition>current.state == 10 &amp;&amp; gs.hasRole('x_brig3_deployment.deployment_admin')</condition>
         <form_action>true</form_action>
         <form_button>true</form_button>
         <form_button_v2>false</form_button_v2>
@@ -52,7 +52,7 @@ if (scheduleTask.next()) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>db25e01fdb25ef00c6459635db9619cc</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Schedule</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -60,8 +60,8 @@ if (scheduleTask.next()) {
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_ui_action_db25e01fdb25ef00c6459635db9619cc</sys_update_name>
-        <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-08 13:48:05</sys_updated_on>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-11-30 20:52:36</sys_updated_on>
         <table>x_brig3_deployment_deployment_request</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>
