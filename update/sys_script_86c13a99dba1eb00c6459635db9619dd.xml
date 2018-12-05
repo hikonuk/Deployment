@@ -114,13 +114,15 @@
 		assignEngineer.query();
 		
 		if (assignEngineer.next()) {
+			gs.info('HIKON - Book Eng');
 			if (deployTask.state == 10)
 				assignEngineer.state = 'Requested';
 			if (deployTask.state == 20)
 				assignEngineer.state = 'Booked';
 			assignEngineer.task = deployTask.sys_id;
 			deployTask.resource_record = assignEngineer.sys_id;
-			assignEngineer.update();
+			gs.info('HIKON - eng State: ' + assignEngineer.state);
+			gs.info('HIKON - eng Update: ' + assignEngineer.update());
 			return assignEngineer.engineer;
 		}
 		
@@ -133,7 +135,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>86c13a99dba1eb00c6459635db9619dd</sys_id>
-        <sys_mod_count>42</sys_mod_count>
+        <sys_mod_count>43</sys_mod_count>
         <sys_name>Hikon - Book, Reschedule or Delete</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -141,8 +143,8 @@
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_86c13a99dba1eb00c6459635db9619dd</sys_update_name>
-        <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-12 21:10:35</sys_updated_on>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-12-05 14:04:32</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

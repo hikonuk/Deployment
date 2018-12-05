@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role_contains">
+    <sys_user_role_contains action="INSERT_OR_UPDATE">
+        <contains display_value="x_brig3_deployment.deployment_request_user" name="x_brig3_deployment.deployment_request_user">1bcbaa21dbe9eb00c6459635db9619c7</contains>
+        <role display_value="x_brig3_deployment.deployment_user" name="x_brig3_deployment.deployment_user">30edd897db25ef00c6459635db96192b</role>
+        <sys_class_name>sys_user_role_contains</sys_class_name>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-12-05 13:09:49</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6b57e3f3dbca6740342ef3571d96197f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_brig3_deployment.deployment_request_user.x_brig3_deployment.deployment_user</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_update_name>sys_user_role_contains_6b57e3f3dbca6740342ef3571d96197f</sys_update_name>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-12-05 13:09:49</sys_updated_on>
+    </sys_user_role_contains>
+</record_update>

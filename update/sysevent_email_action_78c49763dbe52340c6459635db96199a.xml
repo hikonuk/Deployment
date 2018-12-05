@@ -61,7 +61,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>78c49763dbe52340c6459635db96199a</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>8</sys_mod_count>
         <sys_name>Deployment Request - Meeting Invite</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -69,10 +69,10 @@
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sysevent_email_action_78c49763dbe52340c6459635db96199a</sys_update_name>
-        <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-10 18:26:16</sys_updated_on>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-12-01 12:58:11</sys_updated_on>
         <sys_version>2</sys_version>
-        <template display_value="Deployment Request - Invite">29665ba3dbe52340c6459635db961983</template>
+        <template display_value="Deployment Request - Invite2">176db6eedb42e340342ef3571d9619c3</template>
         <type>vcalendar</type>
         <weight>0</weight>
     </sysevent_email_action>
