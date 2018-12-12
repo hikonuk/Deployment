@@ -279,6 +279,8 @@ resourceManagement.prototype = {
 			var a = new GlideDateTime(timeToSet);
 			var year = a.getYearUTC().toString();
 			var month = a.getMonthUTC().toString();
+			if (month < 10)
+				month = '0'+month;
 			var day = a.getDayOfMonthUTC().toString();
 			if (day < 10)
 				day = '0'+day;
@@ -430,7 +432,7 @@ resourceManagement.prototype = {
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>137</sys_mod_count>
+        <sys_mod_count>138</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -438,6 +440,6 @@ resourceManagement.prototype = {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-11-28 20:19:01</sys_updated_on>
+        <sys_updated_on>2018-12-12 15:00:37</sys_updated_on>
     </sys_script_include>
 </record_update>
