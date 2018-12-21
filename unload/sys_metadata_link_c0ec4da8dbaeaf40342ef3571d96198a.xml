@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
     <sys_metadata_link action="INSERT_OR_UPDATE">
-        <directory>update</directory>
-        <documentkey>b7755653db2def00c6459635db961970</documentkey>
+        <directory>unload</directory>
+        <documentkey>17f32993dbe5ef00c6459635db961917</documentkey>
         <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="x_brig3_deployment_resource_request">
     <x_brig3_deployment_resource_request action="INSERT_OR_UPDATE">
-        <active>true</active>
+        <active>false</active>
         <activity_due/>
         <additional_assignee_list/>
         <approval>not requested</approval>
@@ -16,8 +16,8 @@
         <business_service/>
         <calendar_duration/>
         <close_notes/>
-        <closed_at/>
-        <closed_by/>
+        <closed_at>2018-11-08 21:33:31</closed_at>
+        <closed_by display_value="Shay Faingold">aaec5e86db733200cb5173200f961929</closed_by>
         <cmdb_ci/>
         <comments/>
         <comments_and_work_notes/>
@@ -25,41 +25,41 @@
         <contact_type/>
         <correlation_display/>
         <correlation_id/>
-        <count_from_today>6</count_from_today>
+        <count_from_today>15</count_from_today>
         <delivery_plan/>
         <delivery_task/>
         <description/>
         <due_date/>
-        <environment>Staging</environment>
+        <environment>Production</environment>
         <escalation>0</escalation>
         <expected_start/>
         <follow_up/>
         <group_list/>
         <impact>3</impact>
         <knowledge>false</knowledge>
-        <latest_date>2018-11-14 17:00:00</latest_date>
+        <latest_date>2019-01-03 15:00:00</latest_date>
         <location/>
         <made_sla>true</made_sla>
-        <number>TASK0020352</number>
-        <opened_at>2018-11-08 21:23:45</opened_at>
+        <number>TASK0020346</number>
+        <opened_at>2018-11-08 17:47:27</opened_at>
         <opened_by display_value="Shay Faingold">aaec5e86db733200cb5173200f961929</opened_by>
         <order/>
         <parent/>
         <priority/>
         <reassignment_count>0</reassignment_count>
         <rejection_goto/>
-        <short_description>Days Count - Staging</short_description>
+        <short_description>Days Count - Production</short_description>
         <sla_due/>
-        <state>2</state>
+        <state>3</state>
         <sys_class_name>x_brig3_deployment_resource_request</sys_class_name>
         <sys_created_by>fge.shay</sys_created_by>
-        <sys_created_on>2018-11-08 21:24:04</sys_created_on>
+        <sys_created_on>2018-11-08 17:47:37</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>b7755653db2def00c6459635db961970</sys_id>
-        <sys_mod_count>7</sys_mod_count>
-        <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-08 21:29:59</sys_updated_on>
+        <sys_id>17f32993dbe5ef00c6459635db961917</sys_id>
+        <sys_mod_count>70574</sys_mod_count>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-12-18 23:00:05</sys_updated_on>
         <time_worked/>
         <u_comments/>
         <u_work_notes_html/>
@@ -78,19 +78,19 @@
 </record_update>
 ]]></payload>
         <sys_class_name>sys_metadata_link</sys_class_name>
-        <sys_created_by>fge.shay</sys_created_by>
-        <sys_created_on>2018-11-08 21:33:05</sys_created_on>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-12-19 20:05:57</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>28a71693db2def00c6459635db96190c</sys_id>
+        <sys_id>c0ec4da8dbaeaf40342ef3571d96198a</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>TASK0020352</sys_name>
+        <sys_name>TASK0020346</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
-        <sys_update_name>sys_metadata_link_28a71693db2def00c6459635db96190c</sys_update_name>
-        <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-08 21:33:05</sys_updated_on>
-        <tablename>x_brig3_deployment_resource_request</tablename>
+        <sys_update_name>sys_metadata_link_c0ec4da8dbaeaf40342ef3571d96198a</sys_update_name>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2018-12-19 20:05:57</sys_updated_on>
+        <tablename>task</tablename>
     </sys_metadata_link>
 </record_update>

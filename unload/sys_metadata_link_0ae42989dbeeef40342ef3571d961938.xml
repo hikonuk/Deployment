@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
     <sys_metadata_link action="INSERT_OR_UPDATE">
-        <directory>update</directory>
+        <directory>unload</directory>
         <documentkey>32e24643dbedaf00c6459635db9619cd</documentkey>
         <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sn_apptmnt_booking_service_config">
     <sn_apptmnt_booking_service_config action="INSERT_OR_UPDATE">
@@ -17,7 +17,7 @@
         <catalog_item display_value="Unily Staging Deployment Request">ce12ce03dbedaf00c6459635db9619ce</catalog_item>
         <daily_end_time>17:00</daily_end_time>
         <daily_start_time>09:00</daily_start_time>
-        <future_bookable_max_days>9</future_bookable_max_days>
+        <future_bookable_max_days>7</future_bookable_max_days>
         <holiday_schedule display_value="Deployment Request - Staging">37410603dbedaf00c6459635db9619bd</holiday_schedule>
         <include_daily_break>false</include_daily_break>
         <lead_time/>
@@ -27,9 +27,9 @@
         <sys_created_by>fge.shay</sys_created_by>
         <sys_created_on>2018-11-08 01:25:14</sys_created_on>
         <sys_id>32e24643dbedaf00c6459635db9619cd</sys_id>
-        <sys_mod_count>80</sys_mod_count>
+        <sys_mod_count>115</sys_mod_count>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-11-28 20:21:04</sys_updated_on>
+        <sys_updated_on>2018-12-20 23:00:08</sys_updated_on>
         <user_contact display_value="Requested for">1a12c243dbedaf00c6459635db961934</user_contact>
         <work_duration>480</work_duration>
         <x_brig3_deployment_environment/>
@@ -37,19 +37,19 @@
 </record_update>
 ]]></payload>
         <sys_class_name>sys_metadata_link</sys_class_name>
-        <sys_created_by>fge.shay</sys_created_by>
-        <sys_created_on>2018-11-09 10:12:57</sys_created_on>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2018-12-21 11:07:55</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>638589e3dba12340c6459635db96191c</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_id>0ae42989dbeeef40342ef3571d961938</sys_id>
+        <sys_mod_count>0</sys_mod_count>
         <sys_name>Unily Deployment Request - Staging</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
-        <sys_update_name>sys_metadata_link_638589e3dba12340c6459635db96191c</sys_update_name>
+        <sys_update_name>sys_metadata_link_0ae42989dbeeef40342ef3571d961938</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-11-28 20:21:12</sys_updated_on>
+        <sys_updated_on>2018-12-21 11:07:55</sys_updated_on>
         <tablename>sn_apptmnt_booking_service_config</tablename>
     </sys_metadata_link>
 </record_update>
