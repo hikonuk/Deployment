@@ -66,8 +66,9 @@
 		var gdt = new GlideDateTime(startTime);
 		gdt.add(1000);
 		var endTime = current.end_date;
+		var gdtEnd = new GlideDateTime(endTime);
 		time.start_date_time = new GlideScheduleDateTime(gdt.getValue());
-		time.end_date_time = new GlideScheduleDateTime(endTime.getValue());
+		time.end_date_time = new GlideScheduleDateTime(gdtEnd.getValue());
 		if (env == 'Production')
 			time.schedule = gs.getProperty('x_brig3_deployment.productionCalendar');
 		else if (env == 'Staging')
@@ -95,7 +96,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>621b0b92dba56f00c6459635db9619f7</sys_id>
-        <sys_mod_count>30</sys_mod_count>
+        <sys_mod_count>31</sys_mod_count>
         <sys_name>Hikon - Block Booking</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -104,7 +105,7 @@
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_621b0b92dba56f00c6459635db9619f7</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2019-01-16 20:32:02</sys_updated_on>
+        <sys_updated_on>2019-01-21 22:08:01</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

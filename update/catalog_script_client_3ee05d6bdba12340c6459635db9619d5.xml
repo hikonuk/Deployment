@@ -25,8 +25,8 @@
 	var sn_appointmentJSON = getAppointmentJSON();
 	function getAppointmentJSON() {
 		var sn_appointment = g_form.getValue("sn_appointment");
-		if (sn_appointment)
-			return JSON.parse(sn_appointment);
+		if (sn_appointment){
+			return JSON.parse(sn_appointment);}
 		else
 			return null;
 	}
@@ -58,7 +58,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>3ee05d6bdba12340c6459635db9619d5</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>Check Free Agent - Staging</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -67,7 +67,7 @@
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>catalog_script_client_3ee05d6bdba12340c6459635db9619d5</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-12-19 19:58:13</sys_updated_on>
+        <sys_updated_on>2019-01-21 21:57:11</sys_updated_on>
         <table/>
         <type>onChange</type>
         <ui_type>0</ui_type>
