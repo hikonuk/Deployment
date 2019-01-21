@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
+        <sys_created_on>2019-01-21 16:49:51</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c17c9687db8b2b00c6459635db961934</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.x_brig3_deployment.deployment_Engineer</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_security_acl display_value="x_brig3_deployment_deployment_request.ops_review">4d7c9687db8b2b00c6459635db961933</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_c17c9687db8b2b00c6459635db961934</sys_update_name>
+        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
+        <sys_updated_on>2019-01-21 16:49:51</sys_updated_on>
+        <sys_user_role display_value="x_brig3_deployment.deployment_Engineer" name="x_brig3_deployment.deployment_Engineer">ef1e5c97db25ef00c6459635db961912</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+</record_update>
