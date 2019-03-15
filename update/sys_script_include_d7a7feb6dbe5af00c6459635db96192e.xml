@@ -37,10 +37,14 @@ resourceManagement.prototype = {
 				//if (date.getDayOfWeekLocalTime() != 6 && date.getDayOfWeekLocalTime() != 7){
 					if (env == 'Production'){
 						if (timeSlot9 == true){
-							newStart = new GlideDateTime(date);
+							newStart = new GlideDateTime(date);			
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.add(meetingLength);
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (timeSlot9 != true){
@@ -57,13 +61,16 @@ resourceManagement.prototype = {
 							newStart.addSeconds(39600); //add 11 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.add(meetingLength);
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (timeSlot11 != true){
 							newStart = new GlideDateTime(date);
 							newStart.addSeconds(39601); //add 9 Hours
 							newStart1 = iCal(newStart);
-							
 							newEnd = new GlideDateTime(date);
 							newEnd.addSeconds(39600);
 							newEnd.add(meetingLength);
@@ -74,6 +81,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(46800); //add 13 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.add(meetingLength);
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (timeSlot13 != true){
@@ -90,6 +101,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(54000); //add 15 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.add(meetingLength);
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (timeSlot15 != true){
@@ -106,6 +121,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(61200); //add 15 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.add(meetingLength);
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (timeSlot17 != true){
@@ -122,6 +141,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(68400); //add 15 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.add(meetingLength);
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (timeSlot19 != true){
@@ -140,6 +163,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (date.getDayOfWeekLocalTime() == 1 && daySlotMonday != true){
@@ -156,6 +183,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (date.getDayOfWeekLocalTime() == 2 && daySlotTuesday != true){
@@ -172,6 +203,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (date.getDayOfWeekLocalTime() == 3 && daySlotWednesday != true){
@@ -188,6 +223,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (date.getDayOfWeekLocalTime() == 4 && daySlotThursday != true){
@@ -204,6 +243,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (date.getDayOfWeekLocalTime() == 5 && daySlotFriday != true){
@@ -220,6 +263,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (date.getDayOfWeekLocalTime() == 6 && daySlotSaturday != true){
@@ -235,6 +282,10 @@ resourceManagement.prototype = {
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.addSeconds(28800); //add 8 Hours
+							if (newStart.getDSTOffset() > 0){
+								newStart.add(newStart.getDSTOffset()*-1);
+								newEnd.add(newEnd.getDSTOffset()*-1);
+							}
 							newRecord();
 						}
 						else if (date.getDayOfWeekLocalTime() == 7 && daySlotSunday != true){
@@ -262,10 +313,6 @@ resourceManagement.prototype = {
 						return;
 					}
 					else if (!addResource.next()){
-						if (newStart.getDSTOffset() > 0 && env == 'Production'){
-							newStart.add(newStart.getDSTOffset()*-1);
-							newEnd.add(newEnd.getDSTOffset()*-1);
-						}
 						addResource.initialize();
 						addResource.environment = env;
 						addResource.state = 'Free';
@@ -436,7 +483,7 @@ resourceManagement.prototype = {
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>145</sys_mod_count>
+        <sys_mod_count>151</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -444,6 +491,6 @@ resourceManagement.prototype = {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2019-03-15 17:32:06</sys_updated_on>
+        <sys_updated_on>2019-03-15 18:08:19</sys_updated_on>
     </sys_script_include>
 </record_update>
