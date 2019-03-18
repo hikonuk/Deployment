@@ -15,7 +15,9 @@ CheckFreeAgent.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		
 		var resource = new GlideRecord('x_brig3_deployment_deployment_resource');
 		var tz = new GlideDateTime(start);
-		if (tz.getDSTOffset() > 0){
+		if ((tz.getDSTOffset() > 0 && tz.getTZOffset() == 0) || ((tz.getMonthUTC() > 3 && tz.getMonthUTC() < 11 && (tz.getDSTOffset() != 0 || tz.getTZOffset() > 24200000) ))) {
+			if (tz.getDSTOffset() == 0)
+				tz.add(-3600000);
 			tz.add(tz.getDSTOffset()*-1);
 		}
 		resource.addQuery('start_date',tz);//start);
@@ -38,7 +40,7 @@ CheckFreeAgent.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_on>2018-11-08 22:22:54</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>ca10aed7db2def00c6459635db961928</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>27</sys_mod_count>
         <sys_name>CheckFreeAgent</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -46,6 +48,6 @@ CheckFreeAgent.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_ca10aed7db2def00c6459635db961928</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2019-03-15 18:20:11</sys_updated_on>
+        <sys_updated_on>2019-03-18 21:27:09</sys_updated_on>
     </sys_script_include>
 </record_update>

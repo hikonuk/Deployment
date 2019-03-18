@@ -37,7 +37,7 @@ resourceManagement.prototype = {
 				//if (date.getDayOfWeekLocalTime() != 6 && date.getDayOfWeekLocalTime() != 7){
 					if (env == 'Production'){
 						if (timeSlot9 == true){
-							newStart = new GlideDateTime(date);			
+							newStart = new GlideDateTime(date);
 							newStart.addSeconds(32400); //add 9 Hours
 							newEnd = new GlideDateTime(newStart);
 							newEnd.add(meetingLength);
@@ -352,138 +352,165 @@ resourceManagement.prototype = {
 					cal = gs.getProperty('x_brig3_deployment.productionCalendar');
 				else if (env == 'Staging')
 					cal = gs.getProperty('x_brig3_deployment.stagingCalendar');
-				
-				var newStartResource = newStart1.replace('0001','0000');
-				var addedResource = new GlideRecord('x_brig3_deployment_deployment_resource');
-				if (!(addedResource.get('start_time_ical',newStartResource))) {
-					
-					//Need to check if there is another resource before blocking the cal
-					
-					var scheduleStart = new GlideScheduleDateTime(newStart.getValue());
-					var scheduleEnd = new GlideScheduleDateTime(newEnd.getValue());
-					var blockTime = new GlideRecord('cmn_schedule_span');
-					if (!(blockTime.get("start_date_time",newStart1))) {
-						
-						blockTime.initialize();
-						blockTime.name = 'No Resource';
-						blockTime.type = 'appointment';
-						blockTime.show_as = 'busy';
-						blockTime.start_date_time = scheduleStart;
-						blockTime.end_date_time = scheduleEnd;
-						blockTime.schedule = cal;
-						blockTime.insert();
+				var newStartGD = new GlideDateTime(newStart);
+				var newTime = '';
+				//gs.info('AAAAAA: ' + newStart1 + ' GDT: ' + newStartGD.getDSTOffset() + ' indexOf: ' + newStart1.indexOf('T100001'));
+				if (newStartGD.getDSTOffset() > 0){
+					if (newStart1.indexOf('T100001') > 0){
+						newTime = newStart1.replace('T100001','T090001');
+					}
+					if (newStart1.indexOf('T120001') > 0) {
+						newTime = newStart1.replace('T120001','T110001');
+					}
+					if (newStart1.indexOf('T140001') > 0){
+						newTime = newStart1.replace('T140001','T130001');
+					}
+					if (newStart1.indexOf('T160001') > 0) {
+						newTime = newStart1.replace('T160001','T150001');
+					}
+					if (newStart1.indexOf('T180001') > 0) {
+						newTime = newStart1.replace('T180001','T170001');
+					}
+					if (newStart1.indexOf('T200001') > 0) {
+						newTime = newStart1.replace('T200001','T190001');
 					}
 				}
-			}
-		},
-		
-		blockCalendar: function(startDate,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15,timeSlot17,timeSlot19) {
-			var newStart = '';
-			var newEnd = '';
-			var start = new GlideDateTime(startDate);
-			var meetingLength = gs.getProperty('x_brig3_deployment.bookingLength');
+					else {
+						newTime = newStart1;
+					}
+			//	gs.info('AAAAAAA New Time: ' + newTime + ' TIME: ' + newStartGD);
+					var newStartResource = newTime.replace('0001','0000');
+					var addedResource = new GlideRecord('x_brig3_deployment_deployment_resource');
+					if (!(addedResource.get('start_time_ical',newStartResource))) {
+						
+						//Need to check if there is another resource before blocking the cal
+						
+						var scheduleStart = new GlideScheduleDateTime(newStart.getValue());
+					//	gs.info('START: ' + scheduleStart);
+						var scheduleEnd = new GlideScheduleDateTime(newEnd.getValue());
+						var blockTime = new GlideRecord('cmn_schedule_span');
+						if (!(blockTime.get("start_date_time",newTime))) {
+							
+							blockTime.initialize();
+							blockTime.name = 'No Resource';
+							blockTime.type = 'appointment';
+							blockTime.show_as = 'busy';
+							blockTime.start_date_time = scheduleStart;
+							blockTime.end_date_time = scheduleEnd;
+							blockTime.schedule = cal;
+							blockTime.insert();
+						}
+					}
+				}
+			},
 			
-			if (env == 'Production'){
-				if (timeSlot9 == true){
-					newStart = new GlideDateTime(startDate);
-					newStart.addSeconds(32401); //add 9 Hours
-					newEnd = new GlideDateTime(startDate);
-					newEnd.addSeconds(32400);
-					newEnd.add(meetingLength);
-					blockSlot1(newStart,newEnd,env);
-				}
-				if (timeSlot11 == true){
-					newStart = new GlideDateTime(startDate);
-					newStart.addSeconds(39601); //add 9 Hours
-					newEnd = new GlideDateTime(startDate);
-					newEnd.addSeconds(39600);
-					newEnd.add(meetingLength);
-					blockSlot1(newStart,newEnd,env);
-				}
-				if (timeSlot13 == true){
-					newStart = new GlideDateTime(startDate);
-					newStart.addSeconds(46801); //add 9 Hours
-					newEnd = new GlideDateTime(startDate);
-					newEnd.addSeconds(46800);
-					newEnd.add(meetingLength);
-					blockSlot1(newStart,newEnd,env);
-				}
-				if (timeSlot15 == true){
-					newStart = new GlideDateTime(startDate);
-					newStart.addSeconds(54001); //add 9 Hours
-					newEnd = new GlideDateTime(startDate);
-					newEnd.addSeconds(54000);
-					newEnd.add(meetingLength);
-					blockSlot1(newStart,newEnd,env);
-				}
-				if (timeSlot17 == true){
-					newStart = new GlideDateTime(startDate);
-					newStart.addSeconds(61201); //add 9 Hours
-					newEnd = new GlideDateTime(startDate);
-					newEnd.addSeconds(61200);
-					newEnd.add(meetingLength);
-					blockSlot1(newStart,newEnd,env);
-				}
-				if (timeSlot19 == true){
-					newStart = new GlideDateTime(startDate);
-					newStart.addSeconds(68401); //add 9 Hours
-					newEnd = new GlideDateTime(startDate);
-					newEnd.addSeconds(68400);
-					newEnd.add(meetingLength);
-					blockSlot1(newStart,newEnd,env);
-				}
-			}
-			else if (env == 'Staging'){
-				newStart = new GlideDateTime(startDate);
-				newStart.addSeconds(32400); //add 9 Hours
-				newEnd = new GlideDateTime(newStart);
-				newEnd.addSeconds(28800); //add 8 Hours
-				blockSlot1(newStart,newEnd,env);
-			}
-			
-			function blockSlot1(newStart,newEnd,env) {
-				var cal = '';
-				if (env == 'Production')
-					cal = gs.getProperty('x_brig3_deployment.productionCalendar');
-				else if (env == 'Staging')
-					cal = gs.getProperty('x_brig3_deployment.stagingCalendar');
-				var scheduleStart = new GlideScheduleDateTime(newStart.getValue());
-				var scheduleEnd = new GlideScheduleDateTime(newEnd.getValue());
-				var blockTime1 = new GlideRecord('cmn_schedule_span');
-				blockTime1.addQuery('start_date_time',scheduleStart);
-				blockTime1.addQuery('end_date_time',scheduleEnd);
-				blockTime1.addQuery('schedule',cal);
-				blockTime1.query();
+			blockCalendar: function(startDate,env,timeSlot9,timeSlot11,timeSlot13,timeSlot15,timeSlot17,timeSlot19) {
+				var newStart = '';
+				var newEnd = '';
+				var start = new GlideDateTime(startDate);
+				var meetingLength = gs.getProperty('x_brig3_deployment.bookingLength');
 				
-				if (blockTime1.next()){
-					current.setAbortAction(true);
-					
+				if (env == 'Production'){
+					if (timeSlot9 == true){
+						newStart = new GlideDateTime(startDate);
+						newStart.addSeconds(32401); //add 9 Hours
+						newEnd = new GlideDateTime(startDate);
+						newEnd.addSeconds(32400);
+						newEnd.add(meetingLength);
+						blockSlot1(newStart,newEnd,env);
+					}
+					if (timeSlot11 == true){
+						newStart = new GlideDateTime(startDate);
+						newStart.addSeconds(39601); //add 9 Hours
+						newEnd = new GlideDateTime(startDate);
+						newEnd.addSeconds(39600);
+						newEnd.add(meetingLength);
+						blockSlot1(newStart,newEnd,env);
+					}
+					if (timeSlot13 == true){
+						newStart = new GlideDateTime(startDate);
+						newStart.addSeconds(46801); //add 9 Hours
+						newEnd = new GlideDateTime(startDate);
+						newEnd.addSeconds(46800);
+						newEnd.add(meetingLength);
+						blockSlot1(newStart,newEnd,env);
+					}
+					if (timeSlot15 == true){
+						newStart = new GlideDateTime(startDate);
+						newStart.addSeconds(54001); //add 9 Hours
+						newEnd = new GlideDateTime(startDate);
+						newEnd.addSeconds(54000);
+						newEnd.add(meetingLength);
+						blockSlot1(newStart,newEnd,env);
+					}
+					if (timeSlot17 == true){
+						newStart = new GlideDateTime(startDate);
+						newStart.addSeconds(61201); //add 9 Hours
+						newEnd = new GlideDateTime(startDate);
+						newEnd.addSeconds(61200);
+						newEnd.add(meetingLength);
+						blockSlot1(newStart,newEnd,env);
+					}
+					if (timeSlot19 == true){
+						newStart = new GlideDateTime(startDate);
+						newStart.addSeconds(68401); //add 9 Hours
+						newEnd = new GlideDateTime(startDate);
+						newEnd.addSeconds(68400);
+						newEnd.add(meetingLength);
+						blockSlot1(newStart,newEnd,env);
+					}
 				}
-				else if (!blockTime1.next()){
-					blockTime1.initialize();
-					blockTime1.name = 'Block time slot';
-					blockTime1.type = 'appointment';
-					blockTime1.show_as = 'busy';
-					blockTime1.start_date_time = scheduleStart;
-					blockTime1.end_date_time = scheduleEnd;
+				else if (env == 'Staging'){
+					newStart = new GlideDateTime(startDate);
+					newStart.addSeconds(32400); //add 9 Hours
+					newEnd = new GlideDateTime(newStart);
+					newEnd.addSeconds(28800); //add 8 Hours
+					blockSlot1(newStart,newEnd,env);
+				}
+				
+				function blockSlot1(newStart,newEnd,env) {
+					var cal = '';
 					if (env == 'Production')
-						blockTime1.schedule = gs.getProperty('x_brig3_deployment.productionCalendar');
+						cal = gs.getProperty('x_brig3_deployment.productionCalendar');
 					else if (env == 'Staging')
-						blockTime1.schedule = gs.getProperty('x_brig3_deployment.stagingCalendar');
-					blockTime1.insert();
+						cal = gs.getProperty('x_brig3_deployment.stagingCalendar');
+					var scheduleStart = new GlideScheduleDateTime(newStart.getValue());
+					var scheduleEnd = new GlideScheduleDateTime(newEnd.getValue());
+					var blockTime1 = new GlideRecord('cmn_schedule_span');
+					blockTime1.addQuery('start_date_time',scheduleStart);
+					blockTime1.addQuery('end_date_time',scheduleEnd);
+					blockTime1.addQuery('schedule',cal);
+					blockTime1.query();
+					
+					if (blockTime1.next()){
+						current.setAbortAction(true);
+						
+					}
+					else if (!blockTime1.next()){
+						blockTime1.initialize();
+						blockTime1.name = 'Block time slot';
+						blockTime1.type = 'appointment';
+						blockTime1.show_as = 'busy';
+						blockTime1.start_date_time = scheduleStart;
+						blockTime1.end_date_time = scheduleEnd;
+						if (env == 'Production')
+							blockTime1.schedule = gs.getProperty('x_brig3_deployment.productionCalendar');
+						else if (env == 'Staging')
+							blockTime1.schedule = gs.getProperty('x_brig3_deployment.stagingCalendar');
+						blockTime1.insert();
+					}
 				}
-			}
+				
+			},
 			
-		},
-		
-		type: 'resourceManagement'
-	};]]></script>
+			type: 'resourceManagement'
+		};]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>fge.shay</sys_created_by>
         <sys_created_on>2018-11-07 12:11:07</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>d7a7feb6dbe5af00c6459635db96192e</sys_id>
-        <sys_mod_count>151</sys_mod_count>
+        <sys_mod_count>170</sys_mod_count>
         <sys_name>resourceManagement</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy>read</sys_policy>
@@ -491,6 +518,6 @@ resourceManagement.prototype = {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_include_d7a7feb6dbe5af00c6459635db96192e</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2019-03-15 18:08:19</sys_updated_on>
+        <sys_updated_on>2019-03-18 22:38:00</sys_updated_on>
     </sys_script_include>
 </record_update>
