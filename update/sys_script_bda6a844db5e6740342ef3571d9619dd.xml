@@ -46,6 +46,10 @@
 	var endTime = new GlideDateTime();
 		endTime.setValue(sn_appointmentJSON.selectedWindow.actualEnd);
 	gs.info('HIKON - Start & end: ' + startTime + ' - ' + endTime);
+	if (startTime.getMonthUTC() > 3 && startTime.getMonthUTC() < 11){
+		startTime.add(-3600000);
+		endTime.add(-3600000);
+	}
 	current.start = startTime;
 	current.end = endTime;
 })(current, previous);]]></script>
@@ -56,7 +60,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>bda6a844db5e6740342ef3571d9619dd</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>Hikon - Fix Appointment Time</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -65,7 +69,7 @@
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_bda6a844db5e6740342ef3571d9619dd</sys_update_name>
         <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2018-12-05 18:10:02</sys_updated_on>
+        <sys_updated_on>2019-03-19 12:21:21</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
