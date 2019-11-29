@@ -2,6 +2,7 @@
     <sys_app_module action="INSERT_OR_UPDATE">
         <active>true</active>
         <application display_value="Deployment Request">17cbaa21dbe9eb00c6459635db9619cf</application>
+        <assessment/>
         <content_page/>
         <device_type/>
         <filter table="x_brig3_deployment_deployment_request">expected_startONToday@javascript:gs.beginningOfToday()@javascript:gs.endOfToday()^EQ<item endquery="false" field="expected_start" goto="false" newquery="false" operator="ON" or="false" value="Today@javascript:gs.beginningOfToday()@javascript:gs.endOfToday()"/>

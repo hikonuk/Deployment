@@ -3,126 +3,140 @@
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>assigned_to</element>
             <position>0</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>072a9f21db6deb00c6459635db96193e</sys_id>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>8245bc6adb044410ad68ff361d961947</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>expected_start</element>
             <position>1</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>8b2a9f21db6deb00c6459635db96193e</sys_id>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>4a45bc6adb044410ad68ff361d961947</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>scheduled_start</element>
             <position>2</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>0f2a9f21db6deb00c6459635db96193e</sys_id>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>ca45bc6adb044410ad68ff361d961947</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>scheduled_end</element>
             <position>3</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>8f2a9f21db6deb00c6459635db96193e</sys_id>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>4e45bc6adb044410ad68ff361d961947</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>calendar_duration</element>
             <position>4</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>032a9f21db6deb00c6459635db96193f</sys_id>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>ce45bc6adb044410ad68ff361d961947</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.split</element>
             <position>5</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>832a9f21db6deb00c6459635db96193f</sys_id>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>4245bc6adb044410ad68ff361d961948</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>specific_time</element>
+            <element>u_reference_1</element>
             <position>6</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>072a9f21db6deb00c6459635db96193f</sys_id>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>c245bc6adb044410ad68ff361d961948</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>specific_time</element>
+            <position>7</position>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>4645bc6adb044410ad68ff361d961948</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>out_of_hours</element>
-            <position>7</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>872a9f21db6deb00c6459635db96193f</sys_id>
+            <position>8</position>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>c645bc6adb044410ad68ff361d961948</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>has_appointment</element>
-            <position>8</position>
-            <sys_created_by>fge.shay</sys_created_by>
-            <sys_created_on>2018-11-03 15:54:26</sys_created_on>
-            <sys_id>0b2a9f21db6deb00c6459635db96193f</sys_id>
+            <position>9</position>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-25 09:16:03</sys_created_on>
+            <sys_id>4a45bc6adb044410ad68ff361d961948</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Schedule" display_value="Schedule" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619ce</sys_ui_section>
-            <sys_updated_by>fge.shay</sys_updated_by>
-            <sys_updated_on>2018-11-03 15:54:26</sys_updated_on>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-25 09:16:03</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

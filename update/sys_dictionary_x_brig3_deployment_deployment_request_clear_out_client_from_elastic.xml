@@ -14,7 +14,7 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>Clear out client from elastic</column_label>
+        <column_label>Clear out client from elastic including deleting yml file from shared services</column_label>
         <comments/>
         <create_roles/>
         <default_value/>
@@ -54,16 +54,16 @@
         <sys_created_by>fge.shay</sys_created_by>
         <sys_created_on>2018-11-03 12:45:29</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>25ee66e1dbe9eb00c6459635db961953</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>Clear out client from elastic</sys_name>
+        <sys_id>b5637250db1a2b80a817f3561d96196b</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Clear out client from elastic including deleting yml file from shared services</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_dictionary_x_brig3_deployment_deployment_request_clear_out_client_from_elastic</sys_update_name>
-        <sys_updated_by>fge.shay</sys_updated_by>
-        <sys_updated_on>2018-11-03 12:45:29</sys_updated_on>
+        <sys_updated_by>Lewis.Murrell@brightstarr.com</sys_updated_by>
+        <sys_updated_on>2019-05-24 08:54:27</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

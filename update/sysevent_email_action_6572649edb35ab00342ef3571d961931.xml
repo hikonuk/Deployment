@@ -2,7 +2,7 @@
     <sysevent_email_action action="INSERT_OR_UPDATE">
         <action_insert>false</action_insert>
         <action_update>true</action_update>
-        <active>true</active>
+        <active>false</active>
         <advanced_condition/>
         <affected_field_on_event/>
         <category display_value="Deployment Request" name="Deployment Request">08e797e3dbe52340c6459635db9619e2</category>
@@ -64,7 +64,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>6572649edb35ab00342ef3571d961931</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Deployment Request Started - Staging</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -72,8 +72,8 @@
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sysevent_email_action_6572649edb35ab00342ef3571d961931</sys_update_name>
-        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2019-01-04 08:20:22</sys_updated_on>
+        <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+        <sys_updated_on>2019-11-18 12:40:27</sys_updated_on>
         <sys_version>2</sys_version>
         <template display_value="Unsubscribe and Preferences">7ed0481f3b0b2200c869c2c703efc487</template>
         <type>email</type>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="u_screenshots_added" label="Screenshot taken of homepage and top level navigation pages (and added to DEP)" language="en" table="x_brig3_deployment_deployment_request">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_screenshots_added</element>
+            <help/>
+            <hint/>
+            <label>Screenshot taken of homepage and top level navigation pages (and added to DEP)</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <plural>Screenshot taken of homepage and top level navigation pages (and added to DEP)</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>Lewis.Murrell@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-09-30 10:30:53</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>4756be4cdb54c810ad68ff361d961913</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>Screenshot taken of homepage and top level navigation pages (and added to DEP)</sys_name>
+            <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+            <sys_update_name>sys_documentation_x_brig3_deployment_deployment_request_u_screenshots_added_en</sys_update_name>
+            <sys_updated_by>Lewis.Murrell@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-09-30 10:37:14</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

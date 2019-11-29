@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element attributes="live_feed=true" audit="true" extends="task" label="Deployment Request" max_length="40" name="x_brig3_deployment_deployment_request" type="collection">
         <element label="Appointment" max_length="32" name="appointment" reference="sn_apptmnt_booking_appointment_booking" type="reference"/>
-        <element label="Clear out client from elastic" max_length="40" name="clear_out_client_from_elastic" type="boolean"/>
+        <element label="Clear out client from elastic including deleting yml file from shared services" max_length="40" name="clear_out_client_from_elastic" type="boolean"/>
         <element active="false" label="Client Configuration Form Link" max_length="120" name="client_configuration_form_link" type="string"/>
         <element label="CSM Comments - If answered Yes to above, please provide specific details" max_length="4000" name="csm_comments" type="string"/>
         <element label="Delete all users in company from SNOW" max_length="40" name="delete_all_users_in_company_from_snow" type="boolean"/>
@@ -31,7 +31,7 @@
         <element active="false" label="Epic VSO Link" max_length="120" name="epic_vso_link" type="string"/>
         <element label="Expected End" max_length="40" name="expected_end" type="glide_date_time"/>
         <element label="Has appointment" max_length="40" name="has_appointment" type="boolean"/>
-        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;&#9;&#13;&#10;&#9;var config = new GlideRecord('x_brig3_client_con_client_configuration');&#13;&#10;&#9;config.addQuery('company',current.company);&#13;&#10;&#9;config.query();&#13;&#10;&#9;if (config.next())&#13;&#10;&#9;&#9;return config.sys_id;&#13;&#10;&#9;&#13;&#10;})(current);&#13;&#10;&#13;&#10;" label="Client Configuration Link" max_length="120" name="link_to_unify_config" reference="x_brig3_client_con_client_configuration" type="reference"/>
+        <element calculation="(function calculatedFieldValue(current) {&#10;&#9;&#10;&#9;var config = new GlideRecord('x_brig3_client_con_client_configuration');&#10;&#9;config.addQuery('company',current.company);&#10;&#9;config.query();&#10;&#9;if (config.next())&#10;&#9;&#9;return config.sys_id;&#10;&#9;&#10;})(current);" label="Client Configuration Link" max_length="120" name="link_to_unify_config" reference="x_brig3_client_con_client_configuration" type="reference"/>
         <element label="Ops Review - Ops to provide response to feedback here" max_length="4000" name="ops_review" type="string"/>
         <element label="Out Of Hours Deployment" max_length="40" name="out_of_hours" type="boolean"/>
         <element label="Removed all Files from staging servers" max_length="40" name="removed_all_files_from_staging_servers" type="boolean"/>
@@ -53,25 +53,54 @@
         <element label="Specific Time Requested" max_length="40" name="specific_time" type="boolean"/>
         <element choice="1" label="Type" max_length="40" name="type" type="string">
             <choice>
-                <element inactive_on_update="false" label="New Site" sequence="100" value="New Site"/>
-                <element inactive_on_update="false" label="Upgrade" sequence="200" value="Upgrade"/>
-                <element inactive_on_update="false" label="Customisation Deployments" sequence="300" value="Customisation Deployments"/>
-                <element inactive_on_update="false" label="Variable Update" sequence="400" value="Variable Update"/>
-                <element inactive_on_update="false" label="New Demo Site" sequence="500" value="New Demo Site"/>
-                <element inactive_on_update="false" label="URL Change" sequence="600" value="URL Change"/>
+                <element inactive_on_update="false" label="New Site" sequence="0" value="New Site"/>
+                <element inactive_on_update="false" label="Upgrade" sequence="1" value="Upgrade"/>
+                <element inactive_on_update="false" label="Customisation Deployments" sequence="2" value="Customisation Deployments"/>
+                <element inactive_on_update="false" label="Variable Update" sequence="3" value="Variable Update"/>
+                <element inactive_on_update="false" label="New Demo Site" sequence="4" value="New Demo Site"/>
+                <element inactive_on_update="false" label="URL Change" sequence="5" value="URL Change"/>
+                <element inactive_on_update="false" label="Decommission" sequence="6" value="Decommission"/>
             </choice>
         </element>
-        <element label="All additional requests observed and completed" max_length="40" name="u_additional_requests_check" type="boolean"/>
-        <element label="Check DR CMS is up and running" max_length="40" name="u_check_dr_cms_is_up_and_running" type="boolean"/>
-        <element label="Open every top level navigation item" max_length="40" name="u_core_pages_load" type="boolean"/>
-        <element label="All widgets rendering on homepage" max_length="40" name="u_homepage_widgets_check" type="boolean"/>
+        <element label="Complete all approved tasks from the deployment request" max_length="40" name="u_additional_requests_check" type="boolean"/>
+        <element label="Apps and Tools opens, content shown. Able to save changes" max_length="40" name="u_appsandtools_opens_saves" type="boolean"/>
+        <element label="Check Client Wiki" max_length="40" name="u_boolean_3" type="boolean"/>
+        <element label="Complete deployment to DR (if Production and no issues found)" max_length="40" name="u_check_dr_cms_is_up_and_running" type="boolean"/>
+        <element label="Clear ElasticRedis config from Shared services" max_length="40" name="u_clearelasticredis" type="boolean"/>
+        <element label="Client branding is correct including logos (compare to screenshots)" max_length="40" name="u_client_branding_check" type="boolean"/>
+        <element label="Pages linked from Top Level Navigation load successfully without widget errors" max_length="40" name="u_core_pages_load" type="boolean"/>
+        <element label="Following opens, all tabs show content" max_length="40" name="u_following_opens_alltabs" type="boolean"/>
+        <element label="Footer doesn’t contain widget errors" max_length="40" name="u_footer_no_errors" type="boolean"/>
+        <element label="Homepage loads and doesn't contain any widget errors" max_length="40" name="u_homepage_widgets_check" type="boolean"/>
+        <element label="Notifications opens, content shown.  Settings opens and able to save changes" max_length="40" name="u_notifications_opens_settings_saves" type="boolean"/>
+        <element label="Personalisation opens, content is shown. Able to save changes" max_length="40" name="u_personalisation_shows_saves" type="boolean"/>
+        <element label="Run Warm Up Script (Production)" max_length="40" name="u_prod_warmup_script" type="boolean"/>
+        <element label="Post Deployment Reviewer" max_length="32" name="u_reference_1" reference="sys_user" type="reference"/>
+        <element label="Client Wiki" max_length="32" name="u_reference_2" reference="kb_knowledge" type="reference" use_dependent_field="true"/>
         <element label="Remove maintenance page" max_length="40" name="u_remove_maint_page_check" type="boolean"/>
-        <element label="Run CMS Provisioning" max_length="40" name="u_run_cms_prov" type="boolean"/>
+        <element label="Successfully run CMS Provisioning" max_length="40" name="u_run_cms_prov" type="boolean"/>
+        <element label="Screenshot taken of homepage and top level navigation pages (and added to DEP)" max_length="40" name="u_screenshots_added" type="boolean"/>
+        <element label="The Scripts section in the CMS loads and an existing script can be saved" max_length="40" name="u_scripts_load_and_save_success" type="boolean"/>
+        <element label="Global search show results in flyout" max_length="40" name="u_search_success_flyout" type="boolean"/>
+        <element attributes="edge_encryption_enabled=true" label="Approved Actions" max_length="4000" name="u_string_1" type="string"/>
         <element label="Check styles and scripts accessible in CMS" max_length="40" name="u_styles_and_scripts_check" type="boolean"/>
-        <element label="Successfully create news article (save only and delete after)" max_length="40" name="u_success_create_news" type="boolean"/>
-        <element label="Workspaces showing content" max_length="40" name="u_workspaces_showing_content" type="boolean"/>
+        <element label="The Styles section in the CMS loads and an existing script can be saved" max_length="40" name="u_styles_loads_and_save_success" type="boolean"/>
+        <element label="Successfully accessed CMS site" max_length="40" name="u_successfully_accessed_cms_site" type="boolean"/>
+        <element label="Successfully accessed Front End site" max_length="40" name="u_successfully_accessed_frontend" type="boolean"/>
+        <element label="Successfully create news article in CMS (save only and delete after)" max_length="40" name="u_success_create_news" type="boolean"/>
+        <element label="User Control shows options including CMS when selected" max_length="40" name="u_usercontrol_shows_options" type="boolean"/>
+        <element label="Workspace(s) open, and content is shown" max_length="40" name="u_workspaces_showing_content" type="boolean"/>
         <element label="Was this Deployment Unsuccessful from the client's perspective?" max_length="40" name="was_this_deployment_unsuccessful" type="boolean"/>
         <index name="index">
+            <element name="u_reference_2"/>
+        </index>
+        <index name="index2">
+            <element name="u_reference_1"/>
+        </index>
+        <index name="index3">
+            <element name="link_to_unify_config"/>
+        </index>
+        <index name="index4">
             <element name="appointment"/>
         </index>
     </element>

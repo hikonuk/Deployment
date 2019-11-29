@@ -27,7 +27,7 @@
         <sys_updated_on>2018-11-08 01:20:30</sys_updated_on>
         <table>x_brig3_deployment_deployment_request</table>
         <template>environment=Production^location=243813fadb29af00c6459635db961976^EQ</template>
-        <user display_value="Shay Faingold">aaec5e86db733200cb5173200f961929</user>
+        <user display_value="">aaec5e86db733200cb5173200f961929</user>
         <view/>
     </sys_template>
 </record_update>

@@ -4,7 +4,7 @@
         <condition/>
         <conditional>false</conditional>
         <name>Deployment Request - Remove a day</name>
-        <run_as display_value="Shay Faingold">aaec5e86db733200cb5173200f961929</run_as>
+        <run_as display_value="">aaec5e86db733200cb5173200f961929</run_as>
         <run_as_tz/>
         <run_dayofmonth>1</run_dayofmonth>
         <run_dayofweek>1</run_dayofweek>
