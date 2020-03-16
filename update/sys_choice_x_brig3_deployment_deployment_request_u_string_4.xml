@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_string_4" table="x_brig3_deployment_deployment_request" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_string_4</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Choice 1</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>0</sequence>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-12-20 15:10:53</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>1a3ff092dbfdc8d0c6459635db9619dd</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-12-20 15:10:53</sys_updated_on>
+            <value>Choice 1</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_string_4</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Choice 2</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>1</sequence>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-12-20 15:10:53</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>5a3ff092dbfdc8d0c6459635db9619df</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-12-20 15:10:53</sys_updated_on>
+            <value>Choice 2</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_string_4</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Choice 3</label>
+            <language>en</language>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sequence>2</sequence>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-12-20 15:10:53</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>963ff092dbfdc8d0c6459635db9619e1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-12-20 15:10:53</sys_updated_on>
+            <value>Choice 3</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_string_4</element>
+            <name>x_brig3_deployment_deployment_request</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2019-12-20 15:10:53</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>923ff092dbfdc8d0c6459635db9619de</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_string_4</sys_name>
+            <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+            <sys_update_name>sys_choice_x_brig3_deployment_deployment_request_u_string_4</sys_update_name>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2019-12-20 15:10:53</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>
