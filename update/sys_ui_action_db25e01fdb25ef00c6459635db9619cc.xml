@@ -26,7 +26,8 @@
         <name>Schedule</name>
         <onclick/>
         <order>100</order>
-        <script><![CDATA[var scheduleTask = new GlideRecord('x_brig3_deployment_deployment_task');
+        <script><![CDATA[if (current.specific_time == 'true'){
+var scheduleTask = new GlideRecord('x_brig3_deployment_deployment_task');
 scheduleTask.addQuery('parent',current.sys_id);
 scheduleTask.query();
 
@@ -41,6 +42,12 @@ if (scheduleTask.next()) {
 		current.update();
 		action.setRedirectURL(current);
 	}
+}
+}
+else {
+	current.state = 20;
+	current.update();
+	action.setRedirectURL(current);
 }]]></script>
         <show_insert>true</show_insert>
         <show_multiple_update>false</show_multiple_update>
@@ -53,7 +60,7 @@ if (scheduleTask.next()) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>db25e01fdb25ef00c6459635db9619cc</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>Schedule</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -61,8 +68,8 @@ if (scheduleTask.next()) {
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_ui_action_db25e01fdb25ef00c6459635db9619cc</sys_update_name>
-        <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-        <sys_updated_on>2019-02-28 12:06:13</sys_updated_on>
+        <sys_updated_by>shay_temp</sys_updated_by>
+        <sys_updated_on>2020-03-21 21:31:27</sys_updated_on>
         <table>x_brig3_deployment_deployment_request</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

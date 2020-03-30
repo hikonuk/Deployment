@@ -21,7 +21,7 @@
         <element label="Delete staging redis cache" max_length="40" name="delete_staging_redis_cache" type="boolean"/>
         <element label="Delete staging storage account" max_length="40" name="delete_staging_storage" type="boolean"/>
         <element label="Dev resource request ID" max_length="40" name="dev_resource_request_id" type="string"/>
-        <element choice="1" label="Environment" max_length="40" name="environment" read_only="true" type="string">
+        <element choice="1" label="Environment" max_length="40" name="environment" type="string">
             <choice>
                 <element inactive_on_update="false" label="QA" sequence="100" value="QA"/>
                 <element inactive_on_update="false" label="Staging" sequence="200" value="Staging"/>
