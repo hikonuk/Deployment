@@ -26,7 +26,7 @@
         <name>Close Deployment</name>
         <onclick/>
         <order>100</order>
-        <script><![CDATA[if (current.specific_time == 'true'){
+        <script><![CDATA[if (current.specific_time == true){
 var scheduleTask = new GlideRecord('x_brig3_deployment_deployment_task');
 scheduleTask.addQuery('parent',current.sys_id);
 scheduleTask.query();
@@ -54,7 +54,7 @@ else {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>f070ac5edb35ab00342ef3571d9619a8</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Close Deployment</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -63,7 +63,7 @@ else {
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_ui_action_f070ac5edb35ab00342ef3571d9619a8</sys_update_name>
         <sys_updated_by>shay_temp</sys_updated_by>
-        <sys_updated_on>2020-03-21 21:37:09</sys_updated_on>
+        <sys_updated_on>2020-03-31 13:55:03</sys_updated_on>
         <table>x_brig3_deployment_deployment_request</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>
