@@ -2,8 +2,10 @@
     <sysauto_report action="INSERT_OR_UPDATE">
         <active>false</active>
         <address_list/>
+        <business_calendar/>
         <condition/>
         <conditional>false</conditional>
+        <entered_time/>
         <group_list/>
         <include_detail>false</include_detail>
         <include_with/>
@@ -39,6 +41,7 @@
         <sys_update_name>sysauto_report_da44a50ddbe2abc0a817f3561d9619a6</sys_update_name>
         <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
         <sys_updated_on>2019-12-06 15:48:03</sys_updated_on>
+        <time_zone/>
         <upgrade_safe>false</upgrade_safe>
         <user_list>56255005dba722000eff79600f961994,52255005dba722000eff79600f961989,02255005dba722000eff79600f96196b,1a255005dba722000eff79600f961991,421ae62ddb385f40cbf8f5b31d9619ac,5f92afeadbe31f04cbf8f5b31d9619ce,b0501ed7db2fb340cbf8f5b31d9619ad</user_list>
         <zip>false</zip>

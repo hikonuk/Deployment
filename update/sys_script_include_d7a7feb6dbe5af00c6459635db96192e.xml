@@ -3,6 +3,7 @@
         <access>public</access>
         <active>true</active>
         <api_name>x_brig3_deployment.resourceManagement</api_name>
+        <caller_access/>
         <client_callable>false</client_callable>
         <description/>
         <name>resourceManagement</name>

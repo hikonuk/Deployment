@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element label="Appointment Booking Service Configuration" max_length="40" name="sn_apptmnt_booking_service_config" text_index="true" type="collection">
+    <element label="Appointment Booking Service Configuration" max_length="40" name="sn_apptmnt_booking_service_config" sizeclass="2" text_index="true" type="collection">
         <element choice="1" label="Environment" max_length="40" name="x_brig3_deployment_environment" type="string">
             <choice>
                 <element inactive_on_update="false" label="Staging" sequence="100" value="Staging"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element attributes="live_feed=true" audit="true" extends="task" label="Deployment Request" max_length="40" name="x_brig3_deployment_deployment_request" type="collection">
+    <element attributes="live_feed=true" audit="true" extends="task" label="Deployment Request" max_length="40" name="x_brig3_deployment_deployment_request" sizeclass="2203" type="collection">
         <element label="Appointment" max_length="32" name="appointment" reference="sn_apptmnt_booking_appointment_booking" type="reference"/>
         <element label="Clear out client from elastic including deleting yml file from shared services" max_length="40" name="clear_out_client_from_elastic" type="boolean"/>
         <element active="false" label="Client Configuration Form Link" max_length="120" name="client_configuration_form_link" type="string"/>

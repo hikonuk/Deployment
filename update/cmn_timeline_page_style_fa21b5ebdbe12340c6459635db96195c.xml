@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="cmn_timeline_page_style">
     <cmn_timeline_page_style action="INSERT_OR_UPDATE">
-        <condition table="x_brig3_deployment_deployment_request">environment=Production^stateIN20,30^EQ<item endquery="false" field="environment" goto="false" newquery="false" operator="=" or="false" value="Production"/>
-            <item endquery="false" field="state" goto="false" newquery="false" operator="IN" or="false" value="20,30"/>
+        <condition table="x_brig3_deployment_deployment_request">environment=Production^stateIN20,30^EQ<item display_value="Production" endquery="false" field="environment" goto="false" newquery="false" operator="=" or="false" value="Production"/>
+            <item display_value="20,30" endquery="false" field="state" goto="false" newquery="false" operator="IN" or="false" value="20,30"/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </condition>
         <label_color display_value="Red">65b30395a9fe3dba003277a7b660b5db</label_color>

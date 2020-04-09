@@ -7,9 +7,9 @@
         <affected_field_on_event/>
         <category display_value="Deployment Request" name="Deployment Request">08e797e3dbe52340c6459635db9619e2</category>
         <collection>x_brig3_deployment_deployment_request</collection>
-        <condition table="x_brig3_deployment_deployment_request">stateCHANGESTO30^environment=Production^type!=New Site^EQ<item endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="30"/>
-            <item endquery="false" field="environment" goto="false" newquery="false" operator="=" or="false" value="Production"/>
-            <item endquery="false" field="type" goto="false" newquery="false" operator="!=" or="false" value="New Site"/>
+        <condition table="x_brig3_deployment_deployment_request">stateCHANGESTO30^environment=Production^type!=New Site^EQ<item display_value="In Progress" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="30"/>
+            <item display_value="Production" endquery="false" field="environment" goto="false" newquery="false" operator="=" or="false" value="Production"/>
+            <item display_value="New Site" endquery="false" field="type" goto="false" newquery="false" operator="!=" or="false" value="New Site"/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </condition>
         <content_type>text/html</content_type>

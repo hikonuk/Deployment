@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sysauto_script">
     <sysauto_script action="INSERT_OR_UPDATE">
         <active>true</active>
+        <business_calendar/>
         <condition/>
         <conditional>false</conditional>
+        <entered_time/>
         <name>Deployment Request - Remove a day</name>
         <run_as display_value="">aaec5e86db733200cb5173200f961929</run_as>
         <run_as_tz/>
@@ -38,6 +40,7 @@ dateRecordS.update();]]></script>
         <sys_update_name>sysauto_script_aae8d6d3db2def00c6459635db961992</sys_update_name>
         <sys_updated_by>fge.shay</sys_updated_by>
         <sys_updated_on>2018-11-08 21:43:33</sys_updated_on>
+        <time_zone/>
         <upgrade_safe>false</upgrade_safe>
     </sysauto_script>
 </record_update>

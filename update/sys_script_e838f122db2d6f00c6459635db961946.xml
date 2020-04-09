@@ -15,7 +15,7 @@
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_brig3_deployment_deployment_resource">stateCHANGESTOFree^NQactiveCHANGESTOtrue^EQ<item endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="Free"/>
+        <filter_condition table="x_brig3_deployment_deployment_resource">stateCHANGESTOFree^NQactiveCHANGESTOtrue^EQ<item display_value="Free" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="Free"/>
             <item endquery="false" field="active" goto="false" newquery="true" operator="CHANGESTO" or="false" value="true"/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </filter_condition>
