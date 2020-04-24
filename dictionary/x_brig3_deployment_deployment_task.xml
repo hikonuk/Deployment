@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element audit="true" extends="task" label="Deployment Task" max_length="40" name="x_brig3_deployment_deployment_task" sizeclass="2240" type="collection">
+    <element audit="true" extends="task" label="Deployment Task" max_length="40" name="x_brig3_deployment_deployment_task" sizeclass="2250" type="collection">
         <element label="Appointment" max_length="32" name="appointment" reference="sn_apptmnt_booking_appointment_booking" type="reference"/>
         <element choice="1" label="Environment" max_length="40" name="environment" type="string">
             <choice>

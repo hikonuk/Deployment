@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element extends="task" label="Resource Request" max_length="40" name="x_brig3_deployment_resource_request" sizeclass="799" type="collection">
+    <element extends="task" label="Resource Request" max_length="40" name="x_brig3_deployment_resource_request" sizeclass="803" type="collection">
         <element label="Count from Today" max_length="5" name="count_from_today" type="string"/>
         <element choice="1" label="Environment" max_length="40" name="environment" type="string">
             <choice>

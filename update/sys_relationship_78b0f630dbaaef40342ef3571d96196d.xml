@@ -8,7 +8,7 @@
         <name>Deployment Incidents</name>
         <query_from/>
         <query_with><![CDATA[(function refineQuery(current, parent) {
-	current.addQuery('caller_id.company', parent.company);
+	current.addQuery('u_effected_customer',parent.company);
 	if (parent.environment == 'Production'){
 		current.addQuery('u_status','Waiting on Deployment to Production');
 	}
@@ -25,7 +25,7 @@
         <sys_created_on>2018-12-20 22:01:36</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>78b0f630dbaaef40342ef3571d96196d</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>Deployment Incidents</sys_name>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
         <sys_policy/>
@@ -33,7 +33,7 @@
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_relationship_78b0f630dbaaef40342ef3571d96196d</sys_update_name>
         <sys_updated_by>shay_temp</sys_updated_by>
-        <sys_updated_on>2019-11-18 11:57:20</sys_updated_on>
+        <sys_updated_on>2020-04-24 08:42:29</sys_updated_on>
     </sys_relationship>
     <sys_translated_text action="delete_multiple" query="documentkey=78b0f630dbaaef40342ef3571d96196d"/>
 </record_update>

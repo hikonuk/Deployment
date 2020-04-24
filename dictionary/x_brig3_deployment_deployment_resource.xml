@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element label="Deployment Resource" max_length="40" name="x_brig3_deployment_deployment_resource" sizeclass="5170" type="collection">
+    <element label="Deployment Resource" max_length="40" name="x_brig3_deployment_deployment_resource" sizeclass="5217" type="collection">
         <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
         <element label="Calendar Span" max_length="32" name="calendar_span" reference="cmn_schedule_span" type="reference"/>
         <element label="End Date" max_length="40" name="end_date" type="glide_date_time"/>
