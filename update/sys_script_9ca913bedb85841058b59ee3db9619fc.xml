@@ -32,7 +32,7 @@
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 	
 	var getInc = new GlideRecord('incident');
-	current.addQuery('u_effected_customer',current.company);
+	getInc.addQuery('u_effected_customer',current.company);
 	//getInc.addQuery('company','!=','aca27872db9b62008085f9d10f961900');
 	if (current.environment == 'Production'){
 		getInc.addQuery('u_status','Waiting on Deployment to Production');
@@ -58,7 +58,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>9ca913bedb85841058b59ee3db9619fc</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>Hikon - Close related Incidents</sys_name>
         <sys_overrides/>
         <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -67,7 +67,7 @@
         <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
         <sys_update_name>sys_script_9ca913bedb85841058b59ee3db9619fc</sys_update_name>
         <sys_updated_by>shay_temp</sys_updated_by>
-        <sys_updated_on>2020-04-24 13:29:25</sys_updated_on>
+        <sys_updated_on>2020-04-28 22:07:02</sys_updated_on>
         <template/>
         <when>async</when>
     </sys_script>
