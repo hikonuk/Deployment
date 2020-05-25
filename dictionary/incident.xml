@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element attributes="email_client=true,text_index_translations=true,query_hints=true,hasLabels=true,hasWorkflow=true,live_feed=true" audit="true" extends="task" label="Incident" max_length="40" name="incident" sizeclass="49163" text_index="true" type="collection">
+    <element attributes="email_client=true,text_index_translations=true,query_hints=true,hasLabels=true,hasWorkflow=true,live_feed=true" audit="true" extends="task" label="Incident" max_length="40" name="incident" sizeclass="49192" text_index="true" type="collection">
         <element label="Deployment" max_length="32" name="x_brig3_deployment_deployment" read_only="true" reference="x_brig3_deployment_deployment_request" type="reference"/>
         <index name="index">
             <element name="x_brig3_deployment_deployment"/>
