@@ -2,17 +2,31 @@
     <sys_ui_related sys_domain="global" table="x_brig3_deployment_deployment_request" version="2" view="">
         <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
             <filter/>
-            <list_id display_value="Deployment Request - Default view" name="x_brig3_deployment_deployment_request" related_list="NULL" sys_domain="global" view="Default view">6301fa30dbaaef40342ef3571d961979</list_id>
+            <list_id display_value="Deployment Request - Default view" name="x_brig3_deployment_deployment_request" related_list="NULL" sys_domain="global" view="Default view">0eaaaa2bdb0f141078fbbd5c689619db</list_id>
             <order_by/>
             <position>0</position>
             <related_list>REL:78b0f630dbaaef40342ef3571d96196d</related_list>
             <sys_class_name>sys_ui_related_list_entry</sys_class_name>
-            <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
-            <sys_created_on>2018-12-20 22:02:08</sys_created_on>
-            <sys_id>6b01fa30dbaaef40342ef3571d961979</sys_id>
+            <sys_created_by>shay_temp</sys_created_by>
+            <sys_created_on>2020-09-10 19:42:19</sys_created_on>
+            <sys_id>c6aaaa2bdb0f141078fbbd5c689619dc</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-            <sys_updated_on>2018-12-20 22:02:08</sys_updated_on>
+            <sys_updated_by>shay_temp</sys_updated_by>
+            <sys_updated_on>2020-09-10 19:42:19</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Deployment Request - Default view" name="x_brig3_deployment_deployment_request" related_list="NULL" sys_domain="global" view="Default view">0eaaaa2bdb0f141078fbbd5c689619db</list_id>
+            <order_by/>
+            <position>1</position>
+            <related_list>REL:cc4aeea7db0f141078fbbd5c689619cb</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>shay_temp</sys_created_by>
+            <sys_created_on>2020-09-10 19:42:19</sys_created_on>
+            <sys_id>caaaaa2bdb0f141078fbbd5c689619dc</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>shay_temp</sys_updated_by>
+            <sys_updated_on>2020-09-10 19:42:19</sys_updated_on>
         </sys_ui_related_list_entry>
         <sys_ui_related_list action="INSERT_OR_UPDATE">
             <calculated_name>Deployment Request - Default view</calculated_name>
@@ -22,12 +36,12 @@
             <position/>
             <related_list/>
             <sys_class_name>sys_ui_related_list</sys_class_name>
-            <sys_created_by>shay.faingold@hikon.co.uk</sys_created_by>
-            <sys_created_on>2018-12-20 22:02:08</sys_created_on>
+            <sys_created_by>shay_temp</sys_created_by>
+            <sys_created_on>2020-09-10 19:42:19</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>6301fa30dbaaef40342ef3571d961979</sys_id>
+            <sys_id>0eaaaa2bdb0f141078fbbd5c689619db</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>Deployment Request - Default view</sys_name>
             <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
@@ -35,8 +49,8 @@
             <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
             <sys_update_name>sys_ui_related_x_brig3_deployment_deployment_request_null</sys_update_name>
-            <sys_updated_by>shay.faingold@hikon.co.uk</sys_updated_by>
-            <sys_updated_on>2018-12-20 22:02:08</sys_updated_on>
+            <sys_updated_by>shay_temp</sys_updated_by>
+            <sys_updated_on>2020-09-10 19:42:19</sys_updated_on>
             <sys_user/>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>

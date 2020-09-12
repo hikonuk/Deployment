@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_related action="DELETE" sys_domain="global" table="x_brig3_deployment_deployment_request" version="2" view="">
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Deployment Request - Default view" name="x_brig3_deployment_deployment_request" related_list="NULL" sys_domain="global" view="Default view">0d9d9195db0f9c9078fbbd5c6896195a</list_id>
+            <order_by/>
+            <position>0</position>
+            <related_list>REL:78b0f630dbaaef40342ef3571d96196d</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2020-09-03 14:19:14</sys_created_on>
+            <sys_id>059d9195db0f9c9078fbbd5c6896195b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2020-09-03 14:19:14</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list action="INSERT_OR_UPDATE">
+            <calculated_name>Deployment Request - Default view</calculated_name>
+            <filter/>
+            <name>x_brig3_deployment_deployment_request</name>
+            <order_by/>
+            <position/>
+            <related_list/>
+            <sys_class_name>sys_ui_related_list</sys_class_name>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2020-09-03 14:19:14</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>0d9d9195db0f9c9078fbbd5c6896195a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Deployment Request - Default view</sys_name>
+            <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+            <sys_update_name>sys_ui_related_x_brig3_deployment_deployment_request_null</sys_update_name>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2020-09-03 14:19:14</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_related_list>
+    </sys_ui_related>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</application>
+        <file_path/>
+        <instance_id>6d78bb43db97be40536ad5b0cf9619d8</instance_id>
+        <instance_name>brightstarrdev</instance_name>
+        <name>sys_ui_related_x_brig3_deployment_deployment_request_null</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_related sys_domain="global" table="x_brig3_deployment_deployment_request" version="2" view=""><sys_ui_related_list_entry action="INSERT_OR_UPDATE"><filter/><list_id display_value="Deployment Request - Default view" name="x_brig3_deployment_deployment_request" related_list="NULL" sys_domain="global" view="Default view">0d9d9195db0f9c9078fbbd5c6896195a</list_id><order_by/><position>0</position><related_list>REL:78b0f630dbaaef40342ef3571d96196d</related_list><sys_class_name>sys_ui_related_list_entry</sys_class_name><sys_created_by>Matt.Parker@brightstarr.com</sys_created_by><sys_created_on>2020-09-03 14:19:14</sys_created_on><sys_id>059d9195db0f9c9078fbbd5c6896195b</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by><sys_updated_on>2020-09-03 14:19:14</sys_updated_on></sys_ui_related_list_entry><sys_ui_related_list action="INSERT_OR_UPDATE"><calculated_name>Deployment Request - Default view</calculated_name><filter/><name>x_brig3_deployment_deployment_request</name><order_by/><position/><related_list/><sys_class_name>sys_ui_related_list</sys_class_name><sys_created_by>Matt.Parker@brightstarr.com</sys_created_by><sys_created_on>2020-09-03 14:19:14</sys_created_on><sys_customer_update>false</sys_customer_update><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>0d9d9195db0f9c9078fbbd5c6896195a</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Deployment Request - Default view</sys_name><sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope><sys_update_name>sys_ui_related_x_brig3_deployment_deployment_request_null</sys_update_name><sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by><sys_updated_on>2020-09-03 14:19:14</sys_updated_on><sys_user/><view display_value="Default view" name="NULL">Default view</view><view_name/></sys_ui_related_list></sys_ui_related></record_update>]]></payload>
+        <payload_hash>189564347</payload_hash>
+        <record_name>Deployment Request</record_name>
+        <reverted_from/>
+        <source>67bb1915db0f9c9078fbbd5c68961925</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+        <sys_created_on>2020-09-03 14:19:14</sys_created_on>
+        <sys_id>419d9195db0f9c9078fbbd5c6896195d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1745455f8d00000001</sys_recorded_at>
+        <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+        <sys_updated_on>2020-09-03 14:19:14</sys_updated_on>
+        <type>Related Lists</type>
+        <update_guid>859d9195c30f9c902215ded0ba22625c</update_guid>
+        <update_guid_history>859d9195c30f9c902215ded0ba22625c:189564347,5feb99158e0f9c9072146ccd3ff34822:1555275642,1beb99d19d0f9c90e8630d1e317d6a4f:-1938333119</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+        <sys_created_on>2020-09-10 13:55:56</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sys_ui_related_list">sys_ui_related_list</sys_db_object>
+        <sys_id>6d0572ff514c4a9cb84c67a90f7578c4</sys_id>
+        <sys_metadata>342b556bdb47141078fbbd5c68961952</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Deployment Request - Default view</sys_name>
+        <sys_package display_value="Deployment Requests" source="x_brig3_deployment">0f893c49db29a340342ef3571d9619d4</sys_package>
+        <sys_parent display_value="Deployment Request">362a6a21dbe9eb00c6459635db961916</sys_parent>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Deployment Requests">0f893c49db29a340342ef3571d9619d4</sys_scope>
+        <sys_scope_delete display_value="">5f7af7d4e1e14dd7bd59f5c71b6fbfd1</sys_scope_delete>
+        <sys_update_name>sys_ui_related_x_brig3_deployment_deployment_request_null</sys_update_name>
+        <sys_update_version display_value="sys_ui_related_x_brig3_deployment_deployment_request_null">419d9195db0f9c9078fbbd5c6896195d</sys_update_version>
+        <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+        <sys_updated_on>2020-09-10 13:55:56</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
