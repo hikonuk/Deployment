@@ -38,7 +38,7 @@
             <sys_mod_count>2</sys_mod_count>
             <sys_overrides/>
             <sys_ui_form display_value="x_brig3_deployment_deployment_request" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">643d32eddbe9eb00c6459635db9619d0</sys_ui_form>
-            <sys_ui_section caption="CSM Deployment Review" display_value="CSM Deployment Review" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">203d32eddbe9eb00c6459635db9619cf</sys_ui_section>
+            <sys_ui_section caption="Unsuccessful Deployment Review" display_value="Unsuccessful Deployment Review" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">203d32eddbe9eb00c6459635db9619cf</sys_ui_section>
             <sys_updated_by>fge.shay</sys_updated_by>
             <sys_updated_on>2018-11-03 15:57:03</sys_updated_on>
         </sys_ui_form_section>

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element attributes="live_feed=true" audit="true" extends="task" label="Deployment Request" max_length="40" name="x_brig3_deployment_deployment_request" sizeclass="2223" type="collection">
+    <element attributes="live_feed=true" audit="true" extends="task" label="Deployment Request" max_length="40" name="x_brig3_deployment_deployment_request" sizeclass="2234" type="collection">
         <element label="Appointment" max_length="32" name="appointment" reference="sn_apptmnt_booking_appointment_booking" type="reference"/>
         <element label="Clear out client from elastic including deleting yml file from shared services" max_length="40" name="clear_out_client_from_elastic" type="boolean"/>
         <element active="false" label="Client Configuration Form Link" max_length="120" name="client_configuration_form_link" type="string"/>
-        <element label="CSM Comments - If answered Yes to above, please provide specific details" max_length="4000" name="csm_comments" type="string"/>
+        <element label="Reason - Include the SNOW ticket or VSTS bug" max_length="4000" name="csm_comments" type="string"/>
         <element label="Delete all users in company from SNOW" max_length="40" name="delete_all_users_in_company_from_snow" type="boolean"/>
         <element label="Delete AP Database" max_length="40" name="delete_ap_database" type="boolean"/>
         <element label="Delete client config from SNOW" max_length="40" name="delete_client_config_from_snow" type="boolean"/>
         <element label="Delete company in SNOW" max_length="40" name="delete_company_in_snow" type="boolean"/>
-        <element label="Delete DNS entries" max_length="40" name="delete_dns_entries" type="boolean"/>
+        <element label="Request DNS entries deletion" max_length="40" name="delete_dns_entries" type="boolean"/>
         <element label="Delete Octopus project" max_length="40" name="delete_octopus_project" type="boolean"/>
-        <element label="Delete production app config" max_length="40" name="delete_production_app_config" type="boolean"/>
+        <element label="Archive and Unpublish App Config" max_length="40" name="delete_production_app_config" type="boolean"/>
         <element label="Delete production database" max_length="40" name="delete_production_database" type="boolean"/>
         <element label="Delete production notification hub" max_length="40" name="delete_production_notification_hub" type="boolean"/>
-        <element label="Delete production redis cache" max_length="40" name="delete_production_redis_cache" type="boolean"/>
+        <element label="Delete Production Azure Resources" max_length="40" name="delete_production_redis_cache" type="boolean"/>
         <element label="Delete production storage account" max_length="40" name="delete_production_storage_account" type="boolean"/>
-        <element label="Delete staging app config" max_length="40" name="delete_staging_app_config" type="boolean"/>
+        <element label="Archive and Unpublish Staging App Config" max_length="40" name="delete_staging_app_config" type="boolean"/>
         <element label="Delete staging database" max_length="40" name="delete_staging_database" type="boolean"/>
         <element label="Delete staging notification hub" max_length="40" name="delete_staging_notification_hub" type="boolean"/>
-        <element label="Delete staging redis cache" max_length="40" name="delete_staging_redis_cache" type="boolean"/>
+        <element label="Delete Staging Azure Resources" max_length="40" name="delete_staging_redis_cache" type="boolean"/>
         <element label="Delete staging storage account" max_length="40" name="delete_staging_storage" type="boolean"/>
         <element label="Dev resource request ID" max_length="40" name="dev_resource_request_id" type="string"/>
         <element choice="1" label="Environment" max_length="40" name="environment" type="string">
@@ -43,10 +43,10 @@
         <element label="Removed all monitoring" max_length="40" name="removed_all_monitoring" type="boolean"/>
         <element label="Removed all scheduled tasks from staging servers" max_length="40" name="removed_all_scheduled_tasks_from_staging" type="boolean"/>
         <element label="Removed all scheduled tasks from production servers" max_length="40" name="removed_all_scheduled_tasks_production" type="boolean"/>
-        <element label="Remove access to success" max_length="40" name="remove_access_to_success" type="boolean"/>
-        <element label="Remove accounts from Lastpass" max_length="40" name="remove_accounts_from_lastpass" type="boolean"/>
+        <element label="Request Universe Access removal" max_length="40" name="remove_access_to_success" type="boolean"/>
+        <element label="Remove accounts from Keeper" max_length="40" name="remove_accounts_from_lastpass" type="boolean"/>
         <element label="Request dev to delete solution" max_length="40" name="request_dev_to_delete_solution" type="boolean"/>
-        <element label="Specific release (if required) e.g. r1-1, r3-2" max_length="120" name="required_release" type="string"/>
+        <element label="Specific release (leave blank for prod as the version on staging will be used)" max_length="120" name="required_release" type="string"/>
         <element label="Scheduled End" max_length="40" name="scheduled_end" type="glide_date_time"/>
         <element label="Scheduled Start" max_length="40" name="scheduled_start" type="glide_date_time"/>
         <element label="Scheduled Time" max_length="40" name="scheduled_time" type="glide_date_time"/>
@@ -64,13 +64,21 @@
         </element>
         <element label="Complete all approved tasks from the deployment request" max_length="40" name="u_additional_requests_check" type="boolean"/>
         <element label="Apps and Tools opens, content shown. Able to save changes" max_length="40" name="u_appsandtools_opens_saves" type="boolean"/>
-        <element label="Check Client Wiki" max_length="40" name="u_boolean_3" type="boolean"/>
+        <element label="Went over allocated time" max_length="40" name="u_boolean_1" type="boolean"/>
+        <element label="Onboarding Team" max_length="40" name="u_boolean_2" type="boolean"/>
+        <element label="Screenshot taken of index count for the Content and Published/Content indexes" max_length="40" name="u_boolean_3" type="boolean"/>
+        <element label="Disable Octopus Project" max_length="40" name="u_boolean_4" type="boolean"/>
+        <element label="Check native video upload in CMS (5.28 &amp; new sites)" max_length="40" name="u_boolean_5" type="boolean"/>
+        <element label="Check native video upload in Social (5.28 &amp; new sites)" max_length="40" name="u_boolean_6" type="boolean"/>
+        <element label="Check site loads correctly in Mobile" max_length="40" name="u_boolean_7" type="boolean"/>
         <element label="Complete deployment to DR (if Production and no issues found)" max_length="40" name="u_check_dr_cms_is_up_and_running" type="boolean"/>
         <element label="Clear ElasticRedis config from Shared services" max_length="40" name="u_clearelasticredis" type="boolean"/>
         <element label="Client branding is correct including logos (compare to screenshots)" max_length="40" name="u_client_branding_check" type="boolean"/>
         <element label="Pages linked from Top Level Navigation load successfully without widget errors" max_length="40" name="u_core_pages_load" type="boolean"/>
-        <element label="Following opens, all tabs show content" max_length="40" name="u_following_opens_alltabs" type="boolean"/>
+        <element label="Following opens, all tabs show content and confirm follow page works" max_length="40" name="u_following_opens_alltabs" type="boolean"/>
         <element label="Footer doesn’t contain widget errors" max_length="40" name="u_footer_no_errors" type="boolean"/>
+        <element attributes="edge_encryption_enabled=true" label="Actual Start" max_length="40" name="u_glide_date_time_10" type="glide_date_time"/>
+        <element attributes="edge_encryption_enabled=true" label="Actual End" max_length="40" name="u_glide_date_time_11" type="glide_date_time"/>
         <element label="Homepage loads and doesn't contain any widget errors" max_length="40" name="u_homepage_widgets_check" type="boolean"/>
         <element label="Notifications opens, content shown.  Settings opens and able to save changes" max_length="40" name="u_notifications_opens_settings_saves" type="boolean"/>
         <element label="Personalisation opens, content is shown. Able to save changes" max_length="40" name="u_personalisation_shows_saves" type="boolean"/>
@@ -78,11 +86,13 @@
         <element label="Post Deployment Reviewer" max_length="32" name="u_reference_1" reference="sys_user" type="reference"/>
         <element label="Client Wiki" max_length="32" name="u_reference_2" reference="kb_knowledge" type="reference" use_dependent_field="true"/>
         <element label="Remove maintenance page" max_length="40" name="u_remove_maint_page_check" type="boolean"/>
-        <element label="Successfully run CMS Provisioning" max_length="40" name="u_run_cms_prov" type="boolean"/>
+        <element label="Successfully run CMS Provisioning/Managed Upgrades" max_length="40" name="u_run_cms_prov" type="boolean"/>
         <element label="Screenshot taken of homepage and top level navigation pages (and added to DEP)" max_length="40" name="u_screenshots_added" type="boolean"/>
         <element label="The Scripts section in the CMS loads and an existing script can be saved" max_length="40" name="u_scripts_load_and_save_success" type="boolean"/>
         <element label="Global search show results in flyout" max_length="40" name="u_search_success_flyout" type="boolean"/>
         <element attributes="edge_encryption_enabled=true" label="Approved Actions" max_length="4000" name="u_string_1" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Version" max_length="40" name="u_string_12" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Product Bug" max_length="40" name="u_string_13" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="Resolution/Answer" max_length="40" name="u_string_2" type="string"/>
         <element attributes="edge_encryption_enabled=true" choice="1" label="Category 3" max_length="40" name="u_string_3" type="string">
             <choice>
@@ -105,23 +115,24 @@
                 <element inactive_on_update="false" label="Yes" sequence="2" value="yes"/>
             </choice>
         </element>
-        <element attributes="edge_encryption_enabled=true" choice="1" label="Category 1" max_length="40" name="u_string_6" type="string">
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Closure Category" max_length="40" name="u_string_6" type="string">
             <choice>
                 <element inactive_on_update="false" label="Human Error" sequence="0" value="human error"/>
                 <element inactive_on_update="false" label="Infrastructure" sequence="1" value="infrastructure"/>
                 <element inactive_on_update="false" label="Product Bug" sequence="2" value="product bug"/>
             </choice>
         </element>
-        <element attributes="edge_encryption_enabled=true" label="Approved Actions" max_length="40" name="u_string_7" type="string"/>
-        <element attributes="edge_encryption_enabled=true" label="State" max_length="40" name="u_string_8" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Follow Up Actions" max_length="40" name="u_string_7" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Review State" max_length="40" name="u_string_8" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Reason - Why did it take longer" max_length="4000" name="u_string_9" type="string"/>
         <element label="Check styles and scripts accessible in CMS" max_length="40" name="u_styles_and_scripts_check" type="boolean"/>
         <element label="The Styles section in the CMS loads and an existing script can be saved" max_length="40" name="u_styles_loads_and_save_success" type="boolean"/>
-        <element label="Successfully accessed CMS site" max_length="40" name="u_successfully_accessed_cms_site" type="boolean"/>
-        <element label="Successfully accessed Front End site" max_length="40" name="u_successfully_accessed_frontend" type="boolean"/>
+        <element label="Successfully accessed CMS site externally off servers/VPN" max_length="40" name="u_successfully_accessed_cms_site" type="boolean"/>
+        <element label="Successfully accessed Front End site externally off servers/VPN" max_length="40" name="u_successfully_accessed_frontend" type="boolean"/>
         <element label="Successfully create news article in CMS (save only and delete after)" max_length="40" name="u_success_create_news" type="boolean"/>
         <element label="User Control shows options including CMS when selected" max_length="40" name="u_usercontrol_shows_options" type="boolean"/>
         <element label="Workspace(s) open, and content is shown" max_length="40" name="u_workspaces_showing_content" type="boolean"/>
-        <element label="Was this Deployment Unsuccessful from the client's perspective?" max_length="40" name="was_this_deployment_unsuccessful" type="boolean"/>
+        <element label="Was this Deployment Unsuccessful?" max_length="40" name="was_this_deployment_unsuccessful" type="boolean"/>
         <index name="index">
             <element name="u_reference_2"/>
         </index>

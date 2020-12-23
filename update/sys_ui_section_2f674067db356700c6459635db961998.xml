@@ -3,58 +3,58 @@
         <sys_ui_annotation action="INSERT_OR_UPDATE">
             <is_plain_text>false</is_plain_text>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>ee3f3492dbfdc8d0c6459635db96193a</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>3169d4f8db9120901073789e3b961956</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <text>Steps to complete before starting the deployment</text>
             <type display_value="Info Box Blue">753f88a80f930000b12e6903cfe01206</type>
         </sys_ui_annotation>
         <sys_ui_annotation action="INSERT_OR_UPDATE">
             <is_plain_text>false</is_plain_text>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>e23f3492dbfdc8d0c6459635db96193b</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f169d4f8db9120901073789e3b961956</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <text>During deployment steps to check</text>
             <type display_value="Info Box Blue">753f88a80f930000b12e6903cfe01206</type>
         </sys_ui_annotation>
         <sys_ui_annotation action="INSERT_OR_UPDATE">
             <is_plain_text>false</is_plain_text>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>e63f3492dbfdc8d0c6459635db96193b</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>b569d4f8db9120901073789e3b961956</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <text>Post deployment checks</text>
             <type display_value="Info Box Blue">753f88a80f930000b12e6903cfe01206</type>
         </sys_ui_annotation>
         <sys_ui_annotation action="INSERT_OR_UPDATE">
             <is_plain_text>false</is_plain_text>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>ea3f3492dbfdc8d0c6459635db96193b</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7969d4f8db9120901073789e3b961956</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <text/>
             <type display_value="Info Box Blue">753f88a80f930000b12e6903cfe01206</type>
         </sys_ui_annotation>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>ee3f3492dbfdc8d0c6459635db96193a</element>
+            <element>3169d4f8db9120901073789e3b961956</element>
             <position>0</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>ae3f3492dbfdc8d0c6459635db96193b</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7969d4f8db9120901073789e3b96196c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type>annotation</type>
         </sys_ui_element>
@@ -62,13 +62,13 @@
             <element>u_screenshots_added</element>
             <position>1</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>223f3492dbfdc8d0c6459635db96193c</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f969d4f8db9120901073789e3b96196c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -76,27 +76,27 @@
             <element>u_boolean_3</element>
             <position>2</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>a23f3492dbfdc8d0c6459635db96193c</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7d69d4f8db9120901073789e3b96196c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>e23f3492dbfdc8d0c6459635db96193b</element>
+            <element>f169d4f8db9120901073789e3b961956</element>
             <position>3</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>263f3492dbfdc8d0c6459635db96193c</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>fd69d4f8db9120901073789e3b96196c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type>annotation</type>
         </sys_ui_element>
@@ -104,13 +104,13 @@
             <element>u_successfully_accessed_frontend</element>
             <position>4</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>a63f3492dbfdc8d0c6459635db96193c</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7169d4f8db9120901073789e3b96196d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -118,13 +118,13 @@
             <element>u_successfully_accessed_cms_site</element>
             <position>5</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>2a3f3492dbfdc8d0c6459635db96193c</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f169d4f8db9120901073789e3b96196d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -132,111 +132,111 @@
             <element>u_run_cms_prov</element>
             <position>6</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>aa3f3492dbfdc8d0c6459635db96193c</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7569d4f8db9120901073789e3b96196d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>u_scripts_load_and_save_success</element>
-            <position>7</position>
-            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>2e3f3492dbfdc8d0c6459635db96193c</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
-            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>u_styles_loads_and_save_success</element>
-            <position>8</position>
-            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>ae3f3492dbfdc8d0c6459635db96193c</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
-            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_homepage_widgets_check</element>
-            <position>9</position>
+            <position>7</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>223f3492dbfdc8d0c6459635db96193d</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f569d4f8db9120901073789e3b96196d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_client_branding_check</element>
-            <position>10</position>
+            <position>8</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>a23f3492dbfdc8d0c6459635db96193d</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7969d4f8db9120901073789e3b96196d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_workspaces_showing_content</element>
-            <position>11</position>
+            <position>9</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>263f3492dbfdc8d0c6459635db96193d</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f969d4f8db9120901073789e3b96196d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_appsandtools_opens_saves</element>
-            <position>12</position>
+            <position>10</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>a63f3492dbfdc8d0c6459635db96193d</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7d69d4f8db9120901073789e3b96196d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_personalisation_shows_saves</element>
-            <position>13</position>
+            <position>11</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>2a3f3492dbfdc8d0c6459635db96193d</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>fd69d4f8db9120901073789e3b96196d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_boolean_5</element>
+            <position>12</position>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7169d4f8db9120901073789e3b96196e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_boolean_6</element>
+            <position>13</position>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f169d4f8db9120901073789e3b96196e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -244,27 +244,27 @@
             <element>.split</element>
             <position>14</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>aa3f3492dbfdc8d0c6459635db96193d</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7569d4f8db9120901073789e3b96196e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>e63f3492dbfdc8d0c6459635db96193b</element>
+            <element>b569d4f8db9120901073789e3b961956</element>
             <position>15</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>2e3f3492dbfdc8d0c6459635db96193d</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f569d4f8db9120901073789e3b96196e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type>annotation</type>
         </sys_ui_element>
@@ -272,27 +272,27 @@
             <element>u_check_dr_cms_is_up_and_running</element>
             <position>16</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>ae3f3492dbfdc8d0c6459635db96193d</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7969d4f8db9120901073789e3b96196e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>ea3f3492dbfdc8d0c6459635db96193b</element>
+            <element>7969d4f8db9120901073789e3b961956</element>
             <position>17</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>223f3492dbfdc8d0c6459635db96193e</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f969d4f8db9120901073789e3b96196e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type>annotation</type>
         </sys_ui_element>
@@ -300,13 +300,13 @@
             <element>u_search_success_flyout</element>
             <position>18</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>a23f3492dbfdc8d0c6459635db96193e</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7d69d4f8db9120901073789e3b96196e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -314,13 +314,13 @@
             <element>u_notifications_opens_settings_saves</element>
             <position>19</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>263f3492dbfdc8d0c6459635db96193e</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>fd69d4f8db9120901073789e3b96196e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -328,13 +328,13 @@
             <element>u_following_opens_alltabs</element>
             <position>20</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>a63f3492dbfdc8d0c6459635db96193e</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7169d4f8db9120901073789e3b96196f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -342,13 +342,13 @@
             <element>u_usercontrol_shows_options</element>
             <position>21</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>2a3f3492dbfdc8d0c6459635db96193e</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f169d4f8db9120901073789e3b96196f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -356,13 +356,13 @@
             <element>u_footer_no_errors</element>
             <position>22</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>aa3f3492dbfdc8d0c6459635db96193e</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7569d4f8db9120901073789e3b96196f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -370,13 +370,13 @@
             <element>u_success_create_news</element>
             <position>23</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>2e3f3492dbfdc8d0c6459635db96193e</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f569d4f8db9120901073789e3b96196f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -384,13 +384,13 @@
             <element>u_additional_requests_check</element>
             <position>24</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>ae3f3492dbfdc8d0c6459635db96193e</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7969d4f8db9120901073789e3b96196f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -398,41 +398,55 @@
             <element>u_core_pages_load</element>
             <position>25</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>223f3492dbfdc8d0c6459635db96193f</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>f969d4f8db9120901073789e3b96196f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_boolean_7</element>
+            <position>26</position>
+            <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7d69d4f8db9120901073789e3b96196f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
+            <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_prod_warmup_script</element>
-            <position>26</position>
+            <position>27</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>a23f3492dbfdc8d0c6459635db96193f</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>fd69d4f8db9120901073789e3b96196f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_remove_maint_page_check</element>
-            <position>27</position>
+            <position>28</position>
             <sys_created_by>Matt.Parker@brightstarr.com</sys_created_by>
-            <sys_created_on>2019-12-20 15:10:55</sys_created_on>
-            <sys_id>263f3492dbfdc8d0c6459635db96193f</sys_id>
+            <sys_created_on>2020-12-22 16:25:40</sys_created_on>
+            <sys_id>7169d4f8db9120901073789e3b961970</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Deployment Check List" display_value="Deployment Check List" name="x_brig3_deployment_deployment_request" sys_domain="global" view="Default view">2f674067db356700c6459635db961998</sys_ui_section>
             <sys_updated_by>Matt.Parker@brightstarr.com</sys_updated_by>
-            <sys_updated_on>2019-12-20 15:10:55</sys_updated_on>
+            <sys_updated_on>2020-12-22 16:25:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
