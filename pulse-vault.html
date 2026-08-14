@@ -8,11 +8,12 @@
   PULSE VAULT v2 — a single-file, fully-offline neon descent arcade game.
   No frameworks, no CDNs, no fonts, no images, no audio files, no network calls.
   Controls:
-    Desktop : Left/Right arrows or A/D to drift · SPACE to fire Pulse · M to mute
-              At title: arrows pick your start stage, any other key launches.
-    Mobile  : touch and drag anywhere to steer (ship follows your finger) ·
-              tap PULSE button (or double-tap) to fire · tap a stage chip
-              on the title screen.
+    Desktop : Left/Right (A/D) to drift · Up/Down (W/S) to brake/boost ·
+              SPACE to fire Pulse · M to mute
+              At title: Left/Right picks your start stage, any other key launches.
+    Mobile  : touch and drag to steer (ship follows your finger) · drag UP to
+              brake, DOWN to dive faster · tap PULSE button (or double-tap)
+              to fire · tap a stage chip on the title screen.
   Progression: 5 named stages (500 m each) + endless Overdrive. Reaching a
   stage unlocks it as a starting point. High score, unlocked stages and mute
   preference persist in localStorage (fails safe if storage is blocked).
@@ -98,6 +99,7 @@ let runTime, depthPx, fallSpeed, score, mult, multTimer;
 let pulse, pulseArmed, armTimer, grazeCombo, lastGrazeAt;
 let nextSpawnY, shake, flash, deathTimer;
 let wallGrazeCd = 0, freezeT = 0, invulnT = 0, shield = false;
+let speedFactor = 1;          // player-controlled brake (<1) / boost (>1)
 let stageSeen = 0, runUnlocked = false;
 let stats = { grazes: 0, smashes: 0, crystals: 0 };
 let banner = { main: '', sub: '', t: 99 };
@@ -285,14 +287,16 @@ function hueTarget(m) {
   return (STAGES[STAGES.length - 1].h + (m - STAGES.length * STAGE_M) * 0.18) % 360;
 }
 
-// Which obstacle types can spawn at a given depth (each stage adds one)
+// Which obstacle types can spawn at a given depth. Stage 1 is static bars
+// only — gaps that move are introduced from stage 2 so they read as a
+// deliberate mechanic, not glitchy holes.
 function poolFor(m) {
   const s = stageIdxAt(m);
-  const p = ['bar', 'bar', 'mover'];
-  if (s >= 1) p.push('spinner', 'spinner', 'mover');
-  if (s >= 2) p.push('crusher', 'crusher');
+  const p = ['bar', 'bar'];
+  if (s >= 1) p.push('mover', 'mover', 'spinner');
+  if (s >= 2) p.push('crusher', 'spinner');
   if (s >= 3) p.push('laser', 'laser');
-  if (s >= 4) p.push('spinner', 'crusher', 'laser');
+  if (s >= 4) p.push('mover', 'crusher', 'laser');
   return p;
 }
 
@@ -306,8 +310,8 @@ function spawnObstacle(y) {
     o.th = 18;
     o.gapW = clamp(lerp(r * 8.5, r * 5, Math.min(1, m / 2500)), r * 4.6, r * 9);
     o.gapFrac = rnd(0.2, 0.8);
-    o.amp = type === 'mover' ? rnd(0.15, 0.3) : 0;
-    o.spd = rnd(0.9, 1.6) * (Math.random() < 0.5 ? -1 : 1);
+    o.amp = type === 'mover' ? rnd(0.10, 0.2) : 0;
+    o.spd = rnd(0.6, 1.1) * (Math.random() < 0.5 ? -1 : 1);
   } else if (type === 'spinner') {
     o.th = 13;
     o.lenFrac = rnd(0.65, 0.9);
@@ -438,7 +442,7 @@ function resetRun(fromStage) {
   pulse = 0; pulseArmed = false; armTimer = 0;
   grazeCombo = 0; lastGrazeAt = -99;
   shake = 0; flash = 0; deathTimer = 0;
-  wallGrazeCd = 0; freezeT = 0; invulnT = 0; shield = false;
+  wallGrazeCd = 0; freezeT = 0; invulnT = 0; shield = false; speedFactor = 1;
   stageSeen = stageIdxAt(startM); runUnlocked = false;
   stats = { grazes: 0, smashes: 0, crystals: 0 };
   nextSpawnY = depthPx + H * 1.1;                // runway before first obstacle
@@ -526,6 +530,7 @@ function registerGraze(isWall) {
 const keys = {};
 const TOUCH_SENS = 1.35;      // finger movement → ship movement multiplier
 let steerTouchId = null, dragDX = 0, lastTouchX = 0, lastTapAt = 0;
+let touchAnchorY = 0, touchOffY = 0;   // vertical finger offset → brake/boost
 const uiRects = { chips: [], retry: null, menu: null };  // filled during render
 
 function inputDir() { // keyboard only — touch uses positional drag
@@ -597,6 +602,7 @@ canvas.addEventListener('touchstart', (e) => {
     if (onButton || isDoubleTap) { tryPulse(); if (onButton) continue; }
     steerTouchId = t.identifier;
     lastTouchX = x;
+    touchAnchorY = y; touchOffY = 0;
   }
 }, { passive: false });
 
@@ -607,6 +613,7 @@ canvas.addEventListener('touchmove', (e) => {
     if (t.identifier === steerTouchId) {
       dragDX += t.clientX - lastTouchX;   // relative drag, consumed each update
       lastTouchX = t.clientX;
+      touchOffY = t.clientY - touchAnchorY;
     }
   }
 }, { passive: false });
@@ -614,7 +621,7 @@ canvas.addEventListener('touchmove', (e) => {
 function endTouch(e) {
   for (let i = 0; i < e.changedTouches.length; i++) {
     if (e.changedTouches[i].identifier === steerTouchId) {
-      steerTouchId = null; dragDX = 0;
+      steerTouchId = null; dragDX = 0; touchOffY = 0;
       if (player) player.vx *= 0.2;       // no slide after lifting the finger
     }
   }
@@ -642,6 +649,18 @@ function update(dt) {
   fallSpeed = 250 + Math.min(400, depthPx * 0.014);
   const over = metres() - STAGES.length * STAGE_M;
   if (over > 0) fallSpeed += Math.min(140, over * 0.03);
+
+  // --- player speed control: drag up / ↑ to brake, drag down / ↓ to boost ---
+  let speedTarget = 1;
+  if (steerTouchId !== null) {
+    if (touchOffY < -25)      speedTarget = clamp(1 + (touchOffY + 25) / 260, 0.55, 1);
+    else if (touchOffY > 25)  speedTarget = clamp(1 + (touchOffY - 25) / 220, 1, 1.7);
+  }
+  if (keys.ArrowUp || keys.KeyW)   speedTarget = 0.55;
+  if (keys.ArrowDown || keys.KeyS) speedTarget = 1.7;
+  speedFactor = lerp(speedFactor, speedTarget, 1 - Math.exp(-6 * dt));
+  fallSpeed *= speedFactor;
+
   depthPx += fallSpeed * dt;
   player.y = depthPx;
 
@@ -944,7 +963,8 @@ function renderObstacles(cam, hue) {
       continue;
     }
 
-    for (const p of obstacleParts(o, runTime)) {
+    const parts = obstacleParts(o, runTime);
+    for (const p of parts) {
       if (p.kind === 'rect') {
         if (p.w <= 0) continue;
         ctx.fillStyle = glowC;
@@ -964,6 +984,15 @@ function renderObstacles(cam, hue) {
         ctx.fillStyle = core;
         ctx.beginPath(); ctx.arc(hx, hy, p.th * 0.45, 0, TAU); ctx.fill();
       }
+    }
+    // bright caps on the gap edges so the opening reads at a glance
+    // (they pulse on movers to telegraph that this gap travels)
+    if ((o.type === 'bar' || o.type === 'mover') && parts.length === 2) {
+      const capA = o.type === 'mover' ? 0.6 + 0.4 * Math.sin(runTime * 6 + o.phase) : 1;
+      ctx.fillStyle = hsl(hz, 60, 90, capA);
+      const yTop = o.y - o.th / 2 - cam;
+      if (parts[0].w > 0) ctx.fillRect(parts[0].x + parts[0].w - 3.5, yTop - 2, 3.5, o.th + 4);
+      if (parts[1].w > 0) ctx.fillRect(parts[1].x, yTop - 2, 3.5, o.th + 4);
     }
   }
 }
@@ -1023,8 +1052,9 @@ function renderPlayer(cam) {
   ctx.save();
   ctx.translate(px, py);
   ctx.rotate(tilt);
-  // engine flame (points opposite travel — upward on screen)
-  const fl = player.r * (1 + 0.4 * Math.sin(runTime * 30));
+  // engine flame (points opposite travel — upward on screen);
+  // grows when boosting, almost dies when braking
+  const fl = player.r * (1 + 0.4 * Math.sin(runTime * 30)) * clamp(speedFactor * speedFactor, 0.25, 3);
   ctx.fillStyle = hsl(30, 100, 60, 0.8);
   ctx.beginPath();
   ctx.moveTo(-player.r * 0.4, -player.r * 0.7);
@@ -1192,8 +1222,8 @@ function renderTitle(hue) {
 
   ctx.fillStyle = 'rgba(255,255,255,0.7)';
   ctx.font = font(13);
-  ctx.fillText('drag to steer  ·  ← → / A D on keyboard', W / 2, H * 0.72);
-  ctx.fillText('SPACE / PULSE button to fire  ·  M mute', W / 2, H * 0.72 + 22);
+  ctx.fillText('drag to steer  ·  drag up = brake, down = dive', W / 2, H * 0.72);
+  ctx.fillText('keys: ← → steer · ↑ ↓ speed · SPACE pulse · M mute', W / 2, H * 0.72 + 22);
   if (best > 0) {
     ctx.fillStyle = hsl(45, 100, 65);
     ctx.font = font(14, true);
@@ -1318,8 +1348,8 @@ function frame(now) {
     if (freezeT > 0) {
       freezeT -= dt;               // hit-stop: world holds for a beat
     } else {
-      // substep fast falls so thin obstacles can't be tunnelled through
-      const steps = dt > 0.025 ? 2 : 1;
+      // substep so no single step moves further than a thin obstacle is tall
+      const steps = clamp(Math.ceil(((fallSpeed || 300) * dt) / 12), 1, 4);
       for (let i = 0; i < steps && state === 'playing'; i++) update(dt / steps);
     }
   } else if (state === 'dead') {
