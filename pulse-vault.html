@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Pulse Vault</title>
+<!--
+  PULSE VAULT — a single-file, fully-offline neon descent arcade game.
+  No frameworks, no CDNs, no fonts, no images, no audio files, no network calls.
+  Controls:
+    Desktop : Left/Right arrows or A/D to drift · SPACE to fire Pulse · any key to start/retry · M to mute
+    Mobile  : hold left/right half of the screen to drift · tap the PULSE button (or double-tap) to fire
+  Persistence: high score + mute preference in localStorage (fails safe if blocked).
+-->
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: #05060f;
+    overflow: hidden;
+    touch-action: none;
+    -webkit-user-select: none; user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  canvas { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<script>
+'use strict';
+/* ============================================================
+   SECTION 1 — CONSTANTS, STATE & PERSISTENCE
+   ============================================================ */
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+
+const PX_PER_M   = 10;        // world pixels per "metre" of depth
+const ZONE_M     = 500;       // metres per palette zone
+const GRAZE_GAIN = 0.20;      // pulse meter per obstacle graze
+const WALL_GAIN  = 0.08;      // pulse meter per wall graze
+const MULT_DECAY = 5.0;       // seconds without a graze before multiplier steps down
+const ARM_TIME   = 3.5;       // seconds a fired Pulse stays armed
+const MAX_MULT   = 9;
+
+// Zone palettes (hue only — everything is derived from these)
+const ZONES = [
+  { h: 195, name: 'CYAN VAULT'   },
+  { h: 275, name: 'VIOLET RIFT'  },
+  { h: 325, name: 'CRIMSON DEEP' },
+  { h:  45, name: 'GOLD HOLLOW'  },
+  { h: 135, name: 'EMERALD CORE' },
+];
+
+let W = 0, H = 0, DPR = 1;    // css-pixel canvas size + device pixel ratio
+let state = 'title';          // title | playing | dead | paused
+let lastFrame = 0;
+
+// Run state (reset every run)
+let player, obstacles, particles, trail;
+let runTime, depthPx, fallSpeed, score, mult, multTimer;
+let pulse, pulseArmed, armTimer, grazeCombo, lastGrazeAt;
+let nextSpawnY, shake, flash, zoneIdx, zoneBlend, deathTimer;
+let wallGrazeCd = 0;
+
+// Persistence (guarded — localStorage may be blocked/full in private mode)
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } },
+};
+let best  = parseInt(store.get('pv_best', '0'), 10) || 0;
+let muted = store.get('pv_mute', '0') === '1';
+
+/* ============================================================
+   SECTION 2 — SMALL UTILITIES
+   ============================================================ */
+const clamp = (v, a, b) => v < a ? a : (v > b ? b : v);
+const lerp  = (a, b, t) => a + (b - a) * t;
+const rnd   = (a, b) => a + Math.random() * (b - a);
+const TAU   = Math.PI * 2;
+
+function hsl(h, s, l, a) { return a === undefined ? `hsl(${h},${s}%,${l}%)` : `hsla(${h},${s}%,${l}%,${a})`; }
+
+// Distance from a point to an axis-aligned rect's surface (0 if inside)
+function rectDist(px, py, rx, ry, rw, rh) {
+  const cx = clamp(px, rx, rx + rw), cy = clamp(py, ry, ry + rh);
+  return Math.hypot(px - cx, py - cy);
+}
+// Distance from a point to a line segment
+function segDist(px, py, x1, y1, x2, y2) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const len2 = dx * dx + dy * dy || 1;
+  const t = clamp(((px - x1) * dx + (py - y1) * dy) / len2, 0, 1);
+  return Math.hypot(px - (x1 + dx * t), py - (y1 + dy * t));
+}
+
+/* ============================================================
+   SECTION 3 — SYNTHESIZED AUDIO (Web Audio, zero files)
+   ============================================================ */
+let AC = null, masterGain = null;
+
+function audioInit() {
+  if (AC) { if (AC.state === 'suspended') AC.resume(); return; }
+  const Ctor = window.AudioContext || window.webkitAudioContext;
+  if (!Ctor) return;
+  AC = new Ctor();
+  masterGain = AC.createGain();
+  masterGain.gain.value = muted ? 0 : 0.5;
+  masterGain.connect(AC.destination);
+}
+function setMuted(m) {
+  muted = m;
+  store.set('pv_mute', m ? '1' : '0');
+  if (masterGain) masterGain.gain.value = m ? 0 : 0.5;
+}
+// One enveloped oscillator sweep
+function tone(f0, f1, dur, type, vol, delay) {
+  if (!AC || muted) return;
+  const t0 = AC.currentTime + (delay || 0);
+  const o = AC.createOscillator(), g = AC.createGain();
+  o.type = type || 'sine';
+  o.frequency.setValueAtTime(f0, t0);
+  o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t0 + dur);
+  g.gain.setValueAtTime(vol, t0);
+  g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  o.connect(g); g.connect(masterGain);
+  o.start(t0); o.stop(t0 + dur + 0.02);
+}
+// Filtered white-noise burst
+function noise(dur, vol, f0, f1) {
+  if (!AC || muted) return;
+  const t0 = AC.currentTime;
+  const len = Math.max(1, (dur * AC.sampleRate) | 0);
+  const buf = AC.createBuffer(1, len, AC.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  const src = AC.createBufferSource(); src.buffer = buf;
+  const flt = AC.createBiquadFilter(); flt.type = 'lowpass';
+  flt.frequency.setValueAtTime(f0, t0);
+  flt.frequency.exponentialRampToValueAtTime(Math.max(40, f1), t0 + dur);
+  const g = AC.createGain();
+  g.gain.setValueAtTime(vol, t0);
+  g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  src.connect(flt); flt.connect(g); g.connect(masterGain);
+  src.start(t0);
+}
+const sfx = {
+  graze(combo)  { tone(500 + Math.min(combo, 12) * 70, 900 + combo * 80, 0.07, 'square', 0.16); },
+  ready()       { tone(880, 880, 0.09, 'sine', 0.25); tone(1320, 1320, 0.12, 'sine', 0.22, 0.08); },
+  pulseFire()   { tone(320, 70, 0.28, 'sawtooth', 0.3); noise(0.15, 0.15, 3000, 400); },
+  smash()       { tone(150, 35, 0.4, 'sine', 0.55); noise(0.3, 0.35, 2200, 150); },
+  death()       { tone(240, 28, 0.6, 'sawtooth', 0.4); noise(0.55, 0.4, 4000, 90); },
+  zone()        { [660, 880, 1100].forEach((f, i) => tone(f, f, 0.14, 'triangle', 0.2, i * 0.09)); },
+  start()       { tone(440, 880, 0.12, 'triangle', 0.25); },
+};
+
+/* ============================================================
+   SECTION 4 — CAVERN WALLS (deterministic functions of depth)
+   ============================================================ */
+function wallCX(y) { // centreline drifts with depth
+  return W * (0.5 + 0.10 * Math.sin(y * 0.0013) + 0.06 * Math.sin(y * 0.00047 + 2.1));
+}
+function wallHW(y) { // half-width narrows slowly, with a wiggle
+  const narrow = Math.min(0.13, y * 0.0000085);
+  return Math.max(W * 0.24, W * (0.44 - narrow + 0.03 * Math.sin(y * 0.0021 + 1)));
+}
+function wallLeft(y)  { return wallCX(y) - wallHW(y); }
+function wallRight(y) { return wallCX(y) + wallHW(y); }
+
+/* ============================================================
+   SECTION 5 — OBSTACLES (spawn, per-frame geometry, updates)
+   ============================================================ */
+// Each obstacle exposes parts() -> array of solid shapes:
+//   { kind:'rect', x, y, w, h }  or  { kind:'seg', x1, y1, x2, y2, th }
+function metres() { return depthPx / PX_PER_M; }
+
+function spawnObstacle(y) {
+  const m = y / PX_PER_M;
+  const pool = ['bar'];
+  if (m > 300)  pool.push('mover', 'mover');
+  if (m > 700)  pool.push('spinner', 'spinner');
+  if (m > 1200) pool.push('crusher', 'crusher');
+  const type = pool[(Math.random() * pool.length) | 0];
+  const o = { type, y, dead: false, grazed: [false, false], phase: rnd(0, TAU) };
+
+  const r = player.r;
+  if (type === 'bar' || type === 'mover') {
+    o.th = 18;
+    o.gapW = clamp(lerp(r * 8.5, r * 5, Math.min(1, m / 2500)), r * 4.6, r * 9);
+    o.gapFrac = rnd(0.2, 0.8);                       // gap position across the corridor
+    o.amp  = type === 'mover' ? rnd(0.15, 0.3) : 0;  // oscillation of the gap
+    o.spd  = rnd(0.9, 1.6) * (Math.random() < 0.5 ? -1 : 1);
+  } else if (type === 'spinner') {
+    o.th = 13;
+    o.lenFrac = rnd(0.65, 0.9);
+    o.rot = rnd(1.2, 2.2) * (Math.random() < 0.5 ? -1 : 1);
+    o.ang = rnd(0, TAU);
+    o.cxFrac = rnd(0.35, 0.65);
+  } else { // crusher
+    o.th = 26;
+    o.minGap = r * 5.2;
+    o.spd = rnd(1.0, 1.8);
+  }
+  obstacles.push(o);
+}
+
+function obstacleParts(o, t) {
+  const wl = wallLeft(o.y), wr = wallRight(o.y), span = wr - wl;
+  if (o.type === 'bar' || o.type === 'mover') {
+    let gx = wl + span * o.gapFrac + Math.sin(t * o.spd + o.phase) * span * o.amp;
+    gx = clamp(gx, wl + o.gapW / 2 + 6, wr - o.gapW / 2 - 6);
+    const y = o.y - o.th / 2;
+    return [
+      { kind: 'rect', x: wl, y, w: (gx - o.gapW / 2) - wl, h: o.th },
+      { kind: 'rect', x: gx + o.gapW / 2, y, w: wr - (gx + o.gapW / 2), h: o.th },
+    ];
+  }
+  if (o.type === 'spinner') {
+    const cx = wl + span * o.cxFrac, half = span * o.lenFrac / 2;
+    const a = o.ang + t * o.rot + o.phase;
+    const dx = Math.cos(a) * half, dy = Math.sin(a) * half;
+    return [{ kind: 'seg', x1: cx - dx, y1: o.y - dy, x2: cx + dx, y2: o.y + dy, th: o.th }];
+  }
+  // crusher — two jaws oscillating in from the walls
+  const maxExt = (span - o.minGap) / 2;
+  const e = clamp(maxExt * (0.55 + 0.45 * Math.sin(t * o.spd + o.phase)), 14, maxExt);
+  const y = o.y - o.th / 2;
+  return [
+    { kind: 'rect', x: wl, y, w: e, h: o.th },
+    { kind: 'rect', x: wr - e, y, w: e, h: o.th },
+  ];
+}
+
+/* ============================================================
+   SECTION 6 — PARTICLES, TRAIL, SCREEN SHAKE
+   ============================================================ */
+const MAX_PARTICLES = 320;
+function burst(x, y, n, hue, speed, life, size) {
+  for (let i = 0; i < n && particles.length < MAX_PARTICLES; i++) {
+    const a = rnd(0, TAU), s = rnd(speed * 0.3, speed);
+    particles.push({
+      x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s,
+      life: rnd(life * 0.5, life), t: 0, hue, size: rnd(size * 0.5, size),
+    });
+  }
+}
+function addShake(m) { shake = Math.min(22, shake + m); }
+
+/* ============================================================
+   SECTION 7 — RUN LIFECYCLE
+   ============================================================ */
+function resetRun() {
+  player = { x: W / 2, y: 0, vx: 0, r: clamp(Math.min(W, H) * 0.016, 7, 12) };
+  obstacles = []; particles = []; trail = [];
+  runTime = 0; depthPx = 0; score = 0;
+  mult = 1; multTimer = 0;
+  pulse = 0; pulseArmed = false; armTimer = 0;
+  grazeCombo = 0; lastGrazeAt = -99;
+  shake = 0; flash = 0; zoneIdx = 0; zoneBlend = 1;
+  deathTimer = 0; wallGrazeCd = 0;
+  nextSpawnY = H * 1.1;                       // runway before first obstacle
+  for (let i = 0; i < 4; i++) { spawnObstacle(nextSpawnY); nextSpawnY += spawnGap(); }
+}
+function spawnGap() {
+  return lerp(H * 0.8, H * 0.42, Math.min(1, metres() / 3000)) * rnd(0.85, 1.15);
+}
+function startRun() { resetRun(); state = 'playing'; sfx.start(); }
+
+function die() {
+  state = 'dead'; deathTimer = 0;
+  addShake(18); flash = 0.9;
+  burst(player.x, player.y, 90, ZONES[zoneIdx % ZONES.length].h, 420, 1.1, 5);
+  sfx.death();
+  const s = Math.floor(score);
+  if (s > best) { best = s; store.set('pv_best', String(best)); }
+}
+
+function tryPulse() {
+  if (state !== 'playing') return;
+  if (pulseArmed || pulse < 1) return;
+  pulseArmed = true; armTimer = ARM_TIME;
+  addShake(5); flash = 0.25;
+  burst(player.x, player.y, 24, 45, 260, 0.6, 4);
+  sfx.pulseFire();
+}
+
+/* ============================================================
+   SECTION 8 — INPUT (keyboard + touch)
+   ============================================================ */
+const keys = {};
+let steerTouchId = null, steerDir = 0, lastTapAt = 0;
+
+function inputDir() {
+  let d = 0;
+  if (keys.ArrowLeft || keys.KeyA) d -= 1;
+  if (keys.ArrowRight || keys.KeyD) d += 1;
+  return clamp(d + steerDir, -1, 1);
+}
+
+function pulseButton() { // on-screen pulse target (touch)
+  return { x: W / 2, y: H - 64, r: 38 };
+}
+
+function primaryAction() { // start / retry / unpause
+  audioInit();
+  if (state === 'title') startRun();
+  else if (state === 'dead' && deathTimer > 0.6) startRun();
+  else if (state === 'paused') { state = 'playing'; lastFrame = performance.now(); }
+}
+
+addEventListener('keydown', (e) => {
+  if (e.repeat) return;
+  keys[e.code] = true;
+  audioInit();
+  if (e.code === 'KeyM') { setMuted(!muted); return; }
+  if (state === 'playing') {
+    if (e.code === 'Space') { e.preventDefault(); tryPulse(); }
+    if (e.code === 'Escape') state = 'paused';
+  } else {
+    primaryAction();
+  }
+});
+addEventListener('keyup', (e) => { keys[e.code] = false; });
+
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  audioInit();
+  const now = performance.now();
+  for (const t of e.changedTouches) {
+    const x = t.clientX, y = t.clientY;
+    if (state !== 'playing') { primaryAction(); return; }
+    const pb = pulseButton();
+    const onButton = Math.hypot(x - pb.x, y - pb.y) < pb.r + 14; // generous hit area
+    const isDoubleTap = now - lastTapAt < 280;
+    lastTapAt = now;
+    if (onButton || isDoubleTap) { tryPulse(); if (onButton) continue; }
+    steerTouchId = t.identifier;
+    steerDir = x < W / 2 ? -1 : 1;
+  }
+}, { passive: false });
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  for (const t of e.changedTouches) {
+    if (t.identifier === steerTouchId) steerDir = t.clientX < W / 2 ? -1 : 1;
+  }
+}, { passive: false });
+
+function endTouch(e) {
+  for (const t of e.changedTouches) {
+    if (t.identifier === steerTouchId) { steerTouchId = null; steerDir = 0; }
+  }
+}
+canvas.addEventListener('touchend', endTouch);
+canvas.addEventListener('touchcancel', endTouch);
+
+canvas.addEventListener('mousedown', () => { audioInit(); if (state !== 'playing') primaryAction(); });
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && state === 'playing') state = 'paused';
+});
+
+/* ============================================================
+   SECTION 9 — UPDATE
+   ============================================================ */
+function update(dt) {
+  runTime += dt;
+  const t = runTime;
+
+  // --- descent speed ramps with depth (capped) ---
+  fallSpeed = 250 + Math.min(400, depthPx * 0.014);
+  depthPx += fallSpeed * dt;
+  player.y = depthPx;
+
+  // --- horizontal drift physics ---
+  const dir = inputDir();
+  const maxVx = W * 1.05;
+  player.vx += dir * W * 4.2 * dt;
+  if (dir === 0) player.vx *= Math.exp(-7 * dt);
+  player.vx = clamp(player.vx, -maxVx, maxVx);
+  player.x += player.vx * dt;
+
+  // --- score accrual (depth × multiplier) ---
+  score += (fallSpeed * dt / PX_PER_M) * mult;
+
+  // --- multiplier decay when playing safe ---
+  if (mult > 1 && t - lastGrazeAt > MULT_DECAY) { mult--; lastGrazeAt = t; }
+
+  // --- pulse arming timer ---
+  if (pulseArmed) {
+    armTimer -= dt;
+    pulse = Math.max(0, armTimer / ARM_TIME);
+    if (armTimer <= 0) { pulseArmed = false; pulse = 0; }
+  }
+  if (t - lastGrazeAt > 1.2) grazeCombo = 0;
+
+  // --- walls: collide + graze ---
+  const margin = player.r + 15;
+  wallGrazeCd -= dt;
+  const wl = wallLeft(player.y), wr = wallRight(player.y);
+  if (player.x - player.r <= wl || player.x + player.r >= wr) { die(); return; }
+  const wallGap = Math.min(player.x - player.r - wl, wr - player.x - player.r);
+  if (wallGap < 15 && wallGrazeCd <= 0) {
+    wallGrazeCd = 0.8;
+    registerGraze(true);
+  }
+
+  // --- spawn & cull obstacles ---
+  const camTop = player.y - H * 0.3;
+  while (nextSpawnY < camTop + H * 2) { spawnObstacle(nextSpawnY); nextSpawnY += spawnGap(); }
+  obstacles = obstacles.filter((o) => !o.dead && o.y > camTop - 200);
+
+  // --- obstacle collision & graze ---
+  for (const o of obstacles) {
+    if (Math.abs(o.y - player.y) > H) continue;
+    const parts = obstacleParts(o, t);
+    for (let i = 0; i < parts.length; i++) {
+      const p = parts[i];
+      let d;
+      if (p.kind === 'rect') {
+        if (p.w <= 0) continue;
+        d = rectDist(player.x, player.y, p.x, p.y, p.w, p.h);
+      } else {
+        d = segDist(player.x, player.y, p.x1, p.y1, p.x2, p.y2) - p.th / 2;
+      }
+      if (d < player.r) {
+        if (pulseArmed) { smash(o); break; }
+        die(); return;
+      }
+      if (d < margin && !o.grazed[i] && player.y < o.y + 60) {
+        o.grazed[i] = true;
+        registerGraze(false);
+      }
+    }
+  }
+
+  updateFx(dt);
+  updateZone();
+}
+
+function registerGraze(isWall) {
+  grazeCombo++;
+  lastGrazeAt = runTime;
+  if (!pulseArmed) {
+    const was = pulse;
+    pulse = Math.min(1, pulse + (isWall ? WALL_GAIN : GRAZE_GAIN));
+    if (pulse >= 1 && was < 1) sfx.ready();
+  }
+  score += (isWall ? 10 : 25) * mult;
+  burst(player.x, player.y, isWall ? 5 : 10, 55, 200, 0.5, 3);
+  addShake(1.5);
+  sfx.graze(grazeCombo);
+}
+
+function smash(o) {
+  o.dead = true;
+  mult = Math.min(MAX_MULT, mult + 1);
+  score += 200 * mult;
+  pulseArmed = false; pulse = 0;
+  lastGrazeAt = runTime;
+  addShake(12); flash = 0.5;
+  burst(player.x, player.y + 30, 50, ZONES[zoneIdx % ZONES.length].h, 480, 0.9, 5);
+  sfx.smash();
+}
+
+function updateFx(dt) {
+  // particles
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.t += dt;
+    if (p.t >= p.life) { particles.splice(i, 1); continue; }
+    p.x += p.vx * dt; p.y += p.vy * dt;
+    p.vx *= Math.exp(-2 * dt); p.vy *= Math.exp(-2 * dt);
+  }
+  // trail
+  trail.push({ x: player.x, y: player.y });
+  if (trail.length > 14) trail.shift();
+  // shake & flash decay
+  shake *= Math.exp(-6 * dt);
+  flash = Math.max(0, flash - dt * 1.6);
+}
+
+function updateZone() {
+  const z = Math.min(ZONES.length * 4, Math.floor(metres() / ZONE_M)); // hue cycles
+  if (z !== zoneIdx) {
+    zoneIdx = z; zoneBlend = 0;
+    flash = 0.35;
+    sfx.zone();
+    burst(player.x, player.y, 40, ZONES[zoneIdx % ZONES.length].h, 320, 0.9, 4);
+  }
+  zoneBlend = Math.min(1, zoneBlend + 0.02);
+}
+
+/* ============================================================
+   SECTION 10 — RENDER
+   ============================================================ */
+// Static parallax specks (regenerated on resize)
+let specks = [];
+function makeSpecks() {
+  specks = [];
+  for (let i = 0; i < 70; i++) {
+    specks.push({ x: Math.random(), y: Math.random(), f: rnd(0.15, 0.6), s: rnd(0.7, 2.2) });
+  }
+}
+
+function zoneHue() {
+  const a = ZONES[zoneIdx % ZONES.length].h;
+  const b = ZONES[Math.max(0, zoneIdx - 1) % ZONES.length].h;
+  return lerp(b, a, zoneBlend);
+}
+
+function render() {
+  const hue = zoneHue();
+  const cam = (player ? player.y : 0) - H * 0.3;
+
+  // background
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, hsl(hue, 45, 5));
+  g.addColorStop(1, hsl(hue, 55, 9));
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.save();
+  if (shake > 0.3) ctx.translate(rnd(-shake, shake), rnd(-shake, shake));
+
+  // parallax specks
+  ctx.fillStyle = hsl(hue, 60, 60, 0.35);
+  for (const s of specks) {
+    const y = ((s.y * H - cam * s.f) % H + H) % H;
+    ctx.fillRect(s.x * W, y, s.s, s.s * 2.5);
+  }
+
+  if (player) {
+    renderWalls(cam, hue);
+    renderObstacles(cam, hue);
+    renderParticles(cam);
+    if (state !== 'dead') renderPlayer(cam);
+  }
+  ctx.restore();
+
+  // full-screen flash (pulse / smash / zone / death)
+  if (flash > 0) {
+    ctx.fillStyle = hsl(hue, 90, 70, flash * 0.35);
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  renderHUD(hue);
+  if (state === 'title')  renderTitle(hue);
+  if (state === 'dead')   renderDead(hue);
+  if (state === 'paused') renderPaused(hue);
+}
+
+function renderWalls(cam, hue) {
+  const step = 26;
+  ctx.fillStyle = hsl(hue, 40, 13);
+  ctx.strokeStyle = hsl(hue, 85, 60);
+  ctx.lineWidth = 2.5;
+  for (const side of [-1, 1]) {
+    ctx.beginPath();
+    ctx.moveTo(side < 0 ? -4 : W + 4, -4);
+    for (let y = -step; y <= H + step; y += step) {
+      const wy = cam + y;
+      ctx.lineTo(side < 0 ? wallLeft(wy) : wallRight(wy), y);
+    }
+    ctx.lineTo(side < 0 ? -4 : W + 4, H + 4);
+    ctx.closePath();
+    ctx.fill();
+    // glowing inner edge
+    ctx.shadowColor = hsl(hue, 90, 60); ctx.shadowBlur = 12;
+    ctx.beginPath();
+    for (let y = -step; y <= H + step; y += step) {
+      const wy = cam + y, x = side < 0 ? wallLeft(wy) : wallRight(wy);
+      y === -step ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+}
+
+function renderObstacles(cam, hue) {
+  const hz = (hue + 150) % 360; // hazard colour = complementary-ish
+  ctx.shadowColor = hsl(hz, 95, 60); ctx.shadowBlur = 14;
+  ctx.fillStyle = hsl(hz, 90, 58);
+  ctx.strokeStyle = hsl(hz, 90, 58);
+  for (const o of obstacles) {
+    const sy = o.y - cam;
+    if (sy < -80 || sy > H + 80) continue;
+    for (const p of obstacleParts(o, runTime)) {
+      if (p.kind === 'rect') {
+        if (p.w > 0) ctx.fillRect(p.x, p.y - cam, p.w, p.h);
+      } else {
+        ctx.lineWidth = p.th; ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(p.x1, p.y1 - cam); ctx.lineTo(p.x2, p.y2 - cam);
+        ctx.stroke();
+      }
+    }
+  }
+  ctx.shadowBlur = 0;
+}
+
+function renderParticles(cam) {
+  for (const p of particles) {
+    const a = 1 - p.t / p.life;
+    ctx.fillStyle = hsl(p.hue, 95, 65, a);
+    const s = p.size * a;
+    ctx.fillRect(p.x - s / 2, p.y - cam - s / 2, s, s);
+  }
+}
+
+function renderPlayer(cam) {
+  // trail
+  for (let i = 0; i < trail.length; i++) {
+    const a = i / trail.length;
+    ctx.fillStyle = hsl(190, 95, 65, a * 0.35);
+    const r = player.r * a;
+    ctx.beginPath();
+    ctx.arc(trail[i].x, trail[i].y - cam, r, 0, TAU);
+    ctx.fill();
+  }
+  const px = player.x, py = player.y - cam;
+  // pulse-armed aura
+  if (pulseArmed) {
+    const rr = player.r * (2.2 + 0.5 * Math.sin(runTime * 14));
+    ctx.strokeStyle = hsl(45, 100, 65, 0.85);
+    ctx.lineWidth = 3;
+    ctx.shadowColor = hsl(45, 100, 60); ctx.shadowBlur = 18;
+    ctx.beginPath(); ctx.arc(px, py, rr, 0, TAU); ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+  // ship (tilts with velocity)
+  const tilt = clamp(player.vx / (W * 1.05), -1, 1) * 0.5;
+  ctx.save();
+  ctx.translate(px, py);
+  ctx.rotate(tilt);
+  ctx.shadowColor = hsl(190, 100, 70); ctx.shadowBlur = 16;
+  ctx.fillStyle = '#e8fdff';
+  ctx.beginPath();
+  ctx.moveTo(0, player.r * 1.5);
+  ctx.lineTo(-player.r, -player.r);
+  ctx.lineTo(0, -player.r * 0.4);
+  ctx.lineTo(player.r, -player.r);
+  ctx.closePath();
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.restore();
+}
+
+/* ---------- HUD & overlays ---------- */
+function font(px, bold) { return `${bold ? '800' : '500'} ${px}px system-ui, -apple-system, 'Segoe UI', sans-serif`; }
+
+function renderHUD(hue) {
+  if (state === 'title') return;
+  ctx.textAlign = 'center';
+  // score
+  ctx.fillStyle = '#f2fbff';
+  ctx.font = font(34, true);
+  ctx.fillText(Math.floor(score).toLocaleString(), W / 2, 46);
+  // best + depth
+  ctx.font = font(13);
+  ctx.fillStyle = hsl(hue, 60, 70, 0.8);
+  ctx.fillText(`BEST ${best.toLocaleString()}   ·   ${Math.floor(metres())}m`, W / 2, 66);
+  // multiplier
+  if (mult > 1) {
+    ctx.font = font(22, true);
+    ctx.fillStyle = hsl(45, 100, 62);
+    ctx.fillText(`×${mult}`, W / 2 + 90, 46);
+  }
+  // graze combo ticker
+  if (grazeCombo > 1 && state === 'playing') {
+    ctx.font = font(15, true);
+    ctx.fillStyle = hsl(55, 100, 70, 0.9);
+    ctx.fillText(`GRAZE ×${grazeCombo}`, W / 2, 90);
+  }
+  renderPulseMeter(hue);
+  // mute hint
+  ctx.textAlign = 'right';
+  ctx.font = font(12);
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.fillText(muted ? '🔇 M' : '🔊 M', W - 12, H - 12);
+}
+
+function renderPulseMeter(hue) {
+  const pb = pulseButton();
+  const ready = pulse >= 1 && !pulseArmed;
+  // meter bar
+  const bw = Math.min(W * 0.42, 220), bh = 8;
+  const bx = W / 2 - bw / 2, by = H - 20;
+  ctx.fillStyle = 'rgba(255,255,255,0.12)';
+  ctx.fillRect(bx, by, bw, bh);
+  ctx.fillStyle = pulseArmed ? hsl(45, 100, 60) : hsl(ready ? 45 : hue, 95, 60);
+  ctx.fillRect(bx, by, bw * clamp(pulse, 0, 1), bh);
+  // pulse button (big touch target)
+  const wob = ready ? 1 + 0.06 * Math.sin(runTime * 10) : 1;
+  ctx.beginPath();
+  ctx.arc(pb.x, pb.y, pb.r * wob, 0, TAU);
+  ctx.fillStyle = ready ? hsl(45, 100, 55, 0.95) : 'rgba(255,255,255,0.07)';
+  if (ready) { ctx.shadowColor = hsl(45, 100, 60); ctx.shadowBlur = 20; }
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.strokeStyle = ready ? '#fff8e0' : 'rgba(255,255,255,0.25)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.fillStyle = ready ? '#1a1400' : 'rgba(255,255,255,0.4)';
+  ctx.font = font(13, true);
+  ctx.textAlign = 'center';
+  ctx.fillText('PULSE', pb.x, pb.y + 5);
+}
+
+function overlayPanel(alpha) {
+  ctx.fillStyle = `rgba(3,4,12,${alpha})`;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function renderTitle(hue) {
+  overlayPanel(0.45);
+  ctx.textAlign = 'center';
+  ctx.shadowColor = hsl(hue, 100, 60); ctx.shadowBlur = 24;
+  ctx.fillStyle = '#f2fbff';
+  ctx.font = font(Math.min(W * 0.11, 58), true);
+  ctx.fillText('PULSE VAULT', W / 2, H * 0.32);
+  ctx.shadowBlur = 0;
+  ctx.font = font(15);
+  ctx.fillStyle = hsl(hue, 70, 75);
+  ctx.fillText('Graze the hazards to charge your Pulse.', W / 2, H * 0.32 + 40);
+  ctx.fillText('Smash through. Multiply. Descend.', W / 2, H * 0.32 + 62);
+  ctx.fillStyle = 'rgba(255,255,255,0.75)';
+  ctx.font = font(14);
+  ctx.fillText('← → / A D  ·  hold left / right side to steer', W / 2, H * 0.58);
+  ctx.fillText('SPACE / PULSE button to fire', W / 2, H * 0.58 + 24);
+  if (best > 0) {
+    ctx.fillStyle = hsl(45, 100, 65);
+    ctx.fillText(`BEST  ${best.toLocaleString()}`, W / 2, H * 0.58 + 56);
+  }
+  blinkPrompt('TAP OR PRESS ANY KEY', H * 0.8);
+}
+
+function renderDead(hue) {
+  const a = Math.min(0.6, deathTimer * 1.2);
+  overlayPanel(a);
+  if (deathTimer < 0.35) return;
+  ctx.textAlign = 'center';
+  const s = Math.floor(score);
+  ctx.fillStyle = '#f2fbff';
+  ctx.font = font(Math.min(W * 0.09, 44), true);
+  ctx.fillText('RUN OVER', W / 2, H * 0.34);
+  ctx.font = font(30, true);
+  ctx.fillStyle = hsl(hue, 90, 70);
+  ctx.fillText(s.toLocaleString(), W / 2, H * 0.34 + 48);
+  ctx.font = font(15);
+  ctx.fillStyle = s >= best && s > 0 ? hsl(45, 100, 62) : 'rgba(255,255,255,0.6)';
+  ctx.fillText(s >= best && s > 0 ? '★ NEW BEST ★' : `BEST ${best.toLocaleString()}`, W / 2, H * 0.34 + 78);
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText(`${Math.floor(metres())}m deep`, W / 2, H * 0.34 + 102);
+  if (deathTimer > 0.6) blinkPrompt('TAP OR PRESS ANY KEY TO RETRY', H * 0.72);
+}
+
+function renderPaused(hue) {
+  overlayPanel(0.55);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#f2fbff';
+  ctx.font = font(34, true);
+  ctx.fillText('PAUSED', W / 2, H * 0.4);
+  blinkPrompt('TAP OR PRESS ANY KEY TO RESUME', H * 0.55);
+}
+
+function blinkPrompt(text, y) {
+  const a = 0.55 + 0.45 * Math.sin(performance.now() * 0.005);
+  ctx.font = font(15, true);
+  ctx.fillStyle = `rgba(255,255,255,${a})`;
+  ctx.textAlign = 'center';
+  ctx.fillText(text, W / 2, y);
+}
+
+/* ============================================================
+   SECTION 11 — MAIN LOOP, RESIZE, BOOT
+   ============================================================ */
+function resize() {
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = Math.round(W * DPR);
+  canvas.height = Math.round(H * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  makeSpecks();
+  if (player) player.x = clamp(player.x, wallLeft(player.y) + player.r, wallRight(player.y) - player.r);
+}
+addEventListener('resize', resize);
+
+function frame(now) {
+  const dt = Math.min(0.033, (now - lastFrame) / 1000 || 0.016);
+  lastFrame = now;
+  if (state === 'playing') update(dt);
+  if (state === 'dead') { deathTimer += dt; updateFx(dt); }
+  render();
+  requestAnimationFrame(frame);
+}
+
+resize();
+resetRun();          // pre-build a world so the title screen has a live backdrop
+state = 'title';
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
