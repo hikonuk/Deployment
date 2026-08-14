@@ -48,10 +48,16 @@
   </div>
 </div>
 <script>
-// Surface any startup error instead of a silent blank screen
+// Surface any error on screen — at startup or mid-game — instead of a silent
+// blank/frozen screen. Recreates the overlay if the boot panel is already gone.
 window.onerror = function (msg, src, line) {
   var el = document.getElementById('boot');
-  if (el) el.innerHTML = '<div><b>PULSE VAULT failed to start</b><br><br>' +
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'boot';
+    document.body.appendChild(el);
+  }
+  el.innerHTML = '<div><b>PULSE VAULT hit an error</b><br><br>' +
     String(msg) + (line ? ' (line ' + line + ')' : '') +
     '<br><br>Please report this along with your browser + device.</div>';
   return false;
@@ -182,7 +188,7 @@ function setMuted(m) {
 // One enveloped oscillator sweep
 function tone(f0, f1, dur, type, vol, delay) {
   if (!AC || muted) return;
-  const t0 = AC.currentTime + (delay || 0);
+  const t0 = AC.currentTime + Math.max(0, delay || 0);
   const o = AC.createOscillator(), g = AC.createGain();
   o.type = type || 'sine';
   o.frequency.setValueAtTime(f0, t0);
@@ -195,7 +201,7 @@ function tone(f0, f1, dur, type, vol, delay) {
 // Filtered white-noise burst
 function noise(dur, vol, f0, f1, delay) {
   if (!AC || muted) return;
-  const t0 = AC.currentTime + (delay || 0);
+  const t0 = AC.currentTime + Math.max(0, delay || 0);
   const len = Math.max(1, (dur * AC.sampleRate) | 0);
   const buf = AC.createBuffer(1, len, AC.sampleRate);
   const d = buf.getChannelData(0);
@@ -1250,7 +1256,12 @@ function blinkPrompt(text, y) {
    ============================================================ */
 function resize() {
   DPR = Math.min(2, window.devicePixelRatio || 1);
-  W = window.innerWidth; H = window.innerHeight;
+  W = Math.round(window.innerWidth) || 0;
+  H = Math.round(window.innerHeight) || 0;
+  if (W < 2 || H < 2) {           // layout not ready yet (embedded viewers) — retry
+    W = Math.max(W, 2); H = Math.max(H, 2);
+    setTimeout(resize, 100);
+  }
   canvas.width = Math.round(W * DPR);
   canvas.height = Math.round(H * DPR);
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -1259,6 +1270,7 @@ function resize() {
   if (player) player.x = clamp(player.x, wallLeft(player.y) + player.r, wallRight(player.y) - player.r);
 }
 addEventListener('resize', resize);
+addEventListener('orientationchange', () => setTimeout(resize, 200));
 
 function frame(now) {
   const dt = Math.min(0.033, (now - lastFrame) / 1000 || 0.016);
