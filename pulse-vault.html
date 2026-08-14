@@ -22,10 +22,37 @@
     -webkit-tap-highlight-color: transparent;
   }
   canvas { display: block; width: 100vw; height: 100vh; }
+  #boot {
+    position: fixed; inset: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; text-align: center;
+    color: #9fd8e8; background: #05060f;
+    font: 500 16px/1.6 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  #boot b { color: #f2fbff; }
 </style>
 </head>
 <body>
 <canvas id="game"></canvas>
+<div id="boot">
+  <div>
+    <b>PULSE VAULT</b><br><br>
+    If this message stays on screen, this viewer has JavaScript disabled
+    (in-app file previews often do).<br><br>
+    <b>Save the file</b> to your device, then open it in a real browser
+    (Safari, Chrome, Firefox, Edge) &mdash; it works fully offline.
+  </div>
+</div>
+<script>
+// Surface any startup error instead of a silent blank screen
+window.onerror = function (msg, src, line) {
+  var el = document.getElementById('boot');
+  if (el) el.innerHTML = '<div><b>PULSE VAULT failed to start</b><br><br>' +
+    String(msg) + (line ? ' (line ' + line + ')' : '') +
+    '<br><br>Please report this along with your browser + device.</div>';
+  return false;
+};
+</script>
 <script>
 'use strict';
 /* ============================================================
@@ -325,7 +352,8 @@ canvas.addEventListener('touchstart', (e) => {
   e.preventDefault();
   audioInit();
   const now = performance.now();
-  for (const t of e.changedTouches) {
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    const t = e.changedTouches[i];
     const x = t.clientX, y = t.clientY;
     if (state !== 'playing') { primaryAction(); return; }
     const pb = pulseButton();
@@ -340,14 +368,15 @@ canvas.addEventListener('touchstart', (e) => {
 
 canvas.addEventListener('touchmove', (e) => {
   e.preventDefault();
-  for (const t of e.changedTouches) {
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    const t = e.changedTouches[i];
     if (t.identifier === steerTouchId) steerDir = t.clientX < W / 2 ? -1 : 1;
   }
 }, { passive: false });
 
 function endTouch(e) {
-  for (const t of e.changedTouches) {
-    if (t.identifier === steerTouchId) { steerTouchId = null; steerDir = 0; }
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    if (e.changedTouches[i].identifier === steerTouchId) { steerTouchId = null; steerDir = 0; }
   }
 }
 canvas.addEventListener('touchend', endTouch);
@@ -798,6 +827,10 @@ resize();
 resetRun();          // pre-build a world so the title screen has a live backdrop
 state = 'title';
 requestAnimationFrame(frame);
+
+// Booted successfully — remove the no-JS / error fallback panel
+const bootEl = document.getElementById('boot');
+if (bootEl) bootEl.parentNode.removeChild(bootEl);
 </script>
 </body>
 </html>
