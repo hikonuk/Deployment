@@ -10,8 +10,9 @@
   Controls:
     Desktop : Left/Right arrows or A/D to drift · SPACE to fire Pulse · M to mute
               At title: arrows pick your start stage, any other key launches.
-    Mobile  : hold left/right half of the screen to drift · tap PULSE button
-              (or double-tap) to fire · tap a stage chip on the title screen.
+    Mobile  : touch and drag anywhere to steer (ship follows your finger) ·
+              tap PULSE button (or double-tap) to fire · tap a stage chip
+              on the title screen.
   Progression: 5 named stages (500 m each) + endless Overdrive. Reaching a
   stage unlocks it as a starting point. High score, unlocked stages and mute
   preference persist in localStorage (fails safe if storage is blocked).
@@ -359,25 +360,39 @@ function obstacleParts(o, t) {
   return []; // lasers are handled separately (timed beam, not solid parts)
 }
 
-// Pickups: score crystals in risky spots, rare one-hit shields
+// Pickups: score crystals in risky spots, rare one-hit shields.
+// Crystals sway sideways and spawn in one of several random patterns,
+// so their locations differ every cluster and every run.
+function addCrystal(yy, frac) {
+  const cxi = wallCX(yy), hwi = wallHW(yy);
+  const swayA = rnd(10, 28), swayS = rnd(1.2, 2.4);
+  pickups.push({
+    kind: 'crystal', phase: rnd(0, TAU), taken: false, swayA, swayS,
+    x: clamp(cxi + frac * hwi, wallLeft(yy) + 20 + swayA, wallRight(yy) - 20 - swayA),
+    y: yy,
+  });
+}
 function spawnPickups(y) {
   const cx = wallCX(y), hw = wallHW(y);
   if (Math.random() < 0.07) {
-    pickups.push({ kind: 'shield', x: cx + rnd(-0.3, 0.3) * hw, y, phase: rnd(0, TAU), taken: false });
+    pickups.push({
+      kind: 'shield', x: cx + rnd(-0.3, 0.3) * hw, y,
+      phase: rnd(0, TAU), swayA: rnd(4, 8), swayS: rnd(0.8, 1.4), taken: false,
+    });
     return;
   }
   const n = 1 + ((Math.random() * 3) | 0);
+  const pat = Math.random();
   const side = Math.random() < 0.5 ? -1 : 1;
+  const base = rnd(0.45, 0.8);
   for (let i = 0; i < n; i++) {
     const yy = y + i * 46;
-    const cxi = wallCX(yy), hwi = wallHW(yy);
-    pickups.push({
-      kind: 'crystal', phase: rnd(0, TAU), taken: false,
-      x: clamp(cxi + side * hwi * rnd(0.45, 0.8), wallLeft(yy) + 20, wallRight(yy) - 20),
-      y: yy,
-    });
+    if (pat < 0.35)      addCrystal(yy, side * base);                       // line hugging one wall
+    else if (pat < 0.65) addCrystal(yy, (i % 2 === 0 ? side : -side) * base); // zigzag between walls
+    else                 addCrystal(yy, rnd(-0.85, 0.85));                  // full random scatter
   }
 }
+function pickupX(p) { return p.x + Math.sin(runTime * p.swayS + p.phase) * p.swayA; }
 
 function spawnGap() {
   const dense = metres() > STAGES.length * STAGE_M ? 0.92 : 1;
@@ -509,14 +524,15 @@ function registerGraze(isWall) {
    SECTION 8 — INPUT (keyboard, touch, title/death UI hit-testing)
    ============================================================ */
 const keys = {};
-let steerTouchId = null, steerDir = 0, lastTapAt = 0;
+const TOUCH_SENS = 1.35;      // finger movement → ship movement multiplier
+let steerTouchId = null, dragDX = 0, lastTouchX = 0, lastTapAt = 0;
 const uiRects = { chips: [], retry: null, menu: null };  // filled during render
 
-function inputDir() {
+function inputDir() { // keyboard only — touch uses positional drag
   let d = 0;
   if (keys.ArrowLeft || keys.KeyA) d -= 1;
   if (keys.ArrowRight || keys.KeyD) d += 1;
-  return clamp(d + steerDir, -1, 1);
+  return d;
 }
 function pulseButton() { return { x: W / 2, y: H - 64, r: 38 }; }
 
@@ -580,7 +596,7 @@ canvas.addEventListener('touchstart', (e) => {
     lastTapAt = now;
     if (onButton || isDoubleTap) { tryPulse(); if (onButton) continue; }
     steerTouchId = t.identifier;
-    steerDir = x < W / 2 ? -1 : 1;
+    lastTouchX = x;
   }
 }, { passive: false });
 
@@ -588,13 +604,19 @@ canvas.addEventListener('touchmove', (e) => {
   e.preventDefault();
   for (let i = 0; i < e.changedTouches.length; i++) {
     const t = e.changedTouches[i];
-    if (t.identifier === steerTouchId) steerDir = t.clientX < W / 2 ? -1 : 1;
+    if (t.identifier === steerTouchId) {
+      dragDX += t.clientX - lastTouchX;   // relative drag, consumed each update
+      lastTouchX = t.clientX;
+    }
   }
 }, { passive: false });
 
 function endTouch(e) {
   for (let i = 0; i < e.changedTouches.length; i++) {
-    if (e.changedTouches[i].identifier === steerTouchId) { steerTouchId = null; steerDir = 0; }
+    if (e.changedTouches[i].identifier === steerTouchId) {
+      steerTouchId = null; dragDX = 0;
+      if (player) player.vx *= 0.2;       // no slide after lifting the finger
+    }
   }
 }
 canvas.addEventListener('touchend', endTouch);
@@ -623,13 +645,22 @@ function update(dt) {
   depthPx += fallSpeed * dt;
   player.y = depthPx;
 
-  // --- horizontal drift physics ---
-  const dir = inputDir();
-  const maxVx = W * 1.05;
-  player.vx += dir * W * 4.2 * dt;
-  if (dir === 0) player.vx *= Math.exp(-7 * dt);
-  player.vx = clamp(player.vx, -maxVx, maxVx);
-  player.x += player.vx * dt;
+  // --- horizontal movement ---
+  const maxVx = W * 0.8;
+  if (steerTouchId !== null) {
+    // touch: positional drag — the ship follows the finger, no momentum
+    const dx = dragDX * TOUCH_SENS;
+    dragDX = 0;
+    player.x += dx;
+    player.vx = clamp(lerp(player.vx, dx / Math.max(dt, 0.001), 0.4), -maxVx, maxVx); // tilt only
+  } else {
+    // keyboard: eased velocity with quick stop
+    const dir = inputDir();
+    player.vx += dir * W * 3.0 * dt;
+    if (dir === 0) player.vx *= Math.exp(-9 * dt);
+    player.vx = clamp(player.vx, -maxVx, maxVx);
+    player.x += player.vx * dt;
+  }
 
   // --- score accrual (depth × multiplier) ---
   score += (fallSpeed * dt / PX_PER_M) * mult;
@@ -725,8 +756,9 @@ function update(dt) {
   // --- pickups ---
   for (const p of pickups) {
     if (Math.abs(p.y - player.y) > 80) continue;
-    if (Math.hypot(p.x - player.x, p.y - player.y) < player.r + 11) {
+    if (Math.hypot(pickupX(p) - player.x, p.y - player.y) < player.r + 11) {
       p.taken = true;
+      const px = pickupX(p);
       if (p.kind === 'crystal') {
         stats.crystals++;
         const pts = 40 * mult;
@@ -736,18 +768,18 @@ function update(dt) {
           pulse = Math.min(1, pulse + 0.06);
           if (pulse >= 1 && was < 1) sfx.ready();
         }
-        popup(p.x, p.y - 18, '+' + pts, 185);
-        burst(p.x, p.y, 8, 185, 180, 0.5, 3);
+        popup(px, p.y - 18, '+' + pts, 185);
+        burst(px, p.y, 8, 185, 180, 0.5, 3);
         sfx.crystal(stats.crystals);
       } else if (shield) {
         const pts = 200 * mult;
         score += pts;
-        popup(p.x, p.y - 18, '+' + pts, 45);
+        popup(px, p.y - 18, '+' + pts, 45);
         sfx.crystal(4);
       } else {
         shield = true;
-        popup(p.x, p.y - 18, 'SHIELD', 45);
-        burst(p.x, p.y, 20, 45, 240, 0.7, 4);
+        popup(px, p.y - 18, 'SHIELD', 45);
+        burst(px, p.y, 20, 45, 240, 0.7, 4);
         sfx.shieldGet();
       }
     }
@@ -941,20 +973,21 @@ function renderPickups(cam) {
     const sy = p.y - cam;
     if (sy < -40 || sy > H + 40) continue;
     const bob = Math.sin(runTime * 3 + p.phase) * 4;
+    const px = pickupX(p);
     if (p.kind === 'crystal') {
-      drawGlow(p.x, sy + bob, 16, 185, 0.6);
+      drawGlow(px, sy + bob, 16, 185, 0.6);
       ctx.save();
-      ctx.translate(p.x, sy + bob);
+      ctx.translate(px, sy + bob);
       ctx.rotate(runTime * 1.5 + p.phase);
       ctx.fillStyle = '#d8fbff';
       ctx.fillRect(-5, -5, 10, 10);
       ctx.restore();
     } else {
-      drawGlow(p.x, sy + bob, 22, 45, 0.7);
+      drawGlow(px, sy + bob, 22, 45, 0.7);
       ctx.strokeStyle = hsl(45, 100, 62); ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.arc(p.x, sy + bob, 11, 0, TAU); ctx.stroke();
+      ctx.beginPath(); ctx.arc(px, sy + bob, 11, 0, TAU); ctx.stroke();
       ctx.strokeStyle = '#fff6d8'; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(p.x, sy + bob, 6, 0, TAU); ctx.stroke();
+      ctx.beginPath(); ctx.arc(px, sy + bob, 6, 0, TAU); ctx.stroke();
     }
   }
 }
@@ -986,7 +1019,7 @@ function renderPlayer(cam) {
     ctx.beginPath(); ctx.arc(px, py, player.r * 1.9, 0, TAU); ctx.stroke();
   }
   drawGlow(px, py, player.r * 2.6, 195, 0.55);
-  const tilt = clamp(player.vx / (W * 1.05), -1, 1) * 0.5;
+  const tilt = clamp(player.vx / (W * 0.8), -1, 1) * 0.5;
   ctx.save();
   ctx.translate(px, py);
   ctx.rotate(tilt);
@@ -1159,7 +1192,7 @@ function renderTitle(hue) {
 
   ctx.fillStyle = 'rgba(255,255,255,0.7)';
   ctx.font = font(13);
-  ctx.fillText('← → / A D  ·  hold left / right side to steer', W / 2, H * 0.72);
+  ctx.fillText('drag to steer  ·  ← → / A D on keyboard', W / 2, H * 0.72);
   ctx.fillText('SPACE / PULSE button to fire  ·  M mute', W / 2, H * 0.72 + 22);
   if (best > 0) {
     ctx.fillStyle = hsl(45, 100, 65);
