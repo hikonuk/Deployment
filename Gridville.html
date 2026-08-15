@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Gridville</title>
+<!--
+  GRIDVILLE — a single-file, fully-offline city-building sim.
+  No frameworks, no CDNs, no fonts, no images, no audio files, no network calls.
+
+  Found a town on a random map. Pick a tool, tap the map to build
+  (drag to paint roads). Buildings need a road next to them and power
+  from a plant. Houses fill with citizens when they're happy — parks
+  help, pollution from factories and plants hurts. Taxes fund growth.
+  Reach 25 / 75 / 200 / 500 population for milestone grants.
+
+  Tools:  ROAD · HOUSE · SHOP · FACTORY · POWER · PARK · DOZE
+  Keys:   1-7 tools · ESC inspect mode · F speed (1x/3x/pause) · M mute
+  Saves:  the whole city autosaves to localStorage — close the tab and
+          continue later. Best population is tracked across cities.
+-->
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: #101418;
+    overflow: hidden;
+    touch-action: none;
+    -webkit-user-select: none; user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  #boot {
+    position: fixed; inset: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; text-align: center;
+    color: #cfe8d8; background: #101418;
+    font: 500 16px/1.6 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  #boot b { color: #ffffff; }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="boot">
+  <div>
+    <b>GRIDVILLE</b><br><br>
+    If this message stays on screen, this viewer has JavaScript disabled
+    (in-app file previews often do).<br><br>
+    <b>Save the file</b> to your device, then open it in a real browser
+    (Safari, Chrome, Firefox, Edge) &mdash; it works fully offline.
+  </div>
+</div>
+<script>
+window.onerror = function (msg, src, line) {
+  var el = document.getElementById('boot');
+  if (!el) { el = document.createElement('div'); el.id = 'boot'; document.body.appendChild(el); }
+  el.innerHTML = '<div><b>GRIDVILLE hit an error</b><br><br>' + String(msg) +
+    (line ? ' (line ' + line + ')' : '') + '<br><br>Please report this with your browser + device.</div>';
+  return false;
+};
+</script>
+<script>
+'use strict';
+/* ============================================================
+   SECTION 1 — CONSTANTS, STATE, PERSISTENCE
+   ============================================================ */
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const TAU = Math.PI * 2;
+
+const COLS = 12, ROWS = 16;
+const START_MONEY = 500;
+const DAY_LEN = 1.5;                 // seconds per simulated day at 1× speed
+const POWER_PER_PLANT = 20;
+
+const TOOLS = [
+  { id: 'road',    name: 'ROAD',  cost: 10,  hue: 215, tip: 'connects buildings — drag to paint' },
+  { id: 'house',   name: 'HOUSE', cost: 50,  hue: 115, tip: 'citizens move in · needs road + power' },
+  { id: 'shop',    name: 'SHOP',  cost: 80,  hue: 45,  tip: 'earns when houses are near' },
+  { id: 'factory', name: 'FACTRY',cost: 120, hue: 25,  tip: 'big income · pollutes nearby' },
+  { id: 'power',   name: 'POWER', cost: 150, hue: 55,  tip: 'powers ' + POWER_PER_PLANT + ' units · pollutes' },
+  { id: 'park',    name: 'PARK',  cost: 40,  hue: 140, tip: 'happiness up, pollution down nearby' },
+  { id: 'doze',    name: 'DOZE',  cost: 0,   hue: 0,   tip: 'demolish anything' },
+];
+const DEMAND = { house: 1, shop: 2, factory: 4 };   // power units (house scales by level)
+const MILESTONES = [
+  { pop: 25,  name: 'VILLAGE',    grant: 200 },
+  { pop: 75,  name: 'TOWN',       grant: 400 },
+  { pop: 200, name: 'CITY',       grant: 800 },
+  { pop: 500, name: 'METROPOLIS', grant: 1500 },
+];
+
+let W = 0, H = 0, DPR = 1, CS = 0, X0 = 0, Y0 = 0;
+let state = 'title';                 // title | playing
+let lastFrame = 0, animT = 0;
+
+// City state (persisted)
+let grid, money, day, milestoneIdx, cityPop, cityHap, powerCap, powerUse;
+let tool = null, speed = 1, tickT = 0;
+let parts, floats, banner;
+let hasSave = false;
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } },
+  del(k)    { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } },
+};
+let bestPop = parseInt(store.get('gv_best', '0'), 10) || 0;
+let muted = store.get('gv_mute', '0') === '1';
+
+/* ============================================================
+   SECTION 2 — UTILITIES
+   ============================================================ */
+const clamp = (v, a, b) => v < a ? a : (v > b ? b : v);
+const rnd = (a, b) => a + Math.random() * (b - a);
+const rndi = (a, b) => (a + Math.random() * (b - a + 1)) | 0;
+function hsl(h, s, l, a) { return a === undefined ? `hsl(${h},${s}%,${l}%)` : `hsla(${h},${s}%,${l}%,${a})`; }
+function px(c) { return X0 + c * CS; }
+function py(r) { return Y0 + r * CS; }
+function font(s, bold) { return `${bold ? '800' : '500'} ${s}px system-ui, -apple-system, 'Segoe UI', sans-serif`; }
+function roundedRect(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function cellAt(r, c) { return (r >= 0 && r < ROWS && c >= 0 && c < COLS) ? grid[r][c] : null; }
+function eachCell(fn) { for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) fn(grid[r][c], r, c); }
+function near(r, c, radius, fn) {   // chebyshev neighbourhood
+  for (let rr = r - radius; rr <= r + radius; rr++)
+    for (let cc = c - radius; cc <= c + radius; cc++) {
+      const cell = cellAt(rr, cc);
+      if (cell && !(rr === r && cc === c)) fn(cell, rr, cc);
+    }
+}
+function roadAdjacent(r, c) {
+  return [[r - 1, c], [r + 1, c], [r, c - 1], [r, c + 1]]
+    .some(([rr, cc]) => { const x = cellAt(rr, cc); return x && x.t === 'road'; });
+}
+
+/* ============================================================
+   SECTION 3 — AUDIO (synthesized, zero files)
+   ============================================================ */
+let AC = null, masterGain = null;
+function audioInit() {
+  if (AC) { if (AC.state === 'suspended') AC.resume(); return; }
+  const Ctor = window.AudioContext || window.webkitAudioContext;
+  if (!Ctor) return;
+  AC = new Ctor();
+  masterGain = AC.createGain();
+  masterGain.gain.value = muted ? 0 : 0.4;
+  masterGain.connect(AC.destination);
+}
+function setMuted(m) {
+  muted = m;
+  store.set('gv_mute', m ? '1' : '0');
+  if (masterGain) masterGain.gain.value = m ? 0 : 0.4;
+}
+function tone(f0, f1, dur, type, vol, delay) {
+  if (!AC || muted) return;
+  const t0 = AC.currentTime + Math.max(0, delay || 0);
+  const o = AC.createOscillator(), g = AC.createGain();
+  o.type = type || 'sine';
+  o.frequency.setValueAtTime(f0, t0);
+  o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t0 + dur);
+  g.gain.setValueAtTime(vol, t0);
+  g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  o.connect(g); g.connect(masterGain);
+  o.start(t0); o.stop(t0 + dur + 0.02);
+}
+function noiseBurst(dur, vol, f0, f1) {
+  if (!AC || muted) return;
+  const t0 = AC.currentTime;
+  const len = Math.max(1, (dur * AC.sampleRate) | 0);
+  const buf = AC.createBuffer(1, len, AC.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  const src = AC.createBufferSource(); src.buffer = buf;
+  const flt = AC.createBiquadFilter(); flt.type = 'lowpass';
+  flt.frequency.setValueAtTime(f0, t0);
+  flt.frequency.exponentialRampToValueAtTime(Math.max(40, f1), t0 + dur);
+  const g = AC.createGain();
+  g.gain.setValueAtTime(vol, t0);
+  g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  src.connect(flt); flt.connect(g); g.connect(masterGain);
+  src.start(t0);
+}
+const sfx = {
+  place()   { tone(180, 120, 0.09, 'square', 0.18); noiseBurst(0.06, 0.08, 2000, 400); },
+  road()    { tone(240, 200, 0.05, 'square', 0.1); },
+  doze()    { noiseBurst(0.18, 0.25, 1400, 150); tone(140, 60, 0.15, 'square', 0.15); },
+  deny()    { tone(160, 120, 0.12, 'square', 0.16); },
+  select()  { tone(600, 780, 0.05, 'square', 0.08); },
+  levelUp() { tone(660, 660, 0.08, 'triangle', 0.16); tone(990, 990, 0.12, 'triangle', 0.14, 0.07); },
+  milestone(){ [523, 659, 784, 1046].forEach((f, i) => tone(f, f, 0.2, 'triangle', 0.2, i * 0.11)); },
+  found()   { tone(392, 523, 0.2, 'triangle', 0.2); tone(523, 659, 0.2, 'triangle', 0.18, 0.15); },
+};
+
+/* ============================================================
+   SECTION 4 — MAP GENERATION
+   ============================================================ */
+function newCell(t) { return { t, lv: 1, powered: false, road: false, pol: 0, hap: 70, pop: 0, active: false }; }
+function genMap() {
+  grid = [];
+  for (let r = 0; r < ROWS; r++) {
+    grid[r] = [];
+    for (let c = 0; c < COLS; c++) grid[r][c] = newCell('grass');
+  }
+  // a lake or two (random blob walks)
+  for (let b = 0; b < rndi(1, 2); b++) {
+    let r = rndi(2, ROWS - 3), c = rndi(2, COLS - 3);
+    for (let i = 0; i < rndi(8, 16); i++) {
+      grid[r][c].t = 'water';
+      r = clamp(r + rndi(-1, 1), 0, ROWS - 1);
+      c = clamp(c + rndi(-1, 1), 0, COLS - 1);
+    }
+  }
+  // scattered trees
+  eachCell((cell) => { if (cell.t === 'grass' && Math.random() < 0.12) cell.t = 'tree'; });
+}
+
+/* ============================================================
+   SECTION 5 — SAVE / LOAD (whole city persists)
+   ============================================================ */
+const T_IDX = ['grass', 'water', 'tree', 'road', 'house', 'shop', 'factory', 'power', 'park'];
+function saveCity() {
+  const cells = [];
+  eachCell((cell) => cells.push(T_IDX.indexOf(cell.t), cell.lv));
+  store.set('gv_save', JSON.stringify({ v: 1, cells, money: Math.round(money), day, milestoneIdx }));
+}
+function loadCity() {
+  try {
+    const raw = store.get('gv_save', '');
+    if (!raw) return false;
+    const s = JSON.parse(raw);
+    if (!s || s.v !== 1 || !Array.isArray(s.cells) || s.cells.length !== ROWS * COLS * 2) return false;
+    grid = [];
+    let i = 0;
+    for (let r = 0; r < ROWS; r++) {
+      grid[r] = [];
+      for (let c = 0; c < COLS; c++) {
+        const cell = newCell(T_IDX[s.cells[i++]] || 'grass');
+        cell.lv = clamp(s.cells[i++] | 0, 1, 3);
+        grid[r][c] = cell;
+      }
+    }
+    money = s.money; day = s.day; milestoneIdx = clamp(s.milestoneIdx | 0, 0, MILESTONES.length);
+    return true;
+  } catch (e) { return false; }
+}
+
+/* ============================================================
+   SECTION 6 — CITY LIFECYCLE
+   ============================================================ */
+function newCity() {
+  genMap();
+  money = START_MONEY; day = 0; milestoneIdx = 0;
+  startCity();
+  banner = { main: 'GRIDVILLE FOUNDED', sub: 'build roads, then houses + power', t: 0 };
+  sfx.found();
+}
+function continueCity() {
+  startCity();
+  banner = { main: 'WELCOME BACK', sub: 'day ' + day + ' · pop ' + cityPop, t: 0 };
+  sfx.found();
+}
+function startCity() {
+  tool = null; speed = 1; tickT = 0;
+  parts = []; floats = []; banner = { main: '', sub: '', t: 99 };
+  cityPop = 0; cityHap = 70; powerCap = 0; powerUse = 0;
+  computeDerived();      // settle derived fields immediately
+  state = 'playing';
+}
+
+/* ============================================================
+   SECTION 7 — SIMULATION
+   computeDerived(): roads/power/pollution/happiness — safe to run anytime
+   dayTick(): derived + growth + economy + milestones — once per day only
+   ============================================================ */
+function computeDerived() {
+  // road adjacency
+  eachCell((cell, r, c) => { cell.road = roadAdjacent(r, c); });
+
+  // power: plants supply a shared pool, buildings drain it in map order
+  powerCap = 0;
+  eachCell((cell) => { if (cell.t === 'power') powerCap += POWER_PER_PLANT; });
+  let avail = powerCap;
+  powerUse = 0;
+  eachCell((cell) => {
+    if (DEMAND[cell.t]) {
+      const need = cell.t === 'house' ? cell.lv * DEMAND.house : DEMAND[cell.t];
+      powerUse += need;
+      cell.powered = avail >= need;
+      if (cell.powered) avail -= need;
+    } else cell.powered = true;
+  });
+
+  // pollution field: factories 3 / plants 2 within radius 2; parks absorb 1
+  eachCell((cell) => { cell.pol = 0; });
+  eachCell((cell, r, c) => {
+    if (cell.t === 'factory' || cell.t === 'power') {
+      const amt = cell.t === 'factory' ? 3 : 2;
+      near(r, c, 2, (n) => { n.pol += amt; });
+      cell.pol += amt;
+    }
+    if (cell.t === 'park') near(r, c, 2, (n) => { n.pol = Math.max(0, n.pol - 1); });
+  });
+
+  // houses: happiness + population; shops/factories: active flags
+  let pop = 0, hapSum = 0, houses = 0;
+  eachCell((cell, r, c) => {
+    if (cell.t === 'house') {
+      houses++;
+      let hap = 70, greens = 0;
+      near(r, c, 2, (n) => { if (n.t === 'park' || n.t === 'tree' || n.t === 'water') greens++; });
+      hap += Math.min(16, greens * 4);
+      hap -= cell.pol * 6;
+      if (!cell.powered) hap -= 25;
+      if (!cell.road) hap -= 20;
+      cell.hap = clamp(hap, 5, 100);
+      hapSum += cell.hap;
+      cell.pop = (cell.powered && cell.road) ? cell.lv * 4 : 0;
+      pop += cell.pop;
+    } else if (cell.t === 'shop') {
+      let customers = false;
+      near(r, c, 3, (n) => { if (n.t === 'house' && n.pop > 0) customers = true; });
+      cell.active = cell.powered && cell.road && customers;
+    } else if (cell.t === 'factory') {
+      cell.active = cell.powered && cell.road;
+    }
+  });
+  cityPop = pop;
+  cityHap = houses ? Math.round(hapSum / houses) : 70;
+  if (cityPop > bestPop) { bestPop = cityPop; store.set('gv_best', String(bestPop)); }
+}
+
+function dayTick() {
+  computeDerived();
+
+  // thriving houses grow taller
+  eachCell((cell, r, c) => {
+    if (cell.t === 'house' && cell.lv < 3 && cell.powered && cell.road && cell.hap >= 70 && Math.random() < 0.06) {
+      cell.lv++;
+      spawnParts(c + 0.5, r + 0.5, 8, 115);
+      addFloat(px(c + 0.5), py(r + 0.5), 'LV' + cell.lv, 115);
+      sfx.levelUp();
+    }
+  });
+
+  // economy
+  let income = cityPop * 0.9 * (cityHap / 100), upkeep = 0;   // taxes
+  eachCell((cell) => {
+    if (cell.t === 'shop' && cell.active) income += 8;
+    if (cell.t === 'factory' && cell.active) income += 14;
+    if (cell.t === 'road') upkeep += 0.2;
+    if (cell.t === 'power') upkeep += 3;
+    if (cell.t === 'park') upkeep += 1;
+  });
+  money += income - upkeep;
+  day++;
+
+  // milestones
+  if (milestoneIdx < MILESTONES.length && cityPop >= MILESTONES[milestoneIdx].pop) {
+    const m = MILESTONES[milestoneIdx];
+    milestoneIdx++;
+    money += m.grant;
+    banner = { main: m.name + '!', sub: 'population ' + cityPop + ' · grant +$' + m.grant, t: 0 };
+    sfx.milestone();
+  }
+  if (day % 5 === 0) saveCity();
+}
+
+/* ============================================================
+   SECTION 8 — BUILD ACTIONS
+   ============================================================ */
+function toolDef() { return TOOLS.find((t) => t.id === tool); }
+function applyTool(r, c, viaDrag) {
+  const cell = cellAt(r, c);
+  if (!cell || state !== 'playing') return;
+  if (!tool) { inspect(cell, r, c); return; }
+  const def = toolDef();
+  if (tool === 'doze') {
+    if (cell.t === 'grass' || cell.t === 'water') return;
+    cell.t = 'grass'; cell.lv = 1;
+    spawnParts(c + 0.5, r + 0.5, 10, 30);
+    sfx.doze();
+    simulateSoon();
+    return;
+  }
+  if (cell.t !== 'grass') { if (!viaDrag) { sfx.deny(); addFloat(px(c + 0.5), py(r + 0.5), cell.t === 'water' ? 'water!' : 'occupied', 10); } return; }
+  if (money < def.cost) { if (!viaDrag) { sfx.deny(); addFloat(px(c + 0.5), py(r + 0.5), 'need $' + def.cost, 10); } return; }
+  money -= def.cost;
+  cell.t = tool; cell.lv = 1;
+  spawnParts(c + 0.5, r + 0.5, 8, def.hue);
+  tool === 'road' ? sfx.road() : sfx.place();
+  simulateSoon();
+}
+let resimT = 0;
+function simulateSoon() { resimT = 0.01; }   // recompute derived state right after building
+function inspect(cell, r, c) {
+  const x = px(c + 0.5), y = py(r + 0.5);
+  if (cell.t === 'house') addFloat(x, y, 'house LV' + cell.lv + ' · pop ' + cell.pop + (cell.powered ? '' : ' · NO POWER') + (cell.road ? '' : ' · NO ROAD') + ' · :) ' + cell.hap, 115);
+  else if (cell.t === 'shop') addFloat(x, y, cell.active ? 'shop · open' : 'shop · ' + (!cell.road ? 'no road' : !cell.powered ? 'no power' : 'no customers'), 45);
+  else if (cell.t === 'factory') addFloat(x, y, cell.active ? 'factory · running' : 'factory · ' + (!cell.road ? 'no road' : 'no power'), 25);
+  else if (cell.t === 'power') addFloat(x, y, 'plant · ' + POWER_PER_PLANT + '⚡', 55);
+  else if (cell.t === 'park') addFloat(x, y, 'park · fresh air', 140);
+  else if (cell.t === 'water') addFloat(x, y, 'lake', 205);
+  else if (cell.t === 'tree') addFloat(x, y, 'forest', 130);
+}
+
+/* ============================================================
+   SECTION 9 — EFFECTS
+   ============================================================ */
+function addFloat(x, y, txt, hue) {
+  if (floats.length > 12) floats.shift();
+  floats.push({ x, y, txt, hue, t: 0, life: 1.4 });
+}
+function spawnParts(x, y, n, hue) {   // cell-space dust puffs
+  for (let i = 0; i < n && parts.length < 160; i++) {
+    const a = rnd(0, TAU), s = rnd(0.5, 1.6);
+    parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 0.6, t: 0, life: rnd(0.3, 0.7), hue });
+  }
+}
+
+/* ============================================================
+   SECTION 10 — INPUT
+   ============================================================ */
+const btns = {};
+function hit(b, x, y) { return b && x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h; }
+let paintId = null;
+
+function cellFromXY(x, y) {
+  const c = Math.floor((x - X0) / CS), r = Math.floor((y - Y0) / CS);
+  return (r >= 0 && r < ROWS && c >= 0 && c < COLS) ? { r, c } : null;
+}
+function pointAt(x, y) {
+  audioInit();
+  if (state === 'title') {
+    if (hit(btns.newCity, x, y)) { newCity(); return; }
+    if (hit(btns.cont, x, y) && hasSave) { if (loadCity()) { continueCity(); return; } }
+    if (!hasSave) newCity();
+    return;
+  }
+  if (hit(btns.speed, x, y)) { speed = speed === 1 ? 3 : speed === 3 ? 0 : 1; sfx.select(); return; }
+  if (hit(btns.mute, x, y)) { setMuted(!muted); return; }
+  if (hit(btns.menu, x, y)) { saveCity(); state = 'title'; hasSave = true; sfx.select(); return; }
+  for (let i = 0; i < TOOLS.length; i++) {
+    if (hit(btns['tool' + i], x, y)) {
+      tool = tool === TOOLS[i].id ? null : TOOLS[i].id;   // tap again to deselect
+      sfx.select();
+      return;
+    }
+  }
+  const cc = cellFromXY(x, y);
+  if (cc) applyTool(cc.r, cc.c, false);
+}
+
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    const t = e.changedTouches[i];
+    pointAt(t.clientX, t.clientY);
+    if (tool === 'road' || tool === 'doze') paintId = t.identifier;   // drag-paint
+  }
+}, { passive: false });
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    const t = e.changedTouches[i];
+    if (t.identifier === paintId && state === 'playing') {
+      const cc = cellFromXY(t.clientX, t.clientY);
+      if (cc) applyTool(cc.r, cc.c, true);
+    }
+  }
+}, { passive: false });
+function endTouch(e) {
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    if (e.changedTouches[i].identifier === paintId) paintId = null;
+  }
+}
+canvas.addEventListener('touchend', endTouch);
+canvas.addEventListener('touchcancel', endTouch);
+
+let mouseDown = false;
+canvas.addEventListener('mousedown', (e) => { mouseDown = true; pointAt(e.clientX, e.clientY); });
+canvas.addEventListener('mousemove', (e) => {
+  if (mouseDown && (tool === 'road' || tool === 'doze') && state === 'playing') {
+    const cc = cellFromXY(e.clientX, e.clientY);
+    if (cc) applyTool(cc.r, cc.c, true);
+  }
+});
+addEventListener('mouseup', () => { mouseDown = false; });
+
+addEventListener('keydown', (e) => {
+  if (e.repeat) return;
+  audioInit();
+  if (e.code === 'KeyM') { setMuted(!muted); return; }
+  if (state === 'title') { if (hasSave && loadCity()) continueCity(); else newCity(); return; }
+  const n = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7'].indexOf(e.code);
+  if (n >= 0) { tool = TOOLS[n].id; sfx.select(); }
+  if (e.code === 'Escape') tool = null;
+  if (e.code === 'KeyF' || e.code === 'Space') { e.preventDefault(); speed = speed === 1 ? 3 : speed === 3 ? 0 : 1; }
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { if (state === 'playing') saveCity(); lastFrame = 0; }
+});
+
+/* ============================================================
+   SECTION 11 — RENDER
+   ============================================================ */
+function render() {
+  // sky-to-field backdrop
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#17212b');
+  g.addColorStop(1, '#101a14');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  if (grid) { renderMap(); renderParts(); }
+  renderHUD();
+  renderToolbar();
+  renderFloats();
+  renderBanner();
+  if (state === 'title') renderTitle();
+}
+
+function renderMap() {
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const cell = grid[r][c];
+      const x = px(c), y = py(r);
+      // ground
+      ctx.fillStyle = (r + c) % 2 ? '#2c4a2e' : '#2f4f31';
+      ctx.fillRect(x, y, CS + 0.5, CS + 0.5);
+      drawCell(cell, r, c, x, y);
+    }
+  }
+  // faint smog overlay where pollution is heavy
+  eachCell((cell, r, c) => {
+    if (cell.pol >= 3 && cell.t !== 'factory' && cell.t !== 'power') {
+      ctx.fillStyle = 'rgba(90,80,70,0.18)';
+      ctx.fillRect(px(c), py(r), CS, CS);
+    }
+  });
+}
+
+function drawCell(cell, r, c, x, y) {
+  const m = CS * 0.12;                       // margin
+  const s = CS - m * 2;                      // building footprint
+  if (cell.t === 'water') {
+    ctx.fillStyle = '#1d4e6e';
+    ctx.fillRect(x, y, CS + 0.5, CS + 0.5);
+    ctx.fillStyle = hsl(200, 70, 55, 0.5);
+    const wob = Math.sin(animT * 2 + r * 1.7 + c);
+    ctx.fillRect(x + CS * 0.15 + wob * 2, y + CS * 0.3, CS * 0.35, 2);
+    ctx.fillRect(x + CS * 0.4 - wob * 2, y + CS * 0.65, CS * 0.3, 2);
+    return;
+  }
+  if (cell.t === 'tree') {
+    ctx.fillStyle = '#5b4327';
+    ctx.fillRect(x + CS * 0.46, y + CS * 0.55, CS * 0.1, CS * 0.25);
+    ctx.fillStyle = '#2f6b33';
+    ctx.beginPath(); ctx.arc(x + CS * 0.5, y + CS * 0.42, CS * 0.26, 0, TAU); ctx.fill();
+    ctx.fillStyle = '#3f8944';
+    ctx.beginPath(); ctx.arc(x + CS * 0.42, y + CS * 0.36, CS * 0.14, 0, TAU); ctx.fill();
+    return;
+  }
+  if (cell.t === 'road') {
+    ctx.fillStyle = '#3a3f46';
+    ctx.fillRect(x, y, CS + 0.5, CS + 0.5);
+    // connect stripes toward neighbouring roads
+    ctx.strokeStyle = 'rgba(255,220,120,0.55)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 5]);
+    const cx = x + CS / 2, cy = y + CS / 2;
+    const dirs = [[-1, 0, cx, y], [1, 0, cx, y + CS], [0, -1, x, cy], [0, 1, x + CS, cy]];
+    let any = false;
+    for (const [dr, dc, tx, ty] of dirs) {
+      const n = cellAt(r + dr, c + dc);
+      if (n && n.t === 'road') {
+        any = true;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(tx, ty); ctx.stroke();
+      }
+    }
+    if (!any) { ctx.beginPath(); ctx.moveTo(cx - 4, cy); ctx.lineTo(cx + 4, cy); ctx.stroke(); }
+    ctx.setLineDash([]);
+    return;
+  }
+  if (cell.t === 'park') {
+    ctx.fillStyle = '#3c7d40';
+    roundedRect(x + m, y + m, s, s, 4); ctx.fill();
+    ctx.fillStyle = '#79c97e';
+    ctx.beginPath(); ctx.arc(x + CS * 0.35, y + CS * 0.4, CS * 0.12, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + CS * 0.65, y + CS * 0.6, CS * 0.1, 0, TAU); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x + m, y + CS * 0.7); ctx.quadraticCurveTo(x + CS * 0.5, y + CS * 0.5, x + CS - m, y + CS * 0.75); ctx.stroke();
+    return;
+  }
+  if (cell.t === 'grass') return;
+
+  // 2.5D building block: lifted roof + shaded side
+  const lift = cell.t === 'house' ? CS * (0.12 + 0.1 * cell.lv) : CS * 0.24;
+  const hue = cell.t === 'house' ? 115 : cell.t === 'shop' ? 45 : cell.t === 'factory' ? 25 : 55;
+  const bodyL = cell.t === 'house' ? 38 : 42;
+  // side/base
+  ctx.fillStyle = hsl(hue, 30, bodyL - 14);
+  roundedRect(x + m, y + m, s, s, 3); ctx.fill();
+  // top face
+  ctx.fillStyle = hsl(hue, cell.powered || !DEMAND[cell.t] ? 45 : 12, bodyL);
+  roundedRect(x + m, y + m - lift, s, s, 3); ctx.fill();
+  ctx.strokeStyle = hsl(hue, 40, bodyL + 22);
+  ctx.lineWidth = 1.5;
+  roundedRect(x + m, y + m - lift, s, s, 3); ctx.stroke();
+
+  if (cell.t === 'house') {
+    // roof gable + windows per level
+    ctx.fillStyle = hsl(8, 55, 42);
+    ctx.beginPath();
+    ctx.moveTo(x + m, y + m - lift);
+    ctx.lineTo(x + CS / 2, y + m - lift - CS * 0.14);
+    ctx.lineTo(x + CS - m, y + m - lift);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = cell.powered ? '#ffe9a8' : '#20242c';
+    for (let i = 0; i < cell.lv; i++) ctx.fillRect(x + CS * 0.3 + i * CS * 0.18, y + m - lift + CS * 0.18, CS * 0.1, CS * 0.12);
+  } else if (cell.t === 'shop') {
+    ctx.fillStyle = '#e8f4ff';
+    ctx.fillRect(x + m + 2, y + m - lift + s * 0.45, s - 4, s * 0.3);
+    ctx.fillStyle = hsl(0, 70, 55);
+    for (let i = 0; i < 3; i++) ctx.fillRect(x + m + 2 + i * (s / 3), y + m - lift + 2, s / 3 - 2, s * 0.16);
+  } else if (cell.t === 'factory') {
+    ctx.fillStyle = hsl(25, 25, 22);
+    ctx.fillRect(x + CS * 0.6, y + m - lift - CS * 0.2, CS * 0.14, CS * 0.24);
+    if (cell.active && Math.random() < 0.12 && parts.length < 160) {
+      parts.push({ x: c + 0.67, y: r + 0.05 - lift / CS, vx: rnd(-0.2, 0.2), vy: -rnd(0.4, 0.8), t: 0, life: rnd(0.8, 1.4), hue: -1 });
+    }
+  } else if (cell.t === 'power') {
+    ctx.fillStyle = '#ffd94a';
+    ctx.font = font(CS * 0.34, true);
+    ctx.textAlign = 'center';
+    ctx.fillText('⚡', x + CS / 2, y + m - lift + s * 0.62);
+    if (Math.random() < 0.08 && parts.length < 160) {
+      parts.push({ x: c + 0.5, y: r + 0.05 - lift / CS, vx: rnd(-0.15, 0.15), vy: -rnd(0.3, 0.6), t: 0, life: rnd(0.7, 1.2), hue: -1 });
+    }
+  }
+  // status pips
+  if (DEMAND[cell.t] && !cell.powered && Math.floor(animT * 3) % 2 === 0) {
+    ctx.fillStyle = '#ffd94a';
+    ctx.font = font(CS * 0.3, true);
+    ctx.textAlign = 'center';
+    ctx.fillText('⚡!', x + CS / 2, y - 2);
+  } else if (DEMAND[cell.t] && !cell.road && Math.floor(animT * 3) % 2 === 1) {
+    ctx.fillStyle = '#ff9c7a';
+    ctx.font = font(CS * 0.26, true);
+    ctx.textAlign = 'center';
+    ctx.fillText('road?', x + CS / 2, y - 2);
+  }
+}
+
+function renderParts() {
+  for (const p of parts) {
+    const a = 1 - p.t / p.life;
+    ctx.fillStyle = p.hue < 0 ? `rgba(200,200,205,${a * 0.5})` : hsl(p.hue, 70, 65, a);
+    const sz = p.hue < 0 ? 3 + (1 - a) * 5 : 3;
+    ctx.beginPath(); ctx.arc(px(p.x), py(p.y), sz, 0, TAU); ctx.fill();
+  }
+}
+
+function hudH() { return 58; }
+function toolbarH() { return Math.max(78, Math.min(100, H * 0.12)); }
+
+function renderHUD() {
+  ctx.fillStyle = 'rgba(10,14,20,0.9)';
+  ctx.fillRect(0, 0, W, hudH());
+  if (!grid) return;
+  ctx.textAlign = 'left';
+  ctx.font = font(15, true);
+  ctx.fillStyle = money < 0 ? hsl(5, 90, 60) : hsl(50, 95, 62);
+  ctx.fillText('$' + Math.round(money), 10, 24);
+  ctx.fillStyle = '#dff2ff';
+  ctx.fillText('👥 ' + cityPop, 110, 24);
+  const hapHue = cityHap >= 70 ? 130 : cityHap >= 45 ? 50 : 8;
+  ctx.fillStyle = hsl(hapHue, 85, 60);
+  ctx.fillText((cityHap >= 70 ? '😊' : cityHap >= 45 ? '😐' : '☹️') + ' ' + cityHap + '%', 190, 24);
+  ctx.fillStyle = powerUse > powerCap ? hsl(5, 90, 60) : hsl(190, 80, 60);
+  ctx.fillText('⚡ ' + powerUse + '/' + powerCap, 275, 24);
+  ctx.font = font(11);
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText('day ' + day + '  ·  best pop ' + bestPop, 10, 44);
+
+  // speed / mute / menu buttons
+  const bw = 44, bh = 24, by = 30;
+  btns.speed = { x: W - bw * 3 - 26, y: by, w: bw, h: bh };
+  btns.mute  = { x: W - bw * 2 - 18, y: by, w: bw, h: bh };
+  btns.menu  = { x: W - bw - 10, y: by, w: bw, h: bh };
+  const labels = [[btns.speed, speed === 0 ? '⏸' : speed + '×'], [btns.mute, muted ? '🔇' : '🔊'], [btns.menu, 'menu']];
+  for (const [b, label] of labels) {
+    roundedRect(b.x, b.y, b.w, b.h, 6);
+    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.22)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = '#dff2ff'; ctx.font = font(11, true); ctx.textAlign = 'center';
+    ctx.fillText(label, b.x + b.w / 2, b.y + 16);
+  }
+}
+
+function renderToolbar() {
+  const TH = toolbarH(), TY = H - TH;
+  ctx.fillStyle = 'rgba(10,14,20,0.92)';
+  ctx.fillRect(0, TY, W, TH);
+  const n = TOOLS.length;
+  const gap = 5;
+  const cw = Math.min(64, (W - 12 - (n - 1) * gap) / n);
+  const x0 = (W - (cw * n + gap * (n - 1))) / 2;
+  const ch = TH - 26;
+  for (let i = 0; i < n; i++) {
+    const t = TOOLS[i];
+    const b = { x: x0 + i * (cw + gap), y: TY + 6, w: cw, h: ch };
+    btns['tool' + i] = b;
+    const selT = tool === t.id;
+    const afford = money >= t.cost;
+    roundedRect(b.x, b.y, b.w, b.h, 8);
+    ctx.fillStyle = selT ? hsl(t.hue, 55, 26) : 'rgba(255,255,255,0.06)';
+    ctx.fill();
+    ctx.strokeStyle = selT ? hsl(t.hue, 85, 60) : 'rgba(255,255,255,0.18)';
+    ctx.lineWidth = selT ? 2 : 1;
+    ctx.stroke();
+    drawToolIcon(t.id, b.x + b.w / 2, b.y + ch * 0.36, Math.min(cw, ch) * 0.3);
+    ctx.textAlign = 'center';
+    ctx.font = font(9, true);
+    ctx.fillStyle = selT ? '#ffffff' : 'rgba(255,255,255,0.7)';
+    ctx.fillText(t.name, b.x + b.w / 2, b.y + ch - 14);
+    ctx.font = font(9);
+    ctx.fillStyle = t.cost === 0 ? 'rgba(255,255,255,0.45)' : afford ? hsl(50, 95, 60) : hsl(5, 85, 58);
+    ctx.fillText(t.cost === 0 ? 'free' : '$' + t.cost, b.x + b.w / 2, b.y + ch - 3);
+  }
+  // tip line for the selected tool
+  ctx.textAlign = 'center';
+  ctx.font = font(10);
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  const def = toolDef();
+  ctx.fillText(def ? def.tip : (state === 'playing' ? 'pick a tool · tap buildings to inspect' : ''), W / 2, H - 5);
+}
+
+function drawToolIcon(id, x, y, s) {
+  ctx.save();
+  ctx.translate(x, y);
+  if (id === 'road') {
+    ctx.fillStyle = '#3a3f46'; ctx.fillRect(-s, -s * 0.5, s * 2, s);
+    ctx.strokeStyle = '#ffdc78'; ctx.lineWidth = 1.5; ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.moveTo(-s, 0); ctx.lineTo(s, 0); ctx.stroke(); ctx.setLineDash([]);
+  } else if (id === 'house') {
+    ctx.fillStyle = hsl(115, 45, 40); ctx.fillRect(-s * 0.7, -s * 0.2, s * 1.4, s * 0.9);
+    ctx.fillStyle = hsl(8, 55, 45);
+    ctx.beginPath(); ctx.moveTo(-s * 0.85, -s * 0.2); ctx.lineTo(0, -s); ctx.lineTo(s * 0.85, -s * 0.2); ctx.closePath(); ctx.fill();
+  } else if (id === 'shop') {
+    ctx.fillStyle = hsl(45, 50, 45); ctx.fillRect(-s * 0.8, -s * 0.5, s * 1.6, s * 1.1);
+    ctx.fillStyle = '#e8f4ff'; ctx.fillRect(-s * 0.6, 0, s * 1.2, s * 0.4);
+    ctx.fillStyle = hsl(0, 70, 55); ctx.fillRect(-s * 0.8, -s * 0.5, s * 1.6, s * 0.28);
+  } else if (id === 'factory') {
+    ctx.fillStyle = hsl(25, 30, 38); ctx.fillRect(-s * 0.8, -s * 0.2, s * 1.6, s * 0.9);
+    ctx.fillRect(s * 0.15, -s * 0.9, s * 0.3, s * 0.7);
+  } else if (id === 'power') {
+    ctx.fillStyle = hsl(55, 45, 42); ctx.fillRect(-s * 0.7, -s * 0.5, s * 1.4, s * 1.2);
+    ctx.fillStyle = '#ffd94a'; ctx.font = font(s * 1.2, true); ctx.textAlign = 'center';
+    ctx.fillText('⚡', 0, s * 0.45);
+  } else if (id === 'park') {
+    ctx.fillStyle = hsl(140, 45, 35); ctx.fillRect(-s * 0.8, -s * 0.4, s * 1.6, s);
+    ctx.fillStyle = '#79c97e';
+    ctx.beginPath(); ctx.arc(-s * 0.2, 0, s * 0.4, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.arc(s * 0.4, s * 0.15, s * 0.3, 0, TAU); ctx.fill();
+  } else { // doze
+    ctx.strokeStyle = hsl(5, 85, 60); ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(-s * 0.7, -s * 0.7); ctx.lineTo(s * 0.7, s * 0.7);
+    ctx.moveTo(s * 0.7, -s * 0.7); ctx.lineTo(-s * 0.7, s * 0.7); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function renderFloats() {
+  ctx.textAlign = 'center';
+  for (const f of floats) {
+    const a = 1 - f.t / f.life;
+    ctx.font = font(12, true);
+    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+    ctx.fillText(f.txt, f.x + 1, f.y + 1);
+    ctx.fillStyle = f.hue === 10 ? hsl(5, 90, 68, a) : hsl(f.hue, 90, 72, a);
+    ctx.fillText(f.txt, f.x, f.y);
+  }
+}
+
+function renderBanner() {
+  if (!banner || banner.t >= 2.6 || state === 'title') return;
+  const tIn = Math.min(1, banner.t / 0.3);
+  const ease = 1 - Math.pow(1 - tIn, 3);
+  const aOut = banner.t > 2 ? 1 - (banner.t - 2) / 0.6 : 1;
+  ctx.save();
+  ctx.globalAlpha = Math.max(0, aOut);
+  ctx.translate(W / 2, hudH() + 46);
+  ctx.scale(0.75 + 0.25 * ease, 0.75 + 0.25 * ease);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(0,0,0,0.4)';
+  ctx.font = font(Math.min(W * 0.07, 30), true);
+  ctx.fillText(banner.main, 1.5, 1.5);
+  ctx.fillStyle = '#fff6d8';
+  ctx.fillText(banner.main, 0, 0);
+  if (banner.sub) {
+    ctx.font = font(12, true);
+    ctx.fillStyle = hsl(50, 90, 70);
+    ctx.fillText(banner.sub, 0, 22);
+  }
+  ctx.restore();
+  ctx.globalAlpha = 1;
+}
+
+function renderTitle() {
+  ctx.fillStyle = 'rgba(8,12,16,0.78)';
+  ctx.fillRect(0, 0, W, H);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#f4fff6';
+  ctx.font = font(Math.min(W * 0.12, 56), true);
+  ctx.fillText('GRIDVILLE', W / 2, H * 0.24);
+  ctx.font = font(14);
+  ctx.fillStyle = hsl(130, 50, 72);
+  ctx.fillText('a tiny city, built by you', W / 2, H * 0.24 + 34);
+  ctx.font = font(13);
+  ctx.fillStyle = 'rgba(255,255,255,0.75)';
+  const y = H * 0.42;
+  ctx.fillText('roads connect · plants power · parks please', W / 2, y);
+  ctx.fillText('houses grow when citizens are happy', W / 2, y + 24);
+  ctx.fillText('taxes fund it all — reach 500 population', W / 2, y + 48);
+  if (bestPop > 0) {
+    ctx.font = font(14, true);
+    ctx.fillStyle = hsl(50, 95, 62);
+    ctx.fillText('BEST POPULATION  ' + bestPop, W / 2, y + 84);
+  }
+  // buttons
+  const bw2 = Math.min(220, W * 0.6), bh2 = 52;
+  let by2 = H * 0.62;
+  if (hasSave) {
+    btns.cont = { x: W / 2 - bw2 / 2, y: by2, w: bw2, h: bh2 };
+    roundedRect(btns.cont.x, btns.cont.y, bw2, bh2, 12);
+    ctx.fillStyle = 'rgba(120,220,140,0.18)'; ctx.fill();
+    ctx.strokeStyle = hsl(130, 70, 55); ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = '#eaffee'; ctx.font = font(16, true);
+    ctx.fillText('CONTINUE CITY', W / 2, by2 + 32);
+    by2 += bh2 + 14;
+  } else btns.cont = null;
+  btns.newCity = { x: W / 2 - bw2 / 2, y: by2, w: bw2, h: hasSave ? 44 : bh2 };
+  roundedRect(btns.newCity.x, btns.newCity.y, bw2, btns.newCity.h, 12);
+  ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.fillStyle = '#f4fff6'; ctx.font = font(15, true);
+  ctx.fillText('NEW CITY', W / 2, btns.newCity.y + btns.newCity.h / 2 + 5);
+}
+
+/* ============================================================
+   SECTION 12 — MAIN LOOP, RESIZE, BOOT
+   ============================================================ */
+function resize() {
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  W = Math.round(window.innerWidth) || 0;
+  H = Math.round(window.innerHeight) || 0;
+  if (W < 2 || H < 2) { W = Math.max(W, 2); H = Math.max(H, 2); setTimeout(resize, 100); }
+  canvas.width = Math.round(W * DPR);
+  canvas.height = Math.round(H * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  CS = Math.min((W - 8) / COLS, (H - hudH() - toolbarH() - 30) / ROWS);
+  X0 = (W - CS * COLS) / 2;
+  Y0 = hudH() + 22 + (H - hudH() - toolbarH() - 30 - CS * ROWS) / 2;
+}
+addEventListener('resize', resize);
+addEventListener('orientationchange', () => setTimeout(resize, 200));
+
+function frame(now) {
+  const dt = Math.min(0.05, lastFrame ? (now - lastFrame) / 1000 : 0.016);
+  lastFrame = now;
+  animT += dt;
+  if (state === 'playing') {
+    if (resimT > 0) { resimT -= dt; if (resimT <= 0) computeDerived(); }
+    if (speed > 0) {
+      tickT += dt * speed;
+      while (tickT >= DAY_LEN) { tickT -= DAY_LEN; dayTick(); }
+    }
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      p.t += dt;
+      if (p.t >= p.life) { parts.splice(i, 1); continue; }
+      p.x += p.vx * dt; p.y += p.vy * dt;
+    }
+    for (let i = floats.length - 1; i >= 0; i--) {
+      const f = floats[i];
+      f.t += dt; f.y -= 20 * dt;
+      if (f.t >= f.life) floats.splice(i, 1);
+    }
+    if (banner) banner.t += dt;
+  }
+  render();
+  requestAnimationFrame(frame);
+}
+
+resize();
+hasSave = !!store.get('gv_save', '');
+if (!hasSave) genMap();                    // fresh map behind the title
+else if (!loadCity()) { hasSave = false; genMap(); }
+parts = []; floats = []; banner = { main: '', sub: '', t: 99 };
+state = 'title';
+requestAnimationFrame(frame);
+
+const bootEl = document.getElementById('boot');
+if (bootEl) bootEl.parentNode.removeChild(bootEl);
+</script>
+</body>
+</html>
