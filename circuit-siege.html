@@ -407,7 +407,8 @@ function update(dt) {
     if (t.type === 'zap') {
       inRange.sort((a, b) => b.e.dist - a.e.dist);          // closest to the Core
       const tgt = inRange[0];
-      projs.push({ x: cx, y: cy, e: tgt.e, spd: 9, dmg: towerStat(t, 'dmg'), hue: def.hue });
+      projs.push({ x: cx, y: cy, lx: cx, ly: cy, e: tgt.e, spd: 9, dmg: towerStat(t, 'dmg'), hue: def.hue });
+      beams.push({ x1: cx, y1: cy, x2: tgt.p.x, y2: tgt.p.y, t: 0, hue: def.hue, w: 1.8, fade: 10 });
       sfx.zap();
     } else if (t.type === 'nova') {
       rings.push({ x: cx, y: cy, maxR: range, t: 0 });
@@ -417,12 +418,13 @@ function update(dt) {
       for (const o of inRange) {
         o.e.slowT = Math.max(o.e.slowT, 1.1);
         hitEnemy(o.e, towerStat(t, 'dmg'), def.hue);
+        beams.push({ x1: cx, y1: cy, x2: o.p.x, y2: o.p.y, t: 0, hue: def.hue, w: 1.2, fade: 6 });
       }
       sfx.stasis();
     } else if (t.type === 'rail') {
       inRange.sort((a, b) => b.e.hp - a.e.hp);              // biggest threat
       const tgt = inRange[0];
-      beams.push({ x1: cx, y1: cy, x2: tgt.p.x, y2: tgt.p.y, t: 0, hue: def.hue });
+      beams.push({ x1: cx, y1: cy, x2: tgt.p.x, y2: tgt.p.y, t: 0, hue: def.hue, w: 3.5, fade: 8 });
       hitEnemy(tgt.e, towerStat(t, 'dmg'), def.hue);
       sfx.rail();
     }
@@ -440,6 +442,7 @@ function update(dt) {
       hitEnemy(p.e, p.dmg, p.hue);
       projs.splice(i, 1);
     } else {
+      p.lx = p.x; p.ly = p.y;
       p.x += dx / d * step; p.y += dy / d * step;
     }
   }
@@ -474,7 +477,7 @@ function update(dt) {
     if (f.t >= f.life) floats.splice(i, 1);
   }
   for (let i = rings.length - 1; i >= 0; i--) { rings[i].t += dt * 3; if (rings[i].t >= 1) rings.splice(i, 1); }
-  for (let i = beams.length - 1; i >= 0; i--) { beams[i].t += dt * 8; if (beams[i].t >= 1) beams.splice(i, 1); }
+  for (let i = beams.length - 1; i >= 0; i--) { beams[i].t += dt * (beams[i].fade || 8); if (beams[i].t >= 1) beams.splice(i, 1); }
   banner.t += dt;
   shake *= Math.exp(-6 * dt);
 }
@@ -672,15 +675,20 @@ function renderEntities() {
     ctx.lineWidth = 3;
     ctx.beginPath(); ctx.arc(px(r.x), py(r.y), r.t * r.maxR * CS, 0, TAU); ctx.stroke();
   }
-  // rail beams
+  // fire lines (zap tracers, stasis tendrils, rail beams)
+  ctx.lineCap = 'round';
   for (const b of beams) {
-    ctx.strokeStyle = hsl(b.hue, 95, 70, 1 - b.t);
-    ctx.lineWidth = 3 * (1 - b.t) + 1;
+    const a = 1 - b.t;
+    ctx.strokeStyle = hsl(b.hue, 95, 70, a);
+    ctx.lineWidth = (b.w || 3) * a + 0.5;
     ctx.beginPath(); ctx.moveTo(px(b.x1), py(b.y1)); ctx.lineTo(px(b.x2), py(b.y2)); ctx.stroke();
   }
-  // projectiles
+  // projectiles with motion trails
   for (const p of projs) {
-    ctx.fillStyle = hsl(p.hue, 95, 70);
+    ctx.strokeStyle = hsl(p.hue, 95, 70, 0.5);
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(px(p.lx), py(p.ly)); ctx.lineTo(px(p.x), py(p.y)); ctx.stroke();
+    ctx.fillStyle = hsl(p.hue, 95, 75);
     ctx.beginPath(); ctx.arc(px(p.x), py(p.y), 3.5, 0, TAU); ctx.fill();
   }
   // enemies
